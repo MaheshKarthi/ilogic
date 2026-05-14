@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CAD Automator | Automate Your Engineering Future with iLogic</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+
+<!-- ─── CURSOR GLOW ─────────────────────────────── -->
+<div class="cursor-glow" id="cursorGlow"></div>
+
+<!-- ─── PARTICLES ──────────────────────────────── -->
+<canvas id="particleCanvas"></canvas>
+
+<!-- ─── NAV ────────────────────────────────────── -->
+<header class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="logo">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+        <polygon points="14,2 26,8 26,20 14,26 2,20 2,8" fill="none" stroke="#00d4ff" stroke-width="1.5"/>
+        <polygon points="14,7 21,11 21,19 14,23 7,19 7,11" fill="#00d4ff22"/>
+        <circle cx="14" cy="14" r="3" fill="#00d4ff"/>
+      </svg>
+      <span>CAD<span class="logo-accent">Automator</span></span>
+    </a>
+    <nav class="nav-links">
+      <a href="#why">Why iLogic</a>
+      <a href="#how">How I Teach</a>
+      <a href="#structure">Program</a>
+      <a href="#demo">Demo</a>
+      <a href="#faq">FAQ</a>
+      <a href="#pricing">Pricing</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="#book-demo" class="btn btn-ghost" onclick="openDemoModal()">📅 Book a Demo</a>
+      <a href="#enroll" class="btn btn-neon">Join Live Training</a>
+    </div>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#why">Why iLogic</a>
+    <a href="#how">How I Teach</a>
+    <a href="#structure">Program</a>
+    <a href="#demo">Demo</a>
+    <a href="#faq">FAQ</a>
+    <a href="#enroll" class="btn btn-neon">Join Live Training</a>
+    <a href="#book-demo" class="btn btn-ghost" onclick="openDemoModal()" style="margin-top:0">📅 Book a Demo</a>
+  </div>
+</header>
+
+<!-- ─── HERO ────────────────────────────────────── -->
+<section class="hero" id="home">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-orbs">
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+  </div>
+
+  <!-- Floating code snippets -->
+  <div class="float-code fc1">
+    <span class="fc-kw">If</span> Material = <span class="fc-str">"Steel"</span> <span class="fc-kw">Then</span><br>
+    &nbsp;&nbsp;Thickness = <span class="fc-num">5</span>
+  </div>
+  <div class="float-code fc2">
+    <span class="fc-cm">' Auto-generate BOM</span><br>
+    BOM.Update(<span class="fc-str">"Rev A"</span>)
+  </div>
+  <div class="float-code fc3">
+    Parameter(<span class="fc-str">"Width"</span>) = <span class="fc-num">120</span><br>
+    iLogicVb.UpdateWhenDone = <span class="fc-kw">True</span>
+  </div>
+  <div class="float-cad fc4">
+    <svg viewBox="0 0 80 80" width="70" height="70">
+      <polygon points="40,5 75,25 75,55 40,75 5,55 5,25" fill="none" stroke="#00d4ff" stroke-width="1" opacity="0.6"/>
+      <polygon points="40,18 62,30 62,50 40,62 18,50 18,30" fill="none" stroke="#ff6b35" stroke-width="1" opacity="0.5"/>
+      <circle cx="40" cy="40" r="8" fill="none" stroke="#39ff14" stroke-width="1.5" opacity="0.7"/>
+      <line x1="5" y1="25" x2="18" y2="30" stroke="#00d4ff" stroke-width="0.5"/>
+      <line x1="75" y1="25" x2="62" y2="30" stroke="#00d4ff" stroke-width="0.5"/>
+      <line x1="75" y1="55" x2="62" y2="50" stroke="#00d4ff" stroke-width="0.5"/>
+      <line x1="5" y1="55" x2="18" y2="50" stroke="#00d4ff" stroke-width="0.5"/>
+    </svg>
+  </div>
+  <div class="float-cad fc5">
+    <svg viewBox="0 0 60 60" width="55" height="55">
+      <rect x="10" y="10" width="40" height="40" rx="3" fill="none" stroke="#ff6b35" stroke-width="1.2" opacity="0.6"/>
+      <rect x="20" y="20" width="20" height="20" fill="none" stroke="#00d4ff" stroke-width="1" opacity="0.7"/>
+      <circle cx="30" cy="30" r="5" fill="#00d4ff44"/>
+      <line x1="10" y1="10" x2="20" y2="20" stroke="#ff6b35" stroke-width="0.8" opacity="0.5"/>
+      <line x1="50" y1="10" x2="40" y2="20" stroke="#ff6b35" stroke-width="0.8" opacity="0.5"/>
+      <line x1="10" y1="50" x2="20" y2="40" stroke="#ff6b35" stroke-width="0.8" opacity="0.5"/>
+      <line x1="50" y1="50" x2="40" y2="40" stroke="#ff6b35" stroke-width="0.8" opacity="0.5"/>
+    </svg>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="live-dot"></span>
+      LIVE MENTORSHIP PROGRAM · BATCH STARTING SOON
+    </div>
+    <h1 class="hero-title">
+      Mechanical Engineers<br>
+      Who Learn Automation<br>
+      <span class="gradient-text">Will Lead the Future.</span>
+    </h1>
+    <p class="hero-sub">
+      Learn Autodesk Inventor iLogic from scratch using real engineering logic —<br>
+      <strong>not complicated programming language.</strong>
+    </p>
+    <div class="hero-ctas">
+      <a href="#enroll" class="btn btn-neon btn-xl pulse-btn">
+        <span class="btn-icon">⚡</span> Join Live Training
+      </a>
+      <a href="#demo" class="btn btn-ghost btn-xl">
+        <span class="btn-icon">▶</span> See What You'll Build
+      </a>
+    </div>
+    <div class="hero-proof">
+      <div class="proof-item">
+        <strong class="proof-num" data-count="1200">0</strong>
+        <span>Engineers Trained</span>
+      </div>
+      <div class="proof-divider"></div>
+      <div class="proof-item">
+        <strong class="proof-num" data-count="15">0</strong><strong>hrs</strong>
+        <span>Live Sessions</span>
+      </div>
+      <div class="proof-divider"></div>
+      <div class="proof-item">
+        <strong class="proof-num" data-count="98">0</strong><strong>%</strong>
+        <span>Satisfaction Rate</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-indicator">
+    <div class="scroll-line"></div>
+    <span>Scroll to explore</span>
+  </div>
+</section>
+
+<!-- ─── WHY NOW ──────────────────────────────────── -->
+<section class="section why-section" id="why">
+  <div class="container">
+    <div class="section-label-wrap">
+      <span class="section-chip">Why iLogic Now?</span>
+    </div>
+    <h2 class="section-title">The Automation Revolution<br>Is Already Here.</h2>
+    <p class="section-sub">Companies aren't just looking for designers anymore. They want engineers who can automate, optimize, and scale.</p>
+
+    <!-- AI Analogy Block -->
+    <div class="analogy-block reveal">
+      <div class="analogy-left">
+        <div class="analogy-icon">🌐</div>
+        <blockquote>
+          "AI can translate English into Japanese instantly.<br>
+          But if you don't know Japanese, the script is useless."
+        </blockquote>
+        <div class="analogy-line"></div>
+        <p class="analogy-follow">
+          <span class="accent-blue">Same with coding.</span><br>
+          AI can generate scripts. But if you <strong>cannot read and understand the logic</strong>, you cannot confidently implement automation.
+        </p>
+      </div>
+      <div class="analogy-right">
+        <div class="ai-vs-block">
+          <div class="ai-col">
+            <div class="ai-col-header ai-only">AI Only</div>
+            <ul class="ai-list bad">
+              <li>Generates code</li>
+              <li>Can't explain it</li>
+              <li>Breaks under edge cases</li>
+              <li>Copy-paste engineer</li>
+              <li class="highlight-bad">Easily replaced</li>
+            </ul>
+          </div>
+          <div class="vs-badge">VS</div>
+          <div class="ai-col">
+            <div class="ai-col-header ai-plus">AI + iLogic Knowledge</div>
+            <ul class="ai-list good">
+              <li>Understands the logic</li>
+              <li>Customises & debugs</li>
+              <li>Handles real problems</li>
+              <li>Automation architect</li>
+              <li class="highlight-good">Irreplaceable ⚡</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Why cards -->
+    <div class="why-cards">
+      <div class="why-card reveal">
+        <div class="why-card-icon">🤖</div>
+        <h3>AI Can Code. You Need to Lead.</h3>
+        <p>AI tools generate scripts, but engineers who understand automation logic are the ones who implement, maintain, and improve them.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-card-icon">⏱️</div>
+        <h3>Save Hundreds of Hours</h3>
+        <p>Automate repetitive design tasks — BOM generation, drawing updates, parameter-driven models — and reclaim your engineering bandwidth.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-card-icon">🏭</div>
+        <h3>Companies Are Demanding It</h3>
+        <p>Manufacturing companies are actively seeking engineers who can bridge CAD and automation. This is the skill gap you can fill right now.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-card-icon">🚀</div>
+        <h3>Career Acceleration</h3>
+        <p>Automation engineers command higher salaries, lead digital transformation projects, and are first in line for leadership roles.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── HOW I TEACH ──────────────────────────────── -->
+<section class="section teach-section" id="how">
+  <div class="container">
+    <div class="section-label-wrap">
+      <span class="section-chip chip-orange">My Teaching Method</span>
+    </div>
+    <h2 class="section-title">I Don't Teach Programming.<br>I Teach <span class="gradient-text-orange">Engineering Automation.</span></h2>
+
+    <div class="teach-grid">
+      <div class="teach-left">
+        <div class="teach-point reveal">
+          <div class="tp-num">01</div>
+          <div>
+            <h3>No Computer Science Jargon</h3>
+            <p>Every concept is explained in terms you already know as a mechanical engineer. Force, tolerance, assembly constraints — that's your language.</p>
+          </div>
+        </div>
+        <div class="teach-point reveal">
+          <div class="tp-num">02</div>
+          <div>
+            <h3>Line-by-Line Understanding</h3>
+            <p>You won't copy-paste scripts blindly. You'll understand what every single line does, why it's there, and how to change it.</p>
+          </div>
+        </div>
+        <div class="teach-point reveal">
+          <div class="tp-num">03</div>
+          <div>
+            <h3>Real Inventor Examples</h3>
+            <p>Every lesson uses actual Autodesk Inventor models. You learn automation while working on parts you'd build in the real world.</p>
+          </div>
+        </div>
+        <div class="teach-point reveal">
+          <div class="tp-num">04</div>
+          <div>
+            <h3>Think Logically, Not Syntactically</h3>
+            <p>The goal isn't memorising commands. It's developing the logical mindset that lets you automate any workflow you encounter.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="teach-right">
+        <div class="transformation-cards">
+          <div class="trans-card reveal">
+            <div class="trans-from">📐 Manual Drawings</div>
+            <div class="trans-arrow">→</div>
+            <div class="trans-to">⚡ Automated Outputs</div>
+          </div>
+          <div class="trans-card reveal">
+            <div class="trans-from">🔁 Repetitive Work</div>
+            <div class="trans-arrow">→</div>
+            <div class="trans-to">🎯 Smart Workflows</div>
+          </div>
+          <div class="trans-card reveal">
+            <div class="trans-from">👷 Design Engineer</div>
+            <div class="trans-arrow">→</div>
+            <div class="trans-to">🤖 Automation Engineer</div>
+          </div>
+        </div>
+
+        <!-- Mini code explainer -->
+        <div class="code-explainer reveal">
+          <div class="ce-header">
+            <span class="live-dot-sm"></span> Live Code Walkthrough Style
+          </div>
+          <div class="ce-lines">
+            <div class="ce-line active" id="ceLine1">
+              <span class="ce-code"><span class="kw">If</span> Parameter(<span class="str">"Material"</span>) = <span class="str">"Steel"</span> <span class="kw">Then</span></span>
+              <span class="ce-explain">Check if user chose Steel</span>
+            </div>
+            <div class="ce-line" id="ceLine2">
+              <span class="ce-code">&nbsp;&nbsp;Parameter(<span class="str">"Thickness"</span>) = <span class="num">5</span></span>
+              <span class="ce-explain">Set wall thickness to 5mm</span>
+            </div>
+            <div class="ce-line" id="ceLine3">
+              <span class="ce-code"><span class="kw">ElseIf</span> Parameter(<span class="str">"Material"</span>) = <span class="str">"Aluminium"</span></span>
+              <span class="ce-explain">Otherwise check for Aluminium</span>
+            </div>
+            <div class="ce-line" id="ceLine4">
+              <span class="ce-code">&nbsp;&nbsp;Parameter(<span class="str">"Thickness"</span>) = <span class="num">8</span></span>
+              <span class="ce-explain">Set thickness to 8mm for Al</span>
+            </div>
+            <div class="ce-line" id="ceLine5">
+              <span class="ce-code"><span class="kw">End If</span></span>
+              <span class="ce-explain">Rule complete — model updates!</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROGRAM STRUCTURE ─────────────────────────── -->
+<section class="section structure-section" id="structure">
+  <div class="container">
+    <div class="section-label-wrap">
+      <span class="section-chip chip-green">Full Curriculum</span>
+    </div>
+    <h2 class="section-title">19 Modules. ~50 Hours.<br><span class="gradient-text">Zero Fluff.</span></h2>
+
+    <!-- NOT recorded banner -->
+    <div class="not-recorded-banner reveal">
+      <div class="nr-item bad-item">
+        <span class="nr-icon">❌</span>
+        <div>
+          <strong>NOT a Recorded Course</strong>
+          <span>No more watching videos alone at 2×speed</span>
+        </div>
+      </div>
+      <div class="nr-divider"></div>
+      <div class="nr-item good-item">
+        <span class="nr-icon live-pulse">🔴</span>
+        <div>
+          <strong>LIVE Interactive Mentorship</strong>
+          <span>Real-time questions, real-time answers</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Curriculum stats bar -->
+    <div class="curr-stats reveal">
+      <div class="cs-item"><strong>~50 hrs</strong><span>Total Content</span></div>
+      <div class="cs-div"></div>
+      <div class="cs-item"><strong>16 hrs</strong><span>Theory</span></div>
+      <div class="cs-div"></div>
+      <div class="cs-item"><strong>34 hrs</strong><span>Practice</span></div>
+      <div class="cs-div"></div>
+      <div class="cs-item"><strong>19</strong><span>Modules</span></div>
+      <div class="cs-div"></div>
+      <div class="cs-item"><strong>1</strong><span>Capstone Project</span></div>
+    </div>
+
+    <!-- Phase labels + module grid -->
+    <div class="curr-phase">
+      <div class="curr-phase-label">🏗️ Foundation</div>
+      <div class="curr-grid">
+
+        <div class="curr-card reveal">
+          <div class="curr-num">00</div>
+          <div class="curr-body">
+            <h3>Setup &amp; Prerequisites</h3>
+            <p>Parameter types, naming rules, iLogic Rule Editor navigation, common first-day errors</p>
+            <div class="curr-meta"><span class="tag">1 hr total</span><span class="tag tag-free">Free Preview</span></div>
+          </div>
+        </div>
+
+        <div class="curr-card reveal">
+          <div class="curr-num">01</div>
+          <div class="curr-body">
+            <h3>Parameters — The Foundation</h3>
+            <p>Parameter(), Dim As Double/String, read/write parameters, Format(), Math.Sqrt(), calculations</p>
+            <div class="curr-meta"><span class="tag">1.5 hrs</span></div>
+          </div>
+        </div>
+
+        <div class="curr-card reveal">
+          <div class="curr-num">02</div>
+          <div class="curr-body">
+            <h3>User Inputs</h3>
+            <p>InputBox, MessageBox.Show, InputListBox, MultiValueListBox, String.IsNullOrEmpty() guard</p>
+            <div class="curr-meta"><span class="tag">1.5 hrs</span></div>
+          </div>
+        </div>
+
+        <div class="curr-card reveal">
+          <div class="curr-num">03</div>
+          <div class="curr-body">
+            <h3>Conditionals &amp; Logic</h3>
+            <p>If/ElseIf/Else/End If, And/Or/Not, nested If, comparison operators, text case-sensitivity</p>
+            <div class="curr-meta"><span class="tag">2.5 hrs</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="curr-phase">
+      <div class="curr-phase-label">⚙️ Core Automation</div>
+      <div class="curr-grid">
+
+        <div class="curr-card reveal">
+          <div class="curr-num">04</div>
+          <div class="curr-body">
+            <h3>Feature Control</h3>
+            <p>Feature.IsActive = True/False, toggle, read state, golden rule (suppress all first), CheckBox → Boolean → feature</p>
+            <div class="curr-meta"><span class="tag">2.5 hrs</span></div>
+          </div>
+        </div>
+
+        <div class="curr-card reveal">
+          <div class="curr-num">05</div>
+          <div class="curr-body">
+            <h3>Component Visibility in Assemblies</h3>
+            <p>Component.IsActive, Occurrence.Visible, suppress vs hide, assembly rules, component instance naming</p>
+            <div class="curr-meta"><span class="tag">2.5 hrs</span></div>
+          </div>
+        </div>
+
+        <div class="curr-card reveal">
+          <div class="curr-num">06</div>
+          <div class="curr-body">
+            <h3>iProperties</h3>
+            <p>iProperties.Value(tab, field), auto Part Number, auto Description, Physical mass (read-only), Custom properties</p>
+            <div class="curr-meta"><span class="tag">1.5 hrs</span></div>
+          </div>
+        </div>
+
+        <div class="curr-card reveal">
+          <div class="curr-num">07</div>
+          <div class="curr-body">
+            <h3>Forms Deep Dive</h3>
+            <p>Form Editor, TextBox/ComboBox/CheckBox/NumericUpDown/Button controls, event-based rules, read-only display fields</p>
+            <div class="curr-meta"><span class="tag">3 hrs</span></div>
+          </div>
+        </div>
+
+        <div class="curr-card reveal">
+          <div class="curr-num">08</div>
+          <div class="curr-body">
+            <h3>Files &amp; Assemblies</h3>
+            <p>iLogicVb.GetParameterValue, SetParameterValue, RunRule, ThisDoc, assembly-level rules driving child parts</p>
+            <div class="curr-meta"><span class="tag">3 hrs</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="curr-phase">
+      <div class="curr-phase-label">🚀 Advanced Skills</div>
+      <div class="curr-grid">
+
+        <div class="curr-card reveal">
+          <div class="curr-num">09</div>
+          <div class="curr-body">
+            <h3>Loops &amp; Arrays</h3>
+            <p>For/Next, For Each/Next, While/End While, Exit For, arrays (index 0), List(Of String), mass report loop</p>
+            <div class="curr-meta"><span class="tag">2.5 hrs</span></div>
+          </div>
+        </div>
+
+        <div class="curr-card reveal">
+          <div class="curr-num">10</div>
+          <div class="curr-body">
+            <h3>External Rules &amp; Excel</h3>
+            <p>CreateObject Excel, Cells(row,col).Value, UsedRange.Rows.Count, SaveAs, batch variants, external .iLogicVb files</p>
+            <div class="curr-meta"><span class="tag">3 hrs</span></div>
+          </div>
+        </div>
+
+        <div class="curr-card reveal">
+          <div class="curr-num">11</div>
+          <div class="curr-body">
+            <h3>Drawing Automation</h3>
+            <p>iProperties in drawing files, open drawing from assembly rule, RunRule in drawing doc, Save As PDF</p>
+            <div class="curr-meta"><span class="tag">2.5 hrs</span></div>
+          </div>
+        </div>
+
+        <div class="curr-card reveal">
+          <div class="curr-num">12</div>
+          <div class="curr-body">
+            <h3>Event Triggers &amp; Shared Variables</h3>
+            <p>On Open, On Save, On Change triggers, iLogicVb.ShowForm, SetSharedVariable/GetSharedVariable, save validation</p>
+            <div class="curr-meta"><span class="tag">2.5 hrs</span></div>
+          </div>
+        </div>
+
+        <div class="curr-card reveal">
+          <div class="curr-num">13</div>
+          <div class="curr-body">
+            <h3>Color, Appearance &amp; Save As</h3>
+            <p>Component color by load rating, loop and color by name, STEP/DWG/PDF export with translator GUIDs</p>
+            <div class="curr-meta"><span class="tag">2.5 hrs</span></div>
+          </div>
+        </div>
+
+        <div class="curr-card reveal">
+          <div class="curr-num">14</div>
+          <div class="curr-body">
+            <h3>String, Math &amp; Sketch Control</h3>
+            <p>Left/Right/Mid/Replace/Split/Contains/ToUpper, Math.Sin/Cos/Sqrt/Round/PI, sketch dimension control</p>
+            <div class="curr-meta"><span class="tag">2.5 hrs</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="curr-phase">
+      <div class="curr-phase-label">🤖 Expert &amp; AI</div>
+      <div class="curr-grid">
+
+        <div class="curr-card reveal">
+          <div class="curr-num">15</div>
+          <div class="curr-body">
+            <h3>Email Automation</h3>
+            <p>CreateObject Outlook, mail.To/Subject/Body/Attachments.Add, mail.Display() vs Send(), auto-attach PDF</p>
+            <div class="curr-meta"><span class="tag">2 hrs</span></div>
+          </div>
+        </div>
+
+        <div class="curr-card reveal">
+          <div class="curr-num">16</div>
+          <div class="curr-body">
+            <h3>iParts &amp; iAssemblies</h3>
+            <p>iPart Author, configuration table rows, occ.SetMember(), iAssembly, iLogic vs iPart decision guide</p>
+            <div class="curr-meta"><span class="tag">2.5 hrs</span></div>
+          </div>
+        </div>
+
+        <div class="curr-card curr-card-new reveal">
+          <div class="curr-num curr-num-star">17★</div>
+          <div class="curr-body">
+            <h3>Codeblocks &amp; AI Assistant <span class="new-badge">NEW 2027</span></h3>
+            <p>Codeblocks interface, block types, generated code view, converting to text rules, AI Assistant capabilities and limits, combining AI + iLogic</p>
+            <div class="curr-meta"><span class="tag">2.5 hrs</span><span class="tag tag-new">Inventor 2027</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="curr-phase">
+      <div class="curr-phase-label">🏆 Projects</div>
+      <div class="curr-grid">
+
+        <div class="curr-card curr-card-project reveal">
+          <div class="curr-num curr-num-proj">🔩</div>
+          <div class="curr-body">
+            <h3>Parts Modelling — 8 Skid Frame Parts</h3>
+            <p>MainBeam, CrossMember, MountingPlate, Gusset, LiftingLug, AnchorBolt, DrainNozzle, HandrailPost — parameters, features, naming</p>
+            <div class="curr-meta"><span class="tag">4.5 hrs</span><span class="tag tag-project">Hands-On Build</span></div>
+          </div>
+        </div>
+
+        <div class="curr-card curr-card-capstone reveal">
+          <div class="curr-num curr-num-cap">★</div>
+          <div class="curr-body">
+            <h3>Capstone — Skid Frame Configurator</h3>
+            <p>Full assembly + 10 rules + master form + 3 scenario testing + mass report + export + email automation</p>
+            <div class="curr-meta"><span class="tag">6 hrs</span><span class="tag tag-cap">Capstone Project</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── INTERACTIVE DEMO ──────────────────────────── -->
+<section class="section demo-section" id="demo">
+  <div class="container">
+    <div class="section-label-wrap">
+      <span class="section-chip chip-orange">Interactive Preview</span>
+    </div>
+    <h2 class="section-title">See What You'll Build</h2>
+    <p class="section-sub">Real iLogic automation from the actual course — interact and see the rules respond live.</p>
+
+    <div class="demo-wrapper">
+      <div class="demo-tabs">
+        <button class="demo-tab active" data-demo="skid">Skid Frame Configurator</button>
+        <button class="demo-tab" data-demo="bom">Skid Frame BOM</button>
+        <button class="demo-tab" data-demo="iprop">iProperties Auto-Fill</button>
+        <button class="demo-tab" data-demo="feature">Feature Toggle</button>
+      </div>
+
+      <div class="demo-stage">
+
+        <!-- ── SKID FRAME CONFIGURATOR ── -->
+        <div class="demo-panel active" id="demo-skid">
+          <div class="demo-left-panel">
+            <div class="demo-form">
+              <h4>Skid Frame Configurator</h4>
+              <p class="demo-desc" style="margin-bottom:14px;font-size:.8rem">Set the parameters below, then click <strong style="color:var(--green)">Run Rule</strong> — iLogic drives all dimensions, beam sizes &amp; specs automatically.</p>
+              <div class="df-group">
+                <label>Frame Length</label>
+                <select id="sLength">
+                  <option value="3">3 000 mm</option>
+                  <option value="4" selected>4 000 mm</option>
+                  <option value="6">6 000 mm</option>
+                </select>
+              </div>
+              <div class="df-group">
+                <label>Material</label>
+                <select id="sMat">
+                  <option value="CS">Carbon Steel S275</option>
+                  <option value="SS">Stainless Steel 316L</option>
+                </select>
+              </div>
+              <div class="df-group">
+                <label>Load Rating</label>
+                <select id="sLoad">
+                  <option value="5">5 Tonne (Light)</option>
+                  <option value="10" selected>10 Tonne (Medium)</option>
+                  <option value="20">20 Tonne (Heavy)</option>
+                </select>
+              </div>
+              <button class="btn btn-neon" onclick="runSkidDemo(this)" style="width:100%;margin-top:16px">⚡ Run Rule</button>
+            </div>
+          </div>
+          <div class="demo-right-panel">
+            <div class="demo-output">
+              <div class="demo-cad-vis" style="padding:16px 20px">
+                <svg id="skidSvg" viewBox="0 0 260 120" width="260" height="120" style="overflow:visible">
+                  <!-- Frame top view -->
+                  <rect id="skidOuter" x="10" y="20" width="240" height="80" rx="3" fill="none" stroke="#00d4ff" stroke-width="2"/>
+                  <!-- Main beams (top & bottom rails) -->
+                  <rect id="skidTop"    x="10" y="20" width="240" height="14" rx="2" fill="#00d4ff18"/>
+                  <rect id="skidBot"    x="10" y="86" width="240" height="14" rx="2" fill="#00d4ff18"/>
+                  <!-- Cross members -->
+                  <line id="skidX1" x1="70"  y1="20" x2="70"  y2="100" stroke="#ff6b35" stroke-width="6" stroke-linecap="round" opacity="0.7"/>
+                  <line id="skidX2" x1="130" y1="20" x2="130" y2="100" stroke="#ff6b35" stroke-width="6" stroke-linecap="round" opacity="0.7"/>
+                  <line id="skidX3" x1="190" y1="20" x2="190" y2="100" stroke="#ff6b35" stroke-width="6" stroke-linecap="round" opacity="0.7"/>
+                  <!-- Lifting lug markers -->
+                  <circle cx="30"  cy="20" r="5" fill="none" stroke="#39ff14" stroke-width="1.5"/>
+                  <circle cx="230" cy="20" r="5" fill="none" stroke="#39ff14" stroke-width="1.5"/>
+                  <circle cx="30"  cy="100" r="5" fill="none" stroke="#39ff14" stroke-width="1.5"/>
+                  <circle cx="230" cy="100" r="5" fill="none" stroke="#39ff14" stroke-width="1.5"/>
+                  <!-- Dim arrows -->
+                  <text id="skidLenLabel" x="130" y="14" fill="#64748b" font-size="8" text-anchor="middle" font-family="JetBrains Mono">L = 4000 mm</text>
+                </svg>
+              </div>
+              <div class="demo-params">
+                <div class="dp-row"><span>Main Beam (RHS)</span><strong id="sBeam">200×100×8 RHS</strong></div>
+                <div class="dp-row"><span>Cross Member</span><strong id="sCross">150×75×6 RHS</strong></div>
+                <div class="dp-row"><span>Cross Member Spacing</span><strong id="sSpacing">1 000 mm</strong></div>
+                <div class="dp-row"><span>Estimated Frame Weight</span><strong id="sWeight">486 kg</strong></div>
+                <div class="dp-row"><span>Weld Spec</span><strong id="sWeld">E7018 · 8mm fillet</strong></div>
+                <div class="dp-row"><span>Status</span><strong class="status-ok">✓ Model Updated</strong></div>
+              </div>
+            </div>
+            <div class="demo-code-peek">
+              <div class="dcp-header">iLogic Rule — Skid_Config</div>
+              <pre id="skidCode"><code><span class="kw">If</span> Parameter(<span class="str">"LoadRating"</span>) = <span class="num">10</span> <span class="kw">And</span> FrameLength = <span class="num">4000</span> <span class="kw">Then</span>
+  Parameter(<span class="str">"MainBeam_H"</span>)  = <span class="num">200</span>
+  Parameter(<span class="str">"MainBeam_W"</span>)  = <span class="num">100</span>
+  Parameter(<span class="str">"MainBeam_T"</span>)  = <span class="num">8</span>
+  Parameter(<span class="str">"XMember_Spacing"</span>) = <span class="num">1000</span>
+<span class="kw">End If</span>
+iLogicVb.UpdateWhenDone = <span class="kw">True</span></code></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── SKID FRAME BOM ── -->
+        <div class="demo-panel" id="demo-bom">
+          <div class="demo-left-panel">
+            <div class="demo-form">
+              <h4>Skid Frame BOM Generator</h4>
+              <p class="demo-desc">iLogic reads every component in the Skid Frame assembly and auto-populates the Bill of Materials — part numbers, quantities, materials, all from iProperties.</p>
+              <button class="btn btn-neon" onclick="runBomDemo()" style="width:100%;margin-top:16px">⚡ Run BOM Rule</button>
+              <button class="btn btn-ghost" onclick="clearBom()" style="width:100%;margin-top:8px">↺ Reset</button>
+              <div style="margin-top:16px;padding:12px;background:rgba(0,212,255,.05);border:1px solid rgba(0,212,255,.15);border-radius:8px;font-size:.78rem;color:var(--mid);line-height:1.6">
+                📘 Covers <strong style="color:var(--white)">Module 06 — iProperties</strong> &amp; <strong style="color:var(--white)">Module 08 — Files &amp; Assemblies</strong>
+              </div>
+            </div>
+          </div>
+          <div class="demo-right-panel">
+            <div class="bom-table-wrap">
+              <div class="bom-header">📋 Skid Frame Assembly — Bill of Materials</div>
+              <table class="bom-table" id="bomTable">
+                <thead><tr><th>#</th><th>Part Name</th><th>Qty</th><th>Material</th><th>iProperty Status</th></tr></thead>
+                <tbody id="bomBody">
+                  <tr class="bom-empty"><td colspan="5">Click "Run BOM Rule" to auto-populate…</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── iPROPERTIES AUTO-FILL ── -->
+        <div class="demo-panel" id="demo-iprop">
+          <div class="demo-left-panel">
+            <div class="demo-form">
+              <h4>iProperties Auto-Fill</h4>
+              <p class="demo-desc" style="margin-bottom:14px;font-size:.8rem">Fill in the project details, then click <strong style="color:var(--green)">Run Rule</strong> — iLogic auto-writes Part Number, Description &amp; Title Block across all parts.</p>
+              <div class="df-group">
+                <label>Project Number</label>
+                <input type="text" id="iProjNo" value="SKD-2026-041" />
+              </div>
+              <div class="df-group">
+                <label>Part Name</label>
+                <input type="text" id="iPartName" value="Main Beam" />
+              </div>
+              <div class="df-group">
+                <label>Revision</label>
+                <select id="iRev">
+                  <option>Rev A</option><option>Rev B</option><option>Rev C</option>
+                </select>
+              </div>
+              <div class="df-group">
+                <label>Material</label>
+                <select id="iMat">
+                  <option>Carbon Steel S275</option>
+                  <option>Stainless Steel 316L</option>
+                  <option>Aluminium 6061</option>
+                </select>
+              </div>
+              <button class="btn btn-neon" onclick="runIPropDemo(this)" style="width:100%;margin-top:16px">⚡ Run Rule</button>
+            </div>
+          </div>
+          <div class="demo-right-panel">
+            <div class="demo-output">
+              <div class="bom-header" style="padding:12px 18px">📄 iProperties Panel — MainBeam.ipt</div>
+              <div class="iprop-grid" id="ipropGrid">
+                <div class="ip-row"><span class="ip-tab">Summary</span><span class="ip-field">Part Number</span><strong class="ip-val" id="ipPN">SKD-2026-041-MB</strong><span class="ip-auto">✓ Auto</span></div>
+                <div class="ip-row"><span class="ip-tab">Summary</span><span class="ip-field">Description</span><strong class="ip-val" id="ipDesc">Main Beam — Carbon Steel S275</strong><span class="ip-auto">✓ Auto</span></div>
+                <div class="ip-row"><span class="ip-tab">Project</span><span class="ip-field">Revision</span><strong class="ip-val" id="ipRev">Rev A</strong><span class="ip-auto">✓ Auto</span></div>
+                <div class="ip-row"><span class="ip-tab">Project</span><span class="ip-field">Designer</span><strong class="ip-val">iLogic Rule</strong><span class="ip-auto">✓ Auto</span></div>
+                <div class="ip-row"><span class="ip-tab">Physical</span><span class="ip-field">Mass</span><strong class="ip-val" id="ipMass">87.4 kg</strong><span class="ip-read">⊘ Read-Only</span></div>
+                <div class="ip-row"><span class="ip-tab">Custom</span><span class="ip-field">Material</span><strong class="ip-val" id="ipMatVal">Carbon Steel S275</strong><span class="ip-auto">✓ Auto</span></div>
+              </div>
+            </div>
+            <div class="demo-code-peek" style="margin-top:12px">
+              <div class="dcp-header">iLogic Rule — Set_iProperties</div>
+              <pre id="ipropCode"><code>iProperties.Value(<span class="str">"Summary"</span>, <span class="str">"Part Number"</span>) =
+  ProjNo &amp; <span class="str">"-MB"</span>
+iProperties.Value(<span class="str">"Summary"</span>, <span class="str">"Description"</span>) =
+  PartName &amp; <span class="str">" — "</span> &amp; Material
+iProperties.Value(<span class="str">"Project"</span>, <span class="str">"Revision"</span>) = Rev</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── FEATURE TOGGLE ── -->
+        <div class="demo-panel" id="demo-feature">
+          <div class="demo-left-panel">
+            <div class="demo-form">
+              <h4>Feature Toggle — Skid Accessories</h4>
+              <p class="demo-desc" style="margin-bottom:16px;font-size:.8rem">Toggle accessories on/off. iLogic suppresses or activates the matching features in Inventor instantly.</p>
+              <div class="feature-toggles">
+                <div class="ft-row">
+                  <div class="ft-info">
+                    <span class="ft-icon">🔩</span>
+                    <div><strong>Lifting Lugs</strong><span>LiftingLug_Feature</span></div>
+                  </div>
+                  <label class="toggle-switch">
+                    <input type="checkbox" id="ftLift" checked onchange="runFeatureDemo()">
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+                <div class="ft-row">
+                  <div class="ft-info">
+                    <span class="ft-icon">🚿</span>
+                    <div><strong>Drain Nozzle</strong><span>DrainNozzle_Feature</span></div>
+                  </div>
+                  <label class="toggle-switch">
+                    <input type="checkbox" id="ftDrain" checked onchange="runFeatureDemo()">
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+                <div class="ft-row">
+                  <div class="ft-info">
+                    <span class="ft-icon">🛡️</span>
+                    <div><strong>Gusset Plates</strong><span>Gusset_Extrude</span></div>
+                  </div>
+                  <label class="toggle-switch">
+                    <input type="checkbox" id="ftGusset" checked onchange="runFeatureDemo()">
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+                <div class="ft-row">
+                  <div class="ft-info">
+                    <span class="ft-icon">🪜</span>
+                    <div><strong>Handrail Posts</strong><span>HandrailPost_Pattern</span></div>
+                  </div>
+                  <label class="toggle-switch">
+                    <input type="checkbox" id="ftRail" onchange="runFeatureDemo()">
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="demo-right-panel">
+            <div class="demo-output">
+              <div class="bom-header" style="padding:12px 18px">⚙️ Feature State — Inventor Model Tree</div>
+              <div class="feature-state-list" id="featureStateList">
+                <!-- populated by JS -->
+              </div>
+            </div>
+            <div class="demo-code-peek" style="margin-top:12px">
+              <div class="dcp-header">iLogic Rule — Toggle_Features</div>
+              <pre id="featCode"><code><span class="cm">' Module 04 — Feature Control</span>
+Feature.IsActive(<span class="str">"LiftingLug_Feature"</span>) = <span class="kw">True</span>
+Feature.IsActive(<span class="str">"DrainNozzle_Feature"</span>) = <span class="kw">True</span>
+Feature.IsActive(<span class="str">"Gusset_Extrude"</span>)     = <span class="kw">True</span>
+Feature.IsActive(<span class="str">"HandrailPost_Pattern"</span>) = <span class="kw">False</span>
+iLogicVb.UpdateWhenDone = <span class="kw">True</span></code></pre>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── WHAT YOU'LL BECOME ───────────────────────── -->
+<section class="section become-section">
+  <div class="container">
+    <div class="section-label-wrap">
+      <span class="section-chip chip-green">Career Transformation</span>
+    </div>
+    <h2 class="section-title">What You'll Become</h2>
+    <p class="section-sub">After mastering iLogic, doors open that most engineers don't even know exist.</p>
+    <div class="become-grid">
+      <div class="become-card reveal" style="--delay:0s">
+        <div class="bc-glow"></div>
+        <div class="bc-icon">⚡</div>
+        <h3>Faster Design Engineer</h3>
+        <p>Complete in hours what once took days. Your models adapt automatically — you just set the rules.</p>
+        <div class="bc-skill-bar"><div class="bc-bar" style="--w:90%"></div></div>
+        <span class="bc-skill-label">Productivity ×5</span>
+      </div>
+      <div class="become-card reveal" style="--delay:.1s">
+        <div class="bc-glow bc-glow-orange"></div>
+        <div class="bc-icon">🤖</div>
+        <h3>Automation Engineer</h3>
+        <p>Build rule-driven systems that handle design variants, configurations, and updates automatically.</p>
+        <div class="bc-skill-bar"><div class="bc-bar bc-bar-orange" style="--w:85%"></div></div>
+        <span class="bc-skill-label">Automation Mastery</span>
+      </div>
+      <div class="become-card reveal" style="--delay:.2s">
+        <div class="bc-glow bc-glow-green"></div>
+        <div class="bc-icon">🧠</div>
+        <h3>AI-Assisted CAD Specialist</h3>
+        <p>Use AI to generate iLogic scripts, then understand, customise, and deploy them with confidence.</p>
+        <div class="bc-skill-bar"><div class="bc-bar bc-bar-green" style="--w:80%"></div></div>
+        <span class="bc-skill-label">AI Fluency</span>
+      </div>
+      <div class="become-card reveal" style="--delay:.3s">
+        <div class="bc-glow bc-glow-purple"></div>
+        <div class="bc-icon">🏭</div>
+        <h3>Smart Manufacturing Pro</h3>
+        <p>Connect designs to manufacturing workflows — BOMs, CNC programs, and ERP data — through automation.</p>
+        <div class="bc-skill-bar"><div class="bc-bar bc-bar-purple" style="--w:75%"></div></div>
+        <span class="bc-skill-label">Industry 4.0</span>
+      </div>
+      <div class="become-card reveal" style="--delay:.4s">
+        <div class="bc-glow bc-glow-orange"></div>
+        <div class="bc-icon">🚀</div>
+        <h3>Digital Transformation Lead</h3>
+        <p>Become the engineer your company relies on to drive modernisation, reduce errors, and cut design cycles.</p>
+        <div class="bc-skill-bar"><div class="bc-bar bc-bar-orange" style="--w:88%"></div></div>
+        <span class="bc-skill-label">Leadership Value</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── BEFORE / AFTER ───────────────────────────── -->
+<section class="section ba-section">
+  <div class="container">
+    <h2 class="section-title text-center">Before vs After iLogic</h2>
+    <div class="ba-grid">
+      <div class="ba-col ba-before reveal">
+        <div class="ba-header">😩 Before iLogic</div>
+        <ul>
+          <li>Manual parameter updates for every variant</li>
+          <li>Drawing revisions taking half a day</li>
+          <li>Copy-paste assembly configurations</li>
+          <li>BOM errors causing production delays</li>
+          <li>Senior engineer bottlenecks on repetitive tasks</li>
+          <li>Design changes rippling into days of rework</li>
+        </ul>
+        <div class="ba-stat">
+          <strong>40+</strong>
+          <span>hours/month on repetitive CAD tasks</span>
+        </div>
+      </div>
+      <div class="ba-vs">⚡</div>
+      <div class="ba-col ba-after reveal">
+        <div class="ba-header">🚀 After iLogic</div>
+        <ul>
+          <li>One rule drives all variants automatically</li>
+          <li>Drawings regenerate in seconds</li>
+          <li>Assembly configs updated by a single parameter</li>
+          <li>BOM auto-populated and error-free</li>
+          <li>Junior engineers run complex workflows</li>
+          <li>Design changes propagate instantly</li>
+        </ul>
+        <div class="ba-stat ba-stat-good">
+          <strong>&lt;2</strong>
+          <span>hours/month on the same tasks</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TESTIMONIALS ─────────────────────────────── -->
+<section class="section testi-section">
+  <div class="container">
+    <div class="section-label-wrap">
+      <span class="section-chip">What Engineers Say</span>
+    </div>
+    <h2 class="section-title">Real Engineers.<br>Real Results.</h2>
+    <div class="testi-grid">
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p>"I was terrified of coding. After this program I built a complete product configurator for our sales team in one weekend. My manager promoted me to 'CAD Automation Lead' — a role that didn't exist before."</p>
+        <div class="testi-author">
+          <div class="ta-avatar" style="background:#2563eb">RK</div>
+          <div>
+            <strong>Ravi K.</strong>
+            <span>Design Engineer → CAD Automation Lead</span>
+            <div class="ta-company">Precision Manufacturing, Pune</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p>"The 'mechanical engineer language' approach is real. No confusing syntax lessons. I understood every line of code because it was explained as engineering logic. Finished all 15 hours and immediately automated our sheet metal workflow."</p>
+        <div class="testi-author">
+          <div class="ta-avatar" style="background:#f97316">PS</div>
+          <div>
+            <strong>Priya S.</strong>
+            <span>Mechanical Engineer, Automotive</span>
+            <div class="ta-company">Tier 1 Automotive Supplier, Chennai</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p>"The live sessions are what made the difference. I brought my actual Inventor problems to the doubt sessions and got them solved in real time. Best engineering upskilling investment I've made."</p>
+        <div class="testi-author">
+          <div class="ta-avatar" style="background:#22c55e">AM</div>
+          <div>
+            <strong>Aarav M.</strong>
+            <span>CAD Manager</span>
+            <div class="ta-company">Industrial Equipment OEM, Coimbatore</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FAQ ──────────────────────────────────────── -->
+<section class="section faq-section" id="faq">
+  <div class="container faq-container">
+    <div class="section-label-wrap">
+      <span class="section-chip chip-orange">Common Questions</span>
+    </div>
+    <h2 class="section-title">Got Questions?</h2>
+
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <button class="faq-q">
+          <span>Do I need programming knowledge to join?</span>
+          <span class="faq-arrow">›</span>
+        </button>
+        <div class="faq-a">
+          <p>Absolutely not. This program starts from zero and teaches coding through engineering thinking. If you understand conditional logic in a design spec ("if load exceeds X, use Y"), you already have the mindset needed for iLogic.</p>
+        </div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">
+          <span>Is this suitable for complete beginners?</span>
+          <span class="faq-arrow">›</span>
+        </button>
+        <div class="faq-a">
+          <p>Yes. The program is structured for engineers with zero automation experience. Many of our best graduates had never written a single line of code before joining. A basic familiarity with Autodesk Inventor is helpful but not mandatory.</p>
+        </div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">
+          <span>Will this help me get a better job?</span>
+          <span class="faq-arrow">›</span>
+        </button>
+        <div class="faq-a">
+          <p>Significantly. Automation skills set you apart in interviews. Companies are actively building CAD automation teams, and engineers who can bridge design and automation are highly valued. Several graduates have been promoted or switched to roles with higher packages specifically citing iLogic expertise.</p>
+        </div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">
+          <span>Will AI replace the need to learn iLogic?</span>
+          <span class="faq-arrow">›</span>
+        </button>
+        <div class="faq-a">
+          <p>This is exactly the wrong question to ask — and it's actually the biggest reason to learn. AI can generate iLogic scripts, but without understanding them, you can't verify, debug, or customise them. Engineers who understand automation will direct AI tools. Those who don't will be replaced by engineers who do.</p>
+        </div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">
+          <span>Do I need Autodesk Inventor experience?</span>
+          <span class="faq-arrow">›</span>
+        </button>
+        <div class="faq-a">
+          <p>Basic Inventor knowledge is helpful — being able to create a part and assembly. You don't need to be an expert. If you're new to Inventor, we can suggest a short pre-study path to get you up to speed before the program starts.</p>
+        </div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">
+          <span>Is the training really live, or are these just recorded videos?</span>
+          <span class="faq-arrow">›</span>
+        </button>
+        <div class="faq-a">
+          <p>100% live. Every session is conducted in real time over video call with screen sharing inside Inventor. You can ask questions, share your screen, and get immediate feedback. Recordings of your sessions are available for review afterwards.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PRICING ──────────────────────────────────── -->
+<section class="section pricing-section reveal" id="pricing">
+  <div class="container">
+    <div class="section-badge">PRICING</div>
+    <h2 class="section-title">One Price.<br><span class="gradient-text">Everything Included.</span></h2>
+    <p class="section-sub">Prices shown automatically in your local currency.</p>
+
+    <div class="price-card">
+      <div class="price-best-value">⭐ BEST VALUE — FULL PROGRAM</div>
+
+      <div class="price-location-row" id="priceLocationRow">
+        <span class="price-flag" id="priceFlag">🌍</span>
+        <span class="price-location-label" id="priceLocationLabel">Detecting your region…</span>
+      </div>
+
+      <div class="price-display">
+        <span class="price-currency" id="priceCurrency"></span>
+        <span class="price-amount" id="priceAmount"><span class="price-loading">…</span></span>
+        <div class="price-meta">
+          <span class="price-period">one-time</span>
+          <span class="price-note" id="priceNote">includes all taxes</span>
+        </div>
+      </div>
+
+      <ul class="price-features">
+        <li>50+ hours of live instructor-led training</li>
+        <li>19 modules — full iLogic curriculum</li>
+        <li>Real-world Skid Frame capstone project</li>
+        <li>6 months recording access</li>
+        <li>WhatsApp support group access</li>
+        <li>Certificate of completion</li>
+        <li>Free batch repeat if you miss sessions</li>
+      </ul>
+
+      <button class="btn btn-neon btn-xl pulse-btn" style="width:100%" onclick="openPayment()">
+        ⚡ Enroll &amp; Pay Now
+      </button>
+      <button class="btn btn-ghost btn-xl" style="width:100%;margin-top:10px" onclick="openDemoModal()">
+        📅 Book a Free Demo First
+      </button>
+
+      <div class="price-guarantee">
+        🔒 Secure payment via Razorpay &nbsp;·&nbsp; 7-day money-back guarantee
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FINAL CTA ──────────────────────────────────── -->
+<section class="section final-cta-section" id="enroll">
+  <div class="cta-orbs">
+    <div class="cta-orb co1"></div>
+    <div class="cta-orb co2"></div>
+  </div>
+  <div class="container cta-container">
+    <div class="cta-badge"><span class="live-dot"></span> NEXT BATCH FILLING FAST</div>
+    <h2 class="cta-title">Don't Just Use AI.<br><span class="gradient-text">Learn to Control It.</span></h2>
+    <p class="cta-sub">Master iLogic, understand automation, and future-proof your engineering career.<br>Join engineers who are building the future — not just watching it happen.</p>
+
+    <div class="cta-buttons">
+      <a href="#contact-form" class="btn btn-neon btn-xl pulse-btn">⚡ Enroll Now</a>
+      <a href="#book-demo" class="btn btn-ghost btn-xl" onclick="openDemoModal()">📅 Book a Demo</a>
+      <a href="#structure" class="btn btn-outline btn-xl">📋 View Curriculum</a>
+    </div>
+
+    <!-- Contact Form -->
+    <div class="contact-form-wrap" id="contact-form">
+      <h3>Reserve Your Spot</h3>
+      <form id="enrollForm" class="enroll-form"
+            name="reserve-spot"
+            method="POST"
+            data-netlify="true"
+            netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="reserve-spot" />
+        <input type="hidden" name="bot-field" style="display:none" />
+        <div class="ef-row">
+          <div class="ef-group">
+            <input type="text" name="name" placeholder="Your Name" required />
+          </div>
+          <div class="ef-group">
+            <input type="email" name="email" placeholder="Work Email" required />
+          </div>
+        </div>
+        <div class="ef-row">
+          <div class="ef-group">
+            <input type="tel" name="phone" placeholder="Phone / WhatsApp" required />
+          </div>
+          <div class="ef-group">
+            <select name="experience">
+              <option value="">Experience with Inventor…</option>
+              <option>Complete Beginner</option>
+              <option>Less than 1 year</option>
+              <option>1–3 years</option>
+              <option>3+ years</option>
+            </select>
+          </div>
+        </div>
+        <button type="button" class="btn btn-neon btn-xl" style="width:100%" onclick="payAndEnroll(this)">
+          ⚡ Pay &amp; Reserve My Seat
+        </button>
+        <div class="form-success-msg" id="formSuccess">
+          🎉 Awesome! We'll contact you within 24 hours with batch details.
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─────────────────────────────────────── -->
+<footer class="footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <a href="#" class="logo">
+        <svg width="24" height="24" viewBox="0 0 28 28" fill="none">
+          <polygon points="14,2 26,8 26,20 14,26 2,20 2,8" fill="none" stroke="#00d4ff" stroke-width="1.5"/>
+          <circle cx="14" cy="14" r="3" fill="#00d4ff"/>
+        </svg>
+        <span>CAD<span class="logo-accent">Automator</span></span>
+      </a>
+      <p>CAD Automator — professional live iLogic training for mechanical engineers who want to build the future.</p>
+    </div>
+    <div class="footer-links">
+      <div class="fl-col">
+        <h4>Program</h4>
+        <a href="#why">Why iLogic</a>
+        <a href="#structure">Curriculum</a>
+        <a href="#demo">Live Demo</a>
+      </div>
+      <div class="fl-col">
+        <h4>Connect</h4>
+        <a href="#enroll">Enroll</a>
+        <a href="#book-demo" onclick="openDemoModal()">Book a Demo</a>
+        <a href="#faq">FAQ</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 CAD Automator · <a href="https://cadautomator.com" style="color:var(--mid)">cadautomator.com</a> · Not affiliated with Autodesk, Inc.</p>
+  </div>
+</footer>
+
+<!-- AI Mascot -->
+<div class="ai-mascot" id="aiMascot" title="AI Assistant">
+  <div class="mascot-pulse"></div>
+  <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
+    <circle cx="15" cy="15" r="13" fill="#0f172a" stroke="#00d4ff" stroke-width="1.5"/>
+    <circle cx="10" cy="13" r="2.5" fill="#00d4ff"/>
+    <circle cx="20" cy="13" r="2.5" fill="#00d4ff"/>
+    <path d="M 9 19 Q 15 23 21 19" stroke="#00d4ff" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <circle cx="10" cy="13" r="1" fill="#0f172a"/>
+    <circle cx="20" cy="13" r="1" fill="#0f172a"/>
+  </svg>
+  <div class="mascot-bubble" id="mascotBubble">
+    Ask me anything about iLogic!
+  </div>
+</div>
+
+<!-- ─── BOOK A DEMO MODAL ──────────────────────────── -->
+<div class="modal-overlay" id="demoModal" onclick="closeDemoModal(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeDemoModalBtn()">✕</button>
+    <div class="modal-icon">📅</div>
+    <h3>Book a Free Demo Session</h3>
+    <p>Join a 30-minute live walkthrough — see iLogic in action inside Autodesk Inventor with real examples.</p>
+    <form id="demoForm"
+          name="book-demo"
+          method="POST"
+          data-netlify="true"
+          netlify-honeypot="bot-field">
+      <input type="hidden" name="form-name" value="book-demo" />
+      <input type="hidden" name="bot-field" style="display:none" />
+      <div class="modal-field">
+        <input type="text" name="name" placeholder="Your Name" required />
+      </div>
+      <div class="modal-field">
+        <input type="email" name="email" placeholder="Email Address" required />
+      </div>
+      <div class="modal-field">
+        <input type="tel" name="phone" placeholder="Phone / WhatsApp" required />
+      </div>
+      <div class="modal-field">
+        <select name="preferred_time">
+          <option value="">Preferred time slot…</option>
+          <option>Weekday Morning (9am–12pm)</option>
+          <option>Weekday Evening (6pm–9pm)</option>
+          <option>Weekend Morning (9am–12pm)</option>
+          <option>Weekend Afternoon (2pm–5pm)</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-neon btn-xl" style="width:100%;margin-top:4px">
+        Confirm My Demo Slot ⚡
+      </button>
+      <div class="form-success-msg" id="demoFormSuccess">
+        🎉 Booked! We'll WhatsApp you the meeting link within 2 hours.
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>
