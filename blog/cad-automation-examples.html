@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CAD Automation with iLogic — 5 Real Engineering Examples | CAD Automator</title>
+  <meta name="description" content="5 real-world CAD automation examples using Autodesk Inventor iLogic. See how engineers automate skid frames, BOMs, drawings, iProperties and Excel-driven configurators." />
+  <meta name="keywords" content="CAD automation, iLogic examples, Autodesk Inventor automation, iLogic real world, CAD automation examples" />
+  <link rel="canonical" href="https://cadautomator.com/blog/cad-automation-examples" />
+  <meta property="og:title" content="CAD Automation with iLogic — 5 Real Engineering Examples" />
+  <meta property="og:description" content="See 5 real CAD automation examples built with Autodesk Inventor iLogic — from skid frame configurators to drawing automation." />
+  <meta property="og:url" content="https://cadautomator.com/blog/cad-automation-examples" />
+  <meta property="og:type" content="article" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "CAD Automation with iLogic — 5 Real Engineering Examples",
+    "description": "5 real-world CAD automation examples using Autodesk Inventor iLogic.",
+    "author": { "@type": "Organization", "name": "CAD Automator", "url": "https://cadautomator.com" },
+    "publisher": { "@type": "Organization", "name": "CAD Automator", "url": "https://cadautomator.com" },
+    "datePublished": "2026-05-15",
+    "mainEntityOfPage": "https://cadautomator.com/blog/cad-automation-examples"
+  }
+  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-97KYLBNP5W"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-97KYLBNP5W');</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .blog-hero { padding: 120px 0 60px; background: var(--dark2); border-bottom: 1px solid rgba(255,255,255,.06); }
+    .blog-meta { display:flex; gap:16px; align-items:center; margin-bottom:24px; flex-wrap:wrap; }
+    .blog-tag { background:rgba(57,255,20,.08); color:var(--green); border:1px solid rgba(57,255,20,.25); padding:4px 12px; border-radius:20px; font-size:.75rem; font-weight:600; }
+    .blog-date, .blog-read { color:var(--mid); font-size:.85rem; }
+    .blog-title { font-size:clamp(1.8rem,4vw,3rem); font-weight:900; color:var(--white); line-height:1.2; margin-bottom:20px; }
+    .blog-intro { font-size:1.1rem; color:var(--light); line-height:1.8; max-width:700px; }
+    .blog-body { max-width:780px; margin:0 auto; padding:60px 24px 80px; }
+    .blog-body h2 { font-size:1.6rem; font-weight:800; color:var(--white); margin:48px 0 16px; }
+    .blog-body h3 { font-size:1.1rem; font-weight:700; color:var(--green); margin:16px 0 8px; }
+    .blog-body p { color:var(--light); line-height:1.9; margin-bottom:18px; font-size:.97rem; }
+    .blog-body ul { padding-left:24px; margin-bottom:18px; }
+    .blog-body li { color:var(--light); line-height:1.8; margin-bottom:8px; font-size:.97rem; }
+    .blog-body strong { color:var(--white); }
+    .blog-code { background:var(--dark3); border:1px solid rgba(0,212,255,.2); border-radius:10px; padding:20px 24px; font-family:'JetBrains Mono',monospace; font-size:.85rem; color:#e2e8f0; margin:24px 0; overflow-x:auto; line-height:1.7; }
+    .blog-code .kw { color:#00d4ff; } .blog-code .str { color:#39ff14; } .blog-code .cm { color:#64748b; }
+    .blog-cta { background:linear-gradient(135deg,var(--dark3),var(--dark2)); border:1px solid rgba(0,212,255,.25); border-radius:20px; padding:40px; text-align:center; margin:48px 0 0; }
+    .blog-cta h3 { font-size:1.4rem; font-weight:800; color:var(--white); margin-bottom:12px; }
+    .blog-cta p { color:var(--mid); margin-bottom:24px; }
+    .blog-nav-bar { background:var(--dark2); padding:16px 0; border-bottom:1px solid rgba(255,255,255,.06); }
+    .blog-nav-inner { max-width:1200px; margin:0 auto; padding:0 24px; display:flex; justify-content:space-between; align-items:center; }
+    .example-card { background:var(--dark3); border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:28px 32px; margin:32px 0; }
+    .example-num { font-size:.75rem; font-weight:700; color:var(--green); letter-spacing:.1em; margin-bottom:8px; }
+    .example-title { font-size:1.2rem; font-weight:800; color:var(--white); margin-bottom:12px; }
+    .example-save { display:inline-block; background:rgba(57,255,20,.1); color:var(--green); border:1px solid rgba(57,255,20,.25); padding:3px 10px; border-radius:12px; font-size:.75rem; font-weight:600; margin-bottom:12px; }
+  </style>
+</head>
+<body>
+
+<nav class="blog-nav-bar">
+  <div class="blog-nav-inner">
+    <a href="../index.html" class="logo"><svg width="22" height="22" viewBox="0 0 28 28" fill="none"><polygon points="14,2 26,8 26,20 14,26 2,20 2,8" fill="none" stroke="#00d4ff" stroke-width="1.5"/><circle cx="14" cy="14" r="3" fill="#00d4ff"/></svg><span>CAD<span class="logo-accent">Automator</span></span></a>
+    <a href="../index.html#pricing" class="btn btn-neon" style="font-size:.8rem;padding:8px 18px">⚡ Enroll Now</a>
+  </div>
+</nav>
+
+<section class="blog-hero">
+  <div class="container">
+    <div class="blog-meta">
+      <span class="blog-tag">CAD Automation</span>
+      <span class="blog-date">May 15, 2026</span>
+      <span class="blog-read">⏱ 7 min read</span>
+    </div>
+    <h1 class="blog-title">CAD Automation with iLogic —<br>5 Real Engineering Examples</h1>
+    <p class="blog-intro">Abstract examples don't help engineers learn. Here are 5 real CAD automation scenarios — the kind that come up in actual engineering work — all built with Autodesk Inventor iLogic.</p>
+  </div>
+</section>
+
+<article class="blog-body">
+
+  <p>When engineers first hear about iLogic, they often ask: <em>"But what would I actually use it for?"</em> The answer is: almost anything repetitive in your current Inventor workflow. Here are 5 concrete examples.</p>
+
+  <div class="example-card">
+    <div class="example-num">EXAMPLE 01</div>
+    <div class="example-title">Skid Frame Configurator</div>
+    <span class="example-save">Saves 4–6 hours per design</span>
+    <p>A structural skid frame changes beam sizes, cross-member spacing, gusset thickness, and weld spec depending on load rating and frame length. Without automation, an engineer manually updates 20+ parameters every time a new variant is requested.</p>
+    <p>With iLogic CAD automation, a single rule reads the load rating and frame length, then automatically drives every dimension:</p>
+    <div class="blog-code">
+<span class="cm">' Skid Frame Configurator Rule</span>
+<span class="kw">If</span> LoadRating = <span class="kw">10</span> <span class="kw">And</span> FrameLength = <span class="kw">4000</span> <span class="kw">Then</span>
+  Parameter(<span class="str">"MainBeam_H"</span>) = <span class="kw">200</span>
+  Parameter(<span class="str">"MainBeam_W"</span>) = <span class="kw">100</span>
+  Parameter(<span class="str">"XSpacing"</span>)   = <span class="kw">1000</span>
+  Parameter(<span class="str">"GussetThk"</span>)  = <span class="kw">10</span>
+<span class="kw">End If</span>
+iLogicVb.UpdateWhenDone = <span class="kw">True</span>
+    </div>
+    <p>The engineer simply changes two inputs — the entire model, BOM, and drawing update automatically.</p>
+  </div>
+
+  <div class="example-card">
+    <div class="example-num">EXAMPLE 02</div>
+    <div class="example-title">Automatic iProperties Population</div>
+    <span class="example-save">Saves 1–2 hours per release</span>
+    <p>Every time a design is released for production, engineers manually type Part Number, Description, Revision, Material, and Designer into every single part file. On a 50-component assembly, that's hours of error-prone data entry.</p>
+    <p>With iLogic CAD automation, one rule populates all iProperties across every component automatically:</p>
+    <div class="blog-code">
+<span class="cm">' Auto-fill iProperties on all components</span>
+iProperties.Value(<span class="str">"Summary"</span>, <span class="str">"Part Number"</span>) =
+  ProjectNo &amp; <span class="str">"-"</span> &amp; ComponentCode
+iProperties.Value(<span class="str">"Summary"</span>, <span class="str">"Description"</span>) =
+  PartName &amp; <span class="str">" — "</span> &amp; Material
+iProperties.Value(<span class="str">"Project"</span>, <span class="str">"Revision"</span>) = RevisionLevel
+    </div>
+    <p>Run once — all 50 parts are updated in seconds. Consistent, error-free, and traceable.</p>
+  </div>
+
+  <div class="example-card">
+    <div class="example-num">EXAMPLE 03</div>
+    <div class="example-title">Excel-Driven Product Configurator</div>
+    <span class="example-save">Saves full redesign time per variant</span>
+    <p>Companies with large product catalogues — pump bases, conveyor frames, cable trays — manage specifications in Excel. Without automation, every new order means manually re-modelling from a previous file.</p>
+    <p>With iLogic, Inventor reads directly from an Excel row. Change the row number, run the rule — completely different product variant, fully modelled:</p>
+    <div class="blog-code">
+<span class="cm">' Read design data from Excel</span>
+<span class="kw">Dim</span> xl <span class="kw">As New</span> ExcelReader(<span class="str">"C:\Products\Catalogue.xlsx"</span>)
+Parameter(<span class="str">"Length"</span>) = xl.GetCellValue(<span class="str">"Sheet1"</span>, Row, <span class="str">"B"</span>)
+Parameter(<span class="str">"Width"</span>)  = xl.GetCellValue(<span class="str">"Sheet1"</span>, Row, <span class="str">"C"</span>)
+Parameter(<span class="str">"Height"</span>) = xl.GetCellValue(<span class="str">"Sheet1"</span>, Row, <span class="str">"D"</span>)
+    </div>
+  </div>
+
+  <div class="example-card">
+    <div class="example-num">EXAMPLE 04</div>
+    <div class="example-title">Automatic Drawing Generation</div>
+    <span class="example-save">Saves 2–3 hours per drawing set</span>
+    <p>Creating drawing views, adding dimensions, populating title blocks, and exporting PDFs is pure repetitive work. iLogic can automate the entire drawing output workflow:</p>
+    <div class="blog-code">
+<span class="cm">' Auto-generate and export drawing</span>
+<span class="kw">Dim</span> oDoc <span class="kw">As</span> DrawingDocument
+oDoc = ThisApplication.Documents.Open(DrawingTemplate)
+<span class="cm">' Update title block from iProperties</span>
+iLogicVb.RunExternalRule(<span class="str">"UpdateTitleBlock"</span>)
+<span class="cm">' Export to PDF</span>
+oDoc.SaveAs(OutputPath &amp; PartNumber &amp; <span class="str">".pdf"</span>)
+    </div>
+    <p>One click — drawing views created, title block filled, PDF exported to the correct folder. Every time.</p>
+  </div>
+
+  <div class="example-card">
+    <div class="example-num">EXAMPLE 05</div>
+    <div class="example-title">Feature Toggle for Product Variants</div>
+    <span class="example-save">Eliminates separate variant files</span>
+    <p>Instead of maintaining 6 separate Inventor files for 6 product variants, one master model with iLogic feature control handles all variants. Lifting lugs, drain nozzles, handrail posts, gusset plates — each is suppressed or activated by a single parameter change:</p>
+    <div class="blog-code">
+<span class="cm">' Feature toggle based on product spec</span>
+Feature.IsActive(<span class="str">"LiftingLug_Feature"</span>)   = IncludeLiftingLugs
+Feature.IsActive(<span class="str">"DrainNozzle_Feature"</span>)  = IncludeDrainNozzle
+Feature.IsActive(<span class="str">"HandrailPost_Pattern"</span>) = IncludeHandrail
+iLogicVb.UpdateWhenDone = <span class="kw">True</span>
+    </div>
+    <p>One master model. Infinite variants. No file duplication. No version control nightmare.</p>
+  </div>
+
+  <h2>What These Examples Have in Common</h2>
+  <p>Every example above shares the same pattern: <strong>engineer inputs one or two values → iLogic handles everything else.</strong> That's the core promise of CAD automation with iLogic — you define the logic once, and it runs reliably every time.</p>
+  <p>All five examples are covered in CAD Automator's live iLogic training program. You won't just see these examples — you'll build them yourself, inside your own Inventor, with a trainer watching and guiding in real time.</p>
+
+  <div class="blog-cta">
+    <h3>Build These Automations Yourself</h3>
+    <p>CAD Automator's iLogic training teaches you to build real-world automation — not toy examples. 50+ hours, 19 modules, live instruction.</p>
+    <a href="../index.html#pricing" class="btn btn-neon btn-xl">⚡ View Course &amp; Enroll</a>
+    <br><br>
+    <a href="../index.html#demo" class="btn btn-ghost">👀 See the Interactive Demo</a>
+  </div>
+
+</article>
+
+<footer class="footer" style="margin-top:0">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <a href="../index.html" class="logo"><svg width="22" height="22" viewBox="0 0 28 28" fill="none"><polygon points="14,2 26,8 26,20 14,26 2,20 2,8" fill="none" stroke="#00d4ff" stroke-width="1.5"/><circle cx="14" cy="14" r="3" fill="#00d4ff"/></svg><span>CAD<span class="logo-accent">Automator</span></span></a>
+      <p>Professional live iLogic training for mechanical engineers.</p>
+    </div>
+    <div class="footer-links">
+      <div class="fl-col">
+        <h4>Blog</h4>
+        <a href="what-is-ilogic.html">What is iLogic?</a>
+        <a href="ilogic-training-guide.html">iLogic Training Guide</a>
+        <a href="cad-automation-examples.html">CAD Automation Examples</a>
+      </div>
+      <div class="fl-col">
+        <h4>Course</h4>
+        <a href="../index.html#structure">Curriculum</a>
+        <a href="../index.html#pricing">Pricing</a>
+        <a href="../index.html#demo">Live Demo</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-copy"><p>&copy; 2026 CAD Automator · <a href="https://cadautomator.com" style="color:var(--mid)">cadautomator.com</a></p></div>
+</footer>
+
+</body>
+</html>

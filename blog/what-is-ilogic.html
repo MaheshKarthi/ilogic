@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>What is iLogic? Complete Guide to Autodesk Inventor Automation | CAD Automator</title>
+  <meta name="description" content="What is iLogic? iLogic is Autodesk Inventor's built-in automation tool. Learn what iLogic does, how it works, and why every Inventor engineer needs to know it." />
+  <meta name="keywords" content="what is ilogic, ilogic autodesk inventor, ilogic automation, inventor ilogic explained" />
+  <link rel="canonical" href="https://cadautomator.com/blog/what-is-ilogic" />
+  <meta property="og:title" content="What is iLogic? Complete Guide to Autodesk Inventor Automation" />
+  <meta property="og:description" content="iLogic is Autodesk Inventor's built-in CAD automation engine. This guide explains what iLogic is, what it can do, and how to get started." />
+  <meta property="og:url" content="https://cadautomator.com/blog/what-is-ilogic" />
+  <meta property="og:type" content="article" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "What is iLogic? Complete Guide to Autodesk Inventor Automation",
+    "description": "iLogic is Autodesk Inventor's built-in CAD automation engine. Learn what iLogic is, what it can do, and why every mechanical engineer should learn it.",
+    "author": { "@type": "Organization", "name": "CAD Automator", "url": "https://cadautomator.com" },
+    "publisher": { "@type": "Organization", "name": "CAD Automator", "url": "https://cadautomator.com" },
+    "datePublished": "2026-05-15",
+    "mainEntityOfPage": "https://cadautomator.com/blog/what-is-ilogic"
+  }
+  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-97KYLBNP5W"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-97KYLBNP5W');</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .blog-hero { padding: 120px 0 60px; background: var(--dark2); border-bottom: 1px solid rgba(255,255,255,.06); }
+    .blog-meta { display:flex; gap:16px; align-items:center; margin-bottom:24px; flex-wrap:wrap; }
+    .blog-tag { background:rgba(0,212,255,.1); color:var(--blue); border:1px solid rgba(0,212,255,.3); padding:4px 12px; border-radius:20px; font-size:.75rem; font-weight:600; }
+    .blog-date { color:var(--mid); font-size:.85rem; }
+    .blog-read { color:var(--mid); font-size:.85rem; }
+    .blog-title { font-size:clamp(1.8rem,4vw,3rem); font-weight:900; color:var(--white); line-height:1.2; margin-bottom:20px; }
+    .blog-intro { font-size:1.1rem; color:var(--light); line-height:1.8; max-width:700px; }
+    .blog-body { max-width:780px; margin:0 auto; padding:60px 24px 80px; }
+    .blog-body h2 { font-size:1.6rem; font-weight:800; color:var(--white); margin:48px 0 16px; }
+    .blog-body h3 { font-size:1.15rem; font-weight:700; color:var(--blue); margin:32px 0 12px; }
+    .blog-body p { color:var(--light); line-height:1.9; margin-bottom:18px; font-size:.97rem; }
+    .blog-body ul, .blog-body ol { padding-left:24px; margin-bottom:18px; }
+    .blog-body li { color:var(--light); line-height:1.8; margin-bottom:8px; font-size:.97rem; }
+    .blog-body strong { color:var(--white); }
+    .blog-code { background:var(--dark3); border:1px solid rgba(0,212,255,.2); border-radius:10px; padding:20px 24px; font-family:'JetBrains Mono',monospace; font-size:.85rem; color:#e2e8f0; margin:24px 0; overflow-x:auto; line-height:1.7; }
+    .blog-code .kw { color:#00d4ff; } .blog-code .str { color:#39ff14; } .blog-code .cm { color:#64748b; }
+    .blog-cta { background:linear-gradient(135deg,var(--dark3),var(--dark2)); border:1px solid rgba(0,212,255,.25); border-radius:20px; padding:40px; text-align:center; margin:48px 0 0; }
+    .blog-cta h3 { font-size:1.4rem; font-weight:800; color:var(--white); margin-bottom:12px; }
+    .blog-cta p { color:var(--mid); margin-bottom:24px; }
+    .blog-nav-bar { background:var(--dark2); padding:16px 0; border-bottom:1px solid rgba(255,255,255,.06); }
+    .blog-nav-inner { max-width:1200px; margin:0 auto; padding:0 24px; display:flex; justify-content:space-between; align-items:center; }
+    .back-link { color:var(--mid); text-decoration:none; font-size:.85rem; display:flex; align-items:center; gap:6px; }
+    .back-link:hover { color:var(--blue); }
+    .callout { background:rgba(0,212,255,.06); border-left:3px solid var(--blue); border-radius:0 8px 8px 0; padding:16px 20px; margin:24px 0; }
+    .callout p { margin:0; color:var(--light); }
+  </style>
+</head>
+<body>
+
+<nav class="blog-nav-bar">
+  <div class="blog-nav-inner">
+    <a href="../index.html" class="logo"><svg width="22" height="22" viewBox="0 0 28 28" fill="none"><polygon points="14,2 26,8 26,20 14,26 2,20 2,8" fill="none" stroke="#00d4ff" stroke-width="1.5"/><circle cx="14" cy="14" r="3" fill="#00d4ff"/></svg><span>CAD<span class="logo-accent">Automator</span></span></a>
+    <a href="../index.html#pricing" class="btn btn-neon" style="font-size:.8rem;padding:8px 18px">⚡ Enroll Now</a>
+  </div>
+</nav>
+
+<section class="blog-hero">
+  <div class="container">
+    <div class="blog-meta">
+      <span class="blog-tag">iLogic</span>
+      <span class="blog-tag">CAD Automation</span>
+      <span class="blog-date">May 15, 2026</span>
+      <span class="blog-read">⏱ 6 min read</span>
+    </div>
+    <h1 class="blog-title">What is iLogic? Complete Guide to<br>Autodesk Inventor Automation</h1>
+    <p class="blog-intro">iLogic is one of the most powerful — and most underused — tools in Autodesk Inventor. This guide explains exactly what iLogic is, what it can automate, and why it's becoming an essential skill for mechanical engineers.</p>
+  </div>
+</section>
+
+<article class="blog-body">
+
+  <h2>What is iLogic?</h2>
+  <p><strong>iLogic is Autodesk Inventor's built-in CAD automation tool.</strong> It allows mechanical engineers to write rules — small programs — that automatically control part dimensions, suppress or activate features, populate Bills of Materials, update iProperties, and generate drawings, all without manual intervention.</p>
+  <p>Unlike third-party plugins or external scripts, iLogic is fully integrated inside Inventor. There's nothing to install. Every licensed copy of Autodesk Inventor includes iLogic out of the box.</p>
+
+  <div class="callout"><p>💡 <strong>Simple definition:</strong> iLogic lets you tell Inventor "if the load rating is 10 tonnes, use a 200×100 RHS beam" — and Inventor does it automatically, every time.</p></div>
+
+  <h2>What Can iLogic Automate?</h2>
+  <p>iLogic can automate almost any repetitive task inside Autodesk Inventor. Here are the most common use cases:</p>
+
+  <h3>1. Parametric Design Automation</h3>
+  <p>Drive part dimensions, sketch constraints, and assembly configurations automatically based on input parameters. Change one value — iLogic updates the entire model.</p>
+
+  <h3>2. Feature Control</h3>
+  <p>Automatically suppress or activate Inventor features based on product configuration. For example: include lifting lugs only when load rating exceeds 5 tonnes.</p>
+
+  <h3>3. iProperties Auto-Fill</h3>
+  <p>Automatically populate Part Number, Description, Revision, Material, and custom properties across every part in an assembly. No more manual title block filling.</p>
+
+  <h3>4. BOM Generation</h3>
+  <p>Read component data from assemblies and auto-generate Bills of Materials with part numbers, quantities, and materials — all pulled from iProperties.</p>
+
+  <h3>5. Drawing Automation</h3>
+  <p>Automatically create drawing views, add dimensions, populate title blocks, and export to PDF — triggered by a single iLogic rule.</p>
+
+  <h3>6. Excel Integration</h3>
+  <p>Read product data from Excel spreadsheets and drive Inventor models directly from a data table. Ideal for product configurators and variant management.</p>
+
+  <h2>How Does iLogic Work?</h2>
+  <p>iLogic rules are written in a simplified VBA-like syntax. You don't need to be a programmer — if you can write an engineering specification ("if X then Y"), you can write an iLogic rule.</p>
+
+  <p>Here's a simple example of an iLogic rule:</p>
+
+  <div class="blog-code">
+<span class="cm">' Rule: Set beam size based on load rating</span>
+<span class="kw">If</span> Parameter(<span class="str">"LoadRating"</span>) = <span class="kw">10</span> <span class="kw">Then</span>
+  Parameter(<span class="str">"BeamHeight"</span>) = <span class="kw">200</span>
+  Parameter(<span class="str">"BeamWidth"</span>)  = <span class="kw">100</span>
+  Parameter(<span class="str">"WallThickness"</span>) = <span class="kw">8</span>
+<span class="kw">ElseIf</span> Parameter(<span class="str">"LoadRating"</span>) = <span class="kw">20</span> <span class="kw">Then</span>
+  Parameter(<span class="str">"BeamHeight"</span>) = <span class="kw">300</span>
+  Parameter(<span class="str">"BeamWidth"</span>)  = <span class="kw">200</span>
+  Parameter(<span class="str">"WallThickness"</span>) = <span class="kw">12</span>
+<span class="kw">End If</span>
+iLogicVb.UpdateWhenDone = <span class="kw">True</span>
+  </div>
+
+  <p>This rule runs instantly whenever the LoadRating parameter changes — updating three dimensions in one shot.</p>
+
+  <h2>iLogic vs Macros vs Add-ins</h2>
+  <p>Engineers often confuse iLogic with Inventor macros or VBA add-ins. Here's the key difference:</p>
+  <ul>
+    <li><strong>iLogic</strong> — built into Inventor, designed for engineers, event-driven, no installation needed</li>
+    <li><strong>VBA Macros</strong> — lower level, requires more programming knowledge, no native UI</li>
+    <li><strong>Add-ins (.dll)</strong> — most powerful but requires full .NET programming, compiled code</li>
+  </ul>
+  <p>For 90% of CAD automation tasks, iLogic is the right tool. It's the fastest to learn and the most practical for day-to-day engineering work.</p>
+
+  <h2>Who Should Learn iLogic?</h2>
+  <p>iLogic training is most valuable for:</p>
+  <ul>
+    <li>Mechanical engineers using Autodesk Inventor daily</li>
+    <li>CAD managers wanting to standardise design workflows</li>
+    <li>Engineers building product configurators</li>
+    <li>Design teams dealing with high-variant, repetitive products</li>
+    <li>Anyone who spends more than 2 hours per week on repetitive CAD tasks</li>
+  </ul>
+
+  <h2>How Long Does It Take to Learn iLogic?</h2>
+  <p>With structured iLogic training, most engineers can write working automation rules within their first 2–3 sessions. A complete iLogic training program covering all major features — parameters, feature control, iProperties, BOM automation, drawing output, and Excel integration — takes approximately 50 hours of live instruction.</p>
+  <p>At CAD Automator, our iLogic training program is structured across 19 modules and ~50 hours of live sessions, taking engineers from zero to confident automation in one complete programme.</p>
+
+  <h2>Getting Started with iLogic</h2>
+  <p>To start using iLogic in Autodesk Inventor:</p>
+  <ol>
+    <li>Open Inventor → go to the <strong>Manage</strong> tab</li>
+    <li>Click <strong>iLogic</strong> → <strong>Add Rule</strong></li>
+    <li>Name your rule and start writing in the editor</li>
+    <li>Click <strong>Run</strong> to execute the rule</li>
+  </ol>
+  <p>The iLogic editor includes auto-complete for Inventor parameters and a browser panel showing all rules in your document. It's designed to be accessible even for engineers with no prior coding experience.</p>
+
+  <div class="blog-cta">
+    <h3>Ready to Master iLogic?</h3>
+    <p>Join CAD Automator's live iLogic training — 50+ hours, 19 modules, real projects. Engineers from India, UAE and UK have transformed their workflows with this program.</p>
+    <a href="../index.html#pricing" class="btn btn-neon btn-xl">⚡ View Course &amp; Enroll</a>
+    <br><br>
+    <a href="../index.html#demo" class="btn btn-ghost">👀 See Live iLogic Demo First</a>
+  </div>
+
+</article>
+
+<footer class="footer" style="margin-top:0">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <a href="../index.html" class="logo"><svg width="22" height="22" viewBox="0 0 28 28" fill="none"><polygon points="14,2 26,8 26,20 14,26 2,20 2,8" fill="none" stroke="#00d4ff" stroke-width="1.5"/><circle cx="14" cy="14" r="3" fill="#00d4ff"/></svg><span>CAD<span class="logo-accent">Automator</span></span></a>
+      <p>Professional live iLogic training for mechanical engineers.</p>
+    </div>
+    <div class="footer-links">
+      <div class="fl-col">
+        <h4>Blog</h4>
+        <a href="what-is-ilogic.html">What is iLogic?</a>
+        <a href="ilogic-training-guide.html">iLogic Training Guide</a>
+        <a href="cad-automation-examples.html">CAD Automation Examples</a>
+      </div>
+      <div class="fl-col">
+        <h4>Course</h4>
+        <a href="../index.html#structure">Curriculum</a>
+        <a href="../index.html#pricing">Pricing</a>
+        <a href="../index.html#demo">Live Demo</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-copy"><p>&copy; 2026 CAD Automator · <a href="https://cadautomator.com" style="color:var(--mid)">cadautomator.com</a></p></div>
+</footer>
+
+</body>
+</html>

@@ -1314,6 +1314,27 @@ strong { color: var(--white); }
 .form-success-msg.visible { display: block; animation: fadeIn .4s ease; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
 
+/* ── Blog Section ─────────────────────────────────────────── */
+.blog-section { background: var(--dark2); }
+.blog-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+.blog-card {
+  background: var(--dark3);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 18px;
+  padding: 28px;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: border-color .2s, transform .2s;
+}
+.blog-card:hover { border-color: rgba(0,212,255,.35); transform: translateY(-4px); }
+.bc-tag { display:inline-block; background:rgba(0,212,255,.1); color:var(--blue); border:1px solid rgba(0,212,255,.25); padding:3px 10px; border-radius:12px; font-size:.72rem; font-weight:700; letter-spacing:.05em; align-self:flex-start; }
+.blog-card h3 { font-size:1rem; font-weight:700; color:var(--white); line-height:1.4; margin:0; }
+.blog-card p { font-size:.85rem; color:var(--mid); line-height:1.7; margin:0; flex:1; }
+.bc-read { font-size:.8rem; color:var(--blue); font-weight:600; }
+@media(max-width:900px){ .blog-cards{ grid-template-columns:1fr; } }
+
 /* ── What is iLogic Section ───────────────────────────────── */
 .whatis-section { background: var(--dark2); }
 .whatis-grid {
