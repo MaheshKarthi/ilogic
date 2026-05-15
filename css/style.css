@@ -1670,4 +1670,48 @@ strong { color: var(--white); }
   .hero-ctas { flex-direction: column; align-items: center; }
   .cta-buttons { flex-direction: column; align-items: center; }
   .contact-form-wrap { padding: 24px 20px; }
+
+  /* ── Pricing card ── */
+  .price-card { padding: 28px 20px; }
+  .price-amount { font-size: 3.5rem; letter-spacing: -1px; }
+  .price-currency { font-size: 1.5rem; margin-top: 10px; }
+
+  /* ── Demo panel ── */
+  .demo-panel { padding: 20px 16px; }
+  .demo-panel.active { grid-template-columns: 1fr; gap: 24px; }
+  .demo-tab { padding: 10px 14px; font-size: .78rem; }
+
+  /* ── Blog cards on homepage ── */
+  .blog-card { padding: 22px 18px; }
+
+  /* ── FAQ ── */
+  .faq-q { font-size: .92rem; }
+
+  /* ── Buttons ── */
+  .btn-xl { padding: 14px 24px; font-size: .95rem; }
+  .btn { font-size: .85rem; }
+}
+
+/* ── Extra small (≤480px) ───────────────────────────────── */
+@media (max-width: 480px) {
+  .nav-inner { padding: 0 16px; }
+  .hero { padding: 110px 16px 60px; }
+  .hero-title { font-size: 1.9rem; line-height: 1.15; }
+  .hero-sub { font-size: .95rem; }
+  .container { padding: 0 16px; }
+  .section-title { font-size: clamp(1.5rem, 6vw, 2rem); }
+
+  .price-card { padding: 24px 16px; }
+  .price-amount { font-size: 3rem; }
+  .price-display { gap: 2px; }
+
+  .become-grid { grid-template-columns: 1fr; }
+  .testi-grid  { grid-template-columns: 1fr; }
+
+  /* Demo SVG — scale down to fit */
+  #skidSvg { width: 100%; height: auto; max-width: 100%; }
+  .demo-output { overflow-x: auto; }
+
+  /* Enroll form full-width */
+  .ef-row { grid-template-columns: 1fr; }
 }
