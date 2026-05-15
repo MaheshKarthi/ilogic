@@ -243,7 +243,7 @@ strong { color: var(--white); }
   transition: color .2s;
 }
 .nav-links a:hover { color: var(--white); }
-.nav-blog-link { color: var(--blue) !important; border: 1px solid rgba(0,212,255,.25); border-radius: 20px; padding: 4px 12px !important; }
+.nav-blog-link { color: var(--blue) !important; border: 1px solid rgba(0,212,255,.25); border-radius: 20px; padding: 4px 12px !important; white-space: nowrap; }
 
 .nav-actions { display: flex; gap: 10px; margin-left: 16px; }
 
