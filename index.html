@@ -1249,14 +1249,15 @@ iLogicVb.UpdateWhenDone = <span class="kw">True</span></code></pre>
     <p class="cta-sub">Master iLogic, understand automation, and future-proof your engineering career.<br>Join engineers who are building the future — not just watching it happen.</p>
 
     <div class="cta-buttons">
-      <a href="#contact-form" class="btn btn-neon btn-xl pulse-btn">⚡ Enroll Now</a>
+      <button type="button" class="btn btn-neon btn-xl pulse-btn" onclick="openPayment()">⚡ Enroll &amp; Pay Now</button>
       <a href="#book-demo" class="btn btn-ghost btn-xl" onclick="openDemoModal()">📅 Book a Demo</a>
-      <a href="#structure" class="btn btn-outline btn-xl">📋 View Curriculum</a>
+      <a href="#contact-form" class="btn btn-outline btn-xl">❓ Have Questions?</a>
     </div>
 
     <!-- Contact Form -->
     <div class="contact-form-wrap" id="contact-form">
-      <h3>Reserve Your Spot</h3>
+      <h3>Have Questions First?</h3>
+      <p style="color:var(--mid);font-size:.88rem;margin-bottom:20px">Leave your details — we'll call or WhatsApp you within 24 hours.</p>
       <form id="enrollForm" class="enroll-form"
             name="reserve-spot"
             method="POST"
@@ -1286,11 +1287,11 @@ iLogicVb.UpdateWhenDone = <span class="kw">True</span></code></pre>
             </select>
           </div>
         </div>
-        <button type="button" class="btn btn-neon btn-xl" style="width:100%" onclick="payAndEnroll(this)">
-          ⚡ Pay &amp; Reserve My Seat
+        <button type="submit" class="btn btn-ghost btn-xl" style="width:100%">
+          📩 Send — We'll Contact You
         </button>
         <div class="form-success-msg" id="formSuccess">
-          🎉 Awesome! We'll contact you within 24 hours with batch details.
+          🎉 Got it! We'll WhatsApp or call you within 24 hours.
         </div>
       </form>
     </div>

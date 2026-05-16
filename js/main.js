@@ -490,8 +490,13 @@ function openPayment() {
     notes: { source: 'cadautomator.com' },
     theme: { color: '#00d4ff' },
     handler: function(response) {
-      var msg = document.getElementById('formSuccess');
-      if (msg) { msg.textContent = '🎉 Payment successful! Payment ID: ' + response.razorpay_payment_id + '. We\'ll send your batch details within 24 hours.'; msg.classList.add('visible'); }
+      // Submit a silent lead record to Netlify with the payment ID
+      var fd = new FormData();
+      fd.append('form-name', 'reserve-spot');
+      fd.append('razorpay_payment_id', response.razorpay_payment_id);
+      fetch('/', { method: 'POST', body: fd }).catch(function() {});
+      // Show success
+      alert('🎉 Payment successful!\n\nPayment ID: ' + response.razorpay_payment_id + '\n\nWe will WhatsApp you your batch details within 24 hours. Thank you!');
     }
   };
 
