@@ -428,7 +428,7 @@ if (mascot && bubble) {
    ══════════════════════════════════════════════════════════ */
 
 /* ── Config — replace key when Razorpay account is ready ── */
-var RAZORPAY_KEY  = 'rzp_test_YOUR_KEY_HERE'; // ← paste your Key ID here
+var RAZORPAY_KEY  = 'rzp_test_oGb6qzW8qfCM3s';
 var PRICE_INR     = 18999;   // ₹18,999
 var PRICE_USD     = 349;     // $349
 var isIndia       = true;    // default; updated by IP detection below
