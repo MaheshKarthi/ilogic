@@ -5,3 +5,9 @@
   from = "/*"
   to   = "/index.html"
   status = 200
+
+[forms]
+  [forms.submissions]
+    notifications = [
+      { event = "submission", type = "email", email = "connect@cadautomator.com" }
+    ]
