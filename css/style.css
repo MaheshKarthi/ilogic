@@ -1736,3 +1736,145 @@ strong { color: var(--white); }
   /* Enroll form full-width */
   .ef-row { grid-template-columns: 1fr; }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   CLEAN PRO THEME  — Light section overrides
+   Theme name: "Clean Pro"  |  Dark base: "Dark Engine"
+   lts  = light section (white)
+   lts-alt = light section alternate (soft grey)
+═══════════════════════════════════════════════════════════ */
+
+/* Base light section */
+.lts {
+  background: #ffffff;
+}
+.lts-alt {
+  background: #f8fafc;
+}
+
+/* ── Typography in light sections ── */
+.lts .section-title,
+.lts-alt .section-title { color: #0f172a; }
+
+.lts .section-sub,
+.lts-alt .section-sub { color: #64748b; }
+
+.lts strong,
+.lts-alt strong { color: #0f172a; }
+
+.lts p,
+.lts-alt p { color: #475569; }
+
+.lts h2, .lts h3, .lts h4,
+.lts-alt h2, .lts-alt h3, .lts-alt h4 { color: #0f172a; }
+
+/* ── Section chips / badges ── */
+.lts .section-chip,
+.lts-alt .section-chip { background: rgba(2,132,199,.08); border-color: rgba(2,132,199,.2); }
+
+/* ── Why iLogic cards ── */
+.lts .why-card,
+.lts-alt .why-card {
+  background: #ffffff;
+  border-color: #e2e8f0;
+  box-shadow: 0 1px 4px rgba(0,0,0,.06);
+}
+.lts .why-card:hover,
+.lts-alt .why-card:hover { border-color: #0ea5e9; box-shadow: 0 4px 20px rgba(14,165,233,.12); }
+.lts .why-card-title,
+.lts-alt .why-card-title { color: #0f172a; }
+.lts .why-card p,
+.lts-alt .why-card p { color: #475569; }
+
+/* ── Analogy block ── */
+.lts .analogy-block,
+.lts-alt .analogy-block { background: #f1f5f9; border-color: #e2e8f0; }
+.lts .analogy-item h4,
+.lts-alt .analogy-item h4 { color: #0f172a; }
+.lts .analogy-icon,
+.lts-alt .analogy-icon { color: #0ea5e9; }
+
+/* ── How I Teach ── */
+.lts .ws-card,
+.lts-alt .ws-card { background: #ffffff; border-color: #e2e8f0; }
+.lts .ws-num,
+.lts-alt .ws-num { color: #0ea5e9; }
+.lts .teach-right,
+.lts-alt .teach-right { color: #475569; }
+
+/* ── Structure / Curriculum cards ── */
+.lts .curr-card,
+.lts-alt .curr-card {
+  background: #ffffff;
+  border-color: #e2e8f0;
+  box-shadow: 0 1px 4px rgba(0,0,0,.05);
+}
+.lts .curr-card:hover,
+.lts-alt .curr-card:hover { border-color: #0ea5e9; }
+.lts .curr-title,
+.lts-alt .curr-title { color: #0f172a; }
+.lts .curr-desc,
+.lts-alt .curr-desc { color: #64748b; }
+.lts .curr-stats,
+.lts-alt .curr-stats { border-color: #e2e8f0; }
+.lts .curr-stat-val,
+.lts-alt .curr-stat-val { color: #0f172a; }
+.lts .not-recorded-banner,
+.lts-alt .not-recorded-banner { background: #fff7ed; border-color: #fed7aa; }
+.lts .nr-label, .lts .nr-text,
+.lts-alt .nr-label, .lts-alt .nr-text { color: #9a3412; }
+
+/* ── Testimonial cards ── */
+.lts .testi-card,
+.lts-alt .testi-card {
+  background: #ffffff;
+  border-color: #e2e8f0;
+  box-shadow: 0 2px 8px rgba(0,0,0,.06);
+}
+.lts .testi-text,
+.lts-alt .testi-text { color: #334155; }
+.lts .testi-name,
+.lts-alt .testi-name { color: #0f172a; }
+.lts .testi-role,
+.lts-alt .testi-role { color: #64748b; }
+
+/* ── Become section cards ── */
+.lts .bc-card,
+.lts-alt .bc-card { background: #ffffff; border-color: #e2e8f0; }
+.lts .bc-label,
+.lts-alt .bc-label { color: #0f172a; }
+
+/* ── FAQ ── */
+.lts .faq-item,
+.lts-alt .faq-item { background: #ffffff; border-color: #e2e8f0; }
+.lts .faq-item.open,
+.lts-alt .faq-item.open { border-color: #0ea5e9; }
+.lts .faq-q,
+.lts-alt .faq-q { color: #0f172a; }
+.lts .faq-a,
+.lts-alt .faq-a { color: #475569; }
+.lts .faq-arrow,
+.lts-alt .faq-arrow { color: #0ea5e9; }
+
+/* ── Blog cards ── */
+.lts .blog-card,
+.lts-alt .blog-card {
+  background: #ffffff;
+  border-color: #e2e8f0;
+  box-shadow: 0 1px 4px rgba(0,0,0,.05);
+}
+.lts .blog-card:hover,
+.lts-alt .blog-card:hover { border-color: #0ea5e9; box-shadow: 0 4px 16px rgba(14,165,233,.1); }
+.lts .blog-card h3,
+.lts-alt .blog-card h3 { color: #0f172a; }
+.lts .blog-card p,
+.lts-alt .blog-card p { color: #64748b; }
+
+/* ── Callout / whatis section ── */
+.lts .ws-num, .lts-alt .ws-num { opacity: .7; }
+
+/* ── Dividers between dark and light ── */
+.lts, .lts-alt {
+  border-top: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e2e8f0;
+}
