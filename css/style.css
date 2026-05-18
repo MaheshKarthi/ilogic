@@ -1744,12 +1744,12 @@ strong { color: var(--white); }
    lts-alt = light section alternate (soft grey)
 ═══════════════════════════════════════════════════════════ */
 
-/* Base light section */
+/* Base light section — !important ensures dark section classes don't override */
 .lts {
-  background: #ffffff;
+  background: #ffffff !important;
 }
 .lts-alt {
-  background: #f8fafc;
+  background: #f8fafc !important;
 }
 
 /* ── Typography in light sections ── */
