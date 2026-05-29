@@ -2,6 +2,34 @@
    CAD Automator – main.js
    ═══════════════════════════════════════════════════════════ */
 
+/* ── Theme Toggle ────────────────────────────────────────── */
+(function() {
+  var saved = localStorage.getItem('ca-theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', saved);
+})();
+
+function initThemeToggle() {
+  var btn = document.getElementById('themeToggle');
+  if (!btn) return;
+  var html = document.documentElement;
+
+  function updateUI(theme) {
+    html.setAttribute('data-theme', theme);
+    btn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+    localStorage.setItem('ca-theme', theme);
+  }
+
+  // Set initial state
+  updateUI(html.getAttribute('data-theme') || 'dark');
+
+  btn.addEventListener('click', function() {
+    var next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    updateUI(next);
+  });
+}
+
+document.addEventListener('DOMContentLoaded', initThemeToggle);
+
 /* ── Cursor Glow ─────────────────────────────────────────── */
 const cursorGlow = document.getElementById('cursorGlow');
 document.addEventListener('mousemove', function(e) {

@@ -1738,11 +1738,298 @@ strong { color: var(--white); }
 }
 
 /* ═══════════════════════════════════════════════════════════
-   CLEAN PRO THEME  — Light section overrides
-   Theme name: "Clean Pro"  |  Dark base: "Dark Engine"
-   lts  = light section (white)
-   lts-alt = light section alternate (soft grey)
+   THEME SYSTEM
+   Dark Engine  →  data-theme="dark"  (default)
+   Clean Pro    →  data-theme="light"
+   Toggle persisted in localStorage key: ca-theme
 ═══════════════════════════════════════════════════════════ */
+
+/* ── Smooth theme transition on all elements ── */
+*, *::before, *::after {
+  transition: background-color .35s ease, border-color .25s ease,
+              color .25s ease, box-shadow .35s ease;
+}
+/* Don't slow down animations/transforms */
+.orb, .float-code, .float-cad, .cursor-glow, canvas,
+[class*="anim"], [class*="pulse"], [class*="spin"] {
+  transition: none !important;
+}
+
+/* ── Theme toggle button ── */
+.theme-toggle {
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 24px;
+  padding: 5px 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  position: relative;
+  width: 56px;
+  height: 28px;
+  flex-shrink: 0;
+  transition: background .3s, border-color .3s;
+}
+.theme-toggle:hover { background: rgba(255,255,255,.1); border-color: rgba(0,212,255,.4); }
+.toggle-track { position: relative; width: 100%; height: 100%; display: flex; align-items: center; }
+.toggle-thumb {
+  position: absolute;
+  left: 2px;
+  width: 22px;
+  height: 22px;
+  background: var(--blue);
+  border-radius: 50%;
+  transition: transform .35s cubic-bezier(.4,0,.2,1), background .3s;
+  box-shadow: 0 0 8px rgba(0,212,255,.5);
+}
+.toggle-sun, .toggle-moon {
+  position: absolute;
+  font-size: .7rem;
+  line-height: 1;
+  transition: opacity .25s;
+}
+.toggle-sun  { left: 5px;  opacity: 0; }
+.toggle-moon { right: 5px; opacity: 1; }
+
+[data-theme="light"] .toggle-thumb {
+  transform: translateX(28px);
+  background: #f59e0b;
+  box-shadow: 0 0 8px rgba(245,158,11,.5);
+}
+[data-theme="light"] .toggle-sun  { opacity: 1; }
+[data-theme="light"] .toggle-moon { opacity: 0; }
+[data-theme="light"] .theme-toggle {
+  background: rgba(15,23,42,.06);
+  border-color: rgba(15,23,42,.15);
+}
+[data-theme="light"] .theme-toggle:hover { border-color: #f59e0b; }
+
+/* ══════════════════════════════════════════════════════════
+   CLEAN PRO — LIGHT THEME VARIABLES
+   All CSS variables redefined for light mode.
+   Components automatically pick up new values.
+══════════════════════════════════════════════════════════ */
+[data-theme="light"] {
+  /* Accent colors — adjusted for readability on light bg */
+  --blue:    #0284c7;
+  --blue-dk: #0369a1;
+  --orange:  #ea580c;
+  --green:   #16a34a;
+  --purple:  #7c3aed;
+
+  /* Background layers — soft blue-tinted, not plain white */
+  --dark:   #f0f4ff;
+  --dark2:  #e8edf8;
+  --dark3:  #ffffff;
+
+  /* Text hierarchy */
+  --white:  #0f172a;   /* primary text / headings */
+  --light:  #334155;   /* body text */
+  --mid:    #64748b;   /* secondary / muted */
+
+  /* Borders & surfaces */
+  --border: rgba(15,23,42,.09);
+
+  /* Softer glows for light mode */
+  --glow-blue:   0 4px 20px rgba(2,132,199,.18);
+  --glow-orange: 0 4px 20px rgba(234,88,12,.15);
+  --glow-green:  0 4px 20px rgba(22,163,74,.15);
+}
+
+/* ── Page body ── */
+[data-theme="light"] body {
+  background: #f0f4ff;
+  color: #334155;
+}
+
+/* ── Navbar — stays dark in both themes for contrast ── */
+[data-theme="light"] .navbar {
+  background: rgba(2,8,23,.96);
+  border-bottom-color: rgba(255,255,255,.06);
+}
+
+/* ── Hero — stays dark for dramatic impact ── */
+[data-theme="light"] .hero {
+  background: #020817;
+}
+[data-theme="light"] .hero-bg-grid { opacity: .6; }
+
+/* ── Section chips ── */
+[data-theme="light"] .section-chip {
+  background: rgba(2,132,199,.08);
+  color: #0284c7;
+  border-color: rgba(2,132,199,.2);
+}
+[data-theme="light"] .chip-orange { background: rgba(234,88,12,.08); color: #ea580c; border-color: rgba(234,88,12,.2); }
+[data-theme="light"] .chip-green  { background: rgba(22,163,74,.08);  color: #16a34a; border-color: rgba(22,163,74,.2); }
+
+/* ── Why iLogic cards ── */
+[data-theme="light"] .why-card {
+  background: #ffffff;
+  border-color: #dde3f0;
+  box-shadow: 0 2px 12px rgba(15,23,42,.06);
+}
+[data-theme="light"] .why-card:hover {
+  border-color: #0284c7;
+  box-shadow: 0 6px 28px rgba(2,132,199,.14);
+}
+[data-theme="light"] .analogy-block {
+  background: #ffffff;
+  border-color: #dde3f0;
+  box-shadow: 0 2px 12px rgba(15,23,42,.06);
+}
+[data-theme="light"] .analogy-icon { filter: none; }
+
+/* ── How I Teach ── */
+[data-theme="light"] .teach-section { background: #e8edf8; }
+[data-theme="light"] .ws-card {
+  background: #ffffff;
+  border-color: #dde3f0;
+  box-shadow: 0 2px 10px rgba(15,23,42,.06);
+}
+
+/* ── Curriculum / Structure ── */
+[data-theme="light"] .curr-card {
+  background: #ffffff;
+  border-color: #dde3f0;
+  box-shadow: 0 2px 10px rgba(15,23,42,.05);
+}
+[data-theme="light"] .curr-card:hover {
+  border-color: #0284c7;
+  box-shadow: 0 6px 24px rgba(2,132,199,.12);
+  transform: translateY(-3px);
+}
+[data-theme="light"] .curr-stats { border-color: #e2e8f0; }
+[data-theme="light"] .not-recorded-banner {
+  background: linear-gradient(135deg, #fff7ed, #fef3c7);
+  border-color: #fed7aa;
+}
+[data-theme="light"] .nr-label { color: #9a3412; }
+[data-theme="light"] .nr-text  { color: #7c2d12; }
+
+/* ── Demo — keep dark wrapper ── */
+[data-theme="light"] .demo-section { background: #f0f4ff; }
+[data-theme="light"] .demo-wrapper {
+  background: #1e293b;
+  border-color: rgba(0,212,255,.2);
+}
+[data-theme="light"] .demo-mobile-notice {
+  background: #1e293b;
+  border-color: rgba(0,212,255,.2);
+}
+
+/* ── Testimonials ── */
+[data-theme="light"] .testi-card {
+  background: #ffffff;
+  border-color: #dde3f0;
+  box-shadow: 0 3px 16px rgba(15,23,42,.07);
+}
+[data-theme="light"] .testi-card:hover { box-shadow: 0 8px 32px rgba(15,23,42,.12); }
+
+/* ── Become / skills section ── */
+[data-theme="light"] .bc-card {
+  background: #ffffff;
+  border-color: #dde3f0;
+  box-shadow: 0 2px 10px rgba(15,23,42,.05);
+}
+[data-theme="light"] .bc-bar { filter: brightness(.9); }
+
+/* ── FAQ ── */
+[data-theme="light"] .faq-item {
+  background: #ffffff;
+  border-color: #dde3f0;
+  box-shadow: 0 1px 6px rgba(15,23,42,.04);
+}
+[data-theme="light"] .faq-item.open {
+  border-color: #0284c7;
+  box-shadow: 0 4px 16px rgba(2,132,199,.1);
+}
+
+/* ── Blog cards ── */
+[data-theme="light"] .blog-card {
+  background: #ffffff;
+  border-color: #dde3f0;
+  box-shadow: 0 2px 10px rgba(15,23,42,.05);
+}
+[data-theme="light"] .blog-card:hover {
+  border-color: #0284c7;
+  box-shadow: 0 6px 24px rgba(2,132,199,.12);
+}
+
+/* ── Buttons ── */
+[data-theme="light"] .btn-neon {
+  background: linear-gradient(135deg, #0284c7, #0369a1);
+  box-shadow: 0 4px 20px rgba(2,132,199,.35);
+  color: #ffffff;
+}
+[data-theme="light"] .btn-neon:hover {
+  box-shadow: 0 6px 28px rgba(2,132,199,.45);
+  transform: translateY(-2px);
+}
+[data-theme="light"] .btn-ghost {
+  border-color: rgba(15,23,42,.2);
+  color: #334155;
+}
+[data-theme="light"] .btn-ghost:hover {
+  background: rgba(15,23,42,.05);
+  border-color: #0284c7;
+  color: #0284c7;
+}
+[data-theme="light"] .btn-outline {
+  border-color: rgba(15,23,42,.2);
+  color: #334155;
+}
+
+/* ── Forms & inputs ── */
+[data-theme="light"] .ef-group input,
+[data-theme="light"] .ef-group select,
+[data-theme="light"] .df-group input,
+[data-theme="light"] .df-group select {
+  background: #f8fafc;
+  border-color: #dde3f0;
+  color: #0f172a;
+}
+[data-theme="light"] .ef-group input:focus,
+[data-theme="light"] .ef-group select:focus,
+[data-theme="light"] .df-group input:focus,
+[data-theme="light"] .df-group select:focus {
+  border-color: #0284c7;
+  box-shadow: 0 0 0 3px rgba(2,132,199,.12);
+}
+[data-theme="light"] .contact-form-wrap {
+  background: #ffffff;
+  border-color: #dde3f0;
+  box-shadow: 0 4px 24px rgba(15,23,42,.08);
+}
+
+/* ── Pricing — keep dark for premium impact ── */
+[data-theme="light"] .pricing-section { background: #020817; }
+
+/* ── Final CTA — keep dark ── */
+[data-theme="light"] .final-cta-section { background: #020817; }
+
+/* ── Footer — keep dark ── */
+[data-theme="light"] .footer { background: #020817; border-top-color: rgba(255,255,255,.06); }
+
+/* ── Mobile menu ── */
+[data-theme="light"] .mobile-menu {
+  background: rgba(15,23,42,.97);
+  backdrop-filter: blur(16px);
+}
+
+/* ── Gradient text stays vibrant ── */
+[data-theme="light"] .gradient-text {
+  background: linear-gradient(135deg, #0284c7, #7c3aed);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ── Scrollbar ── */
+[data-theme="light"] ::-webkit-scrollbar-track { background: #e8edf8; }
+[data-theme="light"] ::-webkit-scrollbar-thumb { background: #94a3b8; }
+[data-theme="light"] ::-webkit-scrollbar-thumb:hover { background: #0284c7; }
 
 /* Base light section — redefine ALL color variables so every child element
    automatically gets dark text without needing individual overrides */
@@ -1769,179 +2056,4 @@ strong { color: var(--white); }
   color: #334155;
 }
 
-/* ── Typography in light sections ── */
-.lts .section-title,
-.lts-alt .section-title { color: #0f172a; }
-
-.lts .section-sub,
-.lts-alt .section-sub { color: #64748b; }
-
-.lts strong,
-.lts-alt strong { color: #0f172a; }
-
-.lts p,
-.lts-alt p { color: #475569; }
-
-.lts h2, .lts h3, .lts h4,
-.lts-alt h2, .lts-alt h3, .lts-alt h4 { color: #0f172a; }
-
-/* ── Section chips / badges ── */
-.lts .section-chip,
-.lts-alt .section-chip { background: rgba(2,132,199,.08); border-color: rgba(2,132,199,.2); }
-
-/* ── Why iLogic cards ── */
-.lts .why-card,
-.lts-alt .why-card {
-  background: #ffffff;
-  border-color: #e2e8f0;
-  box-shadow: 0 1px 4px rgba(0,0,0,.06);
-}
-.lts .why-card:hover,
-.lts-alt .why-card:hover { border-color: #0ea5e9; box-shadow: 0 4px 20px rgba(14,165,233,.12); }
-.lts .why-card-title,
-.lts-alt .why-card-title { color: #0f172a; }
-.lts .why-card p,
-.lts-alt .why-card p { color: #475569; }
-
-/* ── Analogy block ── */
-.lts .analogy-block,
-.lts-alt .analogy-block { background: #f1f5f9; border-color: #e2e8f0; }
-.lts .analogy-item h4,
-.lts-alt .analogy-item h4 { color: #0f172a; }
-.lts .analogy-icon,
-.lts-alt .analogy-icon { color: #0ea5e9; }
-
-/* ── How I Teach ── */
-.lts .ws-card,
-.lts-alt .ws-card { background: #ffffff; border-color: #e2e8f0; }
-.lts .ws-num,
-.lts-alt .ws-num { color: #0ea5e9; }
-.lts .teach-right,
-.lts-alt .teach-right { color: #475569; }
-
-/* ── Structure / Curriculum cards ── */
-.lts .curr-card,
-.lts-alt .curr-card {
-  background: #ffffff;
-  border-color: #e2e8f0;
-  box-shadow: 0 1px 4px rgba(0,0,0,.05);
-}
-.lts .curr-card:hover,
-.lts-alt .curr-card:hover { border-color: #0ea5e9; }
-.lts .curr-title,
-.lts-alt .curr-title { color: #0f172a; }
-.lts .curr-desc,
-.lts-alt .curr-desc { color: #64748b; }
-.lts .curr-stats,
-.lts-alt .curr-stats { border-color: #e2e8f0; }
-.lts .curr-stat-val,
-.lts-alt .curr-stat-val { color: #0f172a; }
-.lts .not-recorded-banner,
-.lts-alt .not-recorded-banner { background: #fff7ed; border-color: #fed7aa; }
-.lts .nr-label, .lts .nr-text,
-.lts-alt .nr-label, .lts-alt .nr-text { color: #9a3412; }
-
-/* ── Testimonial cards ── */
-.lts .testi-card,
-.lts-alt .testi-card {
-  background: #ffffff;
-  border-color: #e2e8f0;
-  box-shadow: 0 2px 8px rgba(0,0,0,.06);
-}
-.lts .testi-text,
-.lts-alt .testi-text { color: #334155; }
-.lts .testi-name,
-.lts-alt .testi-name { color: #0f172a; }
-.lts .testi-role,
-.lts-alt .testi-role { color: #64748b; }
-
-/* ── Become section cards ── */
-.lts .bc-card,
-.lts-alt .bc-card { background: #ffffff; border-color: #e2e8f0; }
-.lts .bc-label,
-.lts-alt .bc-label { color: #0f172a; }
-
-/* ── FAQ ── */
-.lts .faq-item,
-.lts-alt .faq-item { background: #ffffff; border-color: #e2e8f0; }
-.lts .faq-item.open,
-.lts-alt .faq-item.open { border-color: #0ea5e9; }
-.lts .faq-q,
-.lts-alt .faq-q { color: #0f172a; }
-.lts .faq-a,
-.lts-alt .faq-a { color: #475569; }
-.lts .faq-arrow,
-.lts-alt .faq-arrow { color: #0ea5e9; }
-
-/* ── Blog cards ── */
-.lts .blog-card,
-.lts-alt .blog-card {
-  background: #ffffff;
-  border-color: #e2e8f0;
-  box-shadow: 0 1px 4px rgba(0,0,0,.05);
-}
-.lts .blog-card:hover,
-.lts-alt .blog-card:hover { border-color: #0ea5e9; box-shadow: 0 4px 16px rgba(14,165,233,.1); }
-.lts .blog-card h3,
-.lts-alt .blog-card h3 { color: #0f172a; }
-.lts .blog-card p,
-.lts-alt .blog-card p { color: #64748b; }
-
-/* ── Callout / whatis section ── */
-.lts .ws-num, .lts-alt .ws-num { opacity: .7; }
-
-/* ── Dividers between dark and light ── */
-.lts, .lts-alt {
-  border-top: 1px solid #e2e8f0;
-  border-bottom: 1px solid #e2e8f0;
-}
-
-/* ── Fix hardcoded rgba(255,255,255) borders & backgrounds inside light sections ── */
-.lts .why-card,
-.lts-alt .why-card,
-.lts .curr-card,
-.lts-alt .curr-card,
-.lts .testi-card,
-.lts-alt .testi-card,
-.lts .faq-item,
-.lts-alt .faq-item,
-.lts .blog-card,
-.lts-alt .blog-card,
-.lts .bc-card,
-.lts-alt .bc-card {
-  border-color: #e2e8f0 !important;
-}
-
-/* Fix any remaining light-on-light text using var(--light) or var(--mid) */
-.lts li, .lts span, .lts label,
-.lts-alt li, .lts-alt span, .lts-alt label {
-  color: inherit;
-}
-
-/* Nav-style links inside light sections */
-.lts a:not(.btn),
-.lts-alt a:not(.btn) {
-  color: #0ea5e9;
-}
-
-/* Module chips, stat labels etc */
-.lts .curr-stat-label,
-.lts-alt .curr-stat-label { color: #64748b; }
-
-.lts .curr-phase,
-.lts-alt .curr-phase { color: #0ea5e9; }
-
-.lts .ws-label,
-.lts-alt .ws-label { color: #334155; }
-
-/* Analogy block items */
-.lts .analogy-side h4,
-.lts-alt .analogy-side h4 { color: #0f172a; }
-.lts .analogy-side p,
-.lts-alt .analogy-side p { color: #475569; }
-
-/* Become / skill bar section */
-.lts .bc-label,
-.lts-alt .bc-label { color: #0f172a; }
-.lts .bc-skill-label,
-.lts-alt .bc-skill-label { color: #64748b; }
+/* Old .lts/.lts-alt rules removed — replaced by [data-theme="light"] system above */
