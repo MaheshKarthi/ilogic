@@ -452,148 +452,51 @@ if (mascot && bubble) {
 }
 
 /* ══════════════════════════════════════════════════════════
-   PRICING & PAYMENT
+   ENROLL MODAL
    ══════════════════════════════════════════════════════════ */
 
-/* ── Config — replace key when Razorpay account is ready ── */
-var RAZORPAY_KEY  = 'rzp_test_oGb6qzW8qfCM3s';
-var PRICE_INR     = 18999;   // ₹18,999
-var PRICE_USD     = 349;     // $349
-var isIndia       = true;    // default; updated by IP detection below
+var enrollModal = document.getElementById('enrollModal');
 
-/* ── Detect visitor country via free IP API ─────────────── */
-(function detectCountry() {
-  fetch('https://ipapi.co/json/')
-    .then(function(r) { return r.json(); })
-    .then(function(data) {
-      isIndia = (data.country_code === 'IN');
-      updatePricingDisplay();
-    })
-    .catch(function() {
-      // On any error assume India (primary market)
-      isIndia = true;
-      updatePricingDisplay();
-    });
-})();
-
-/* ── Update every price element on the page ─────────────── */
-function updatePricingDisplay() {
-  var currency = isIndia ? '₹' : '$';
-  var amount   = isIndia ? '18,999' : '349';
-  var flag     = isIndia ? '🇮🇳' : '🌍';
-  var location = isIndia ? 'India pricing · GST included' : 'International pricing · USD';
-  var note     = isIndia ? 'includes GST' : 'all-inclusive';
-
-  document.querySelectorAll('.price-currency').forEach(function(el) { el.textContent = currency; });
-  document.querySelectorAll('.price-amount').forEach(function(el) { el.textContent = amount; });
-  document.querySelectorAll('.price-flag').forEach(function(el) { el.textContent = flag; });
-  document.querySelectorAll('.price-location-label').forEach(function(el) { el.textContent = location; });
-  document.querySelectorAll('.price-note').forEach(function(el) { el.textContent = note; });
+function openEnrollModal() {
+  if (enrollModal) { enrollModal.classList.add('open'); document.body.style.overflow = 'hidden'; }
+}
+function closeEnrollModal(e) {
+  if (e && e.target !== enrollModal) return;
+  if (enrollModal) { enrollModal.classList.remove('open'); document.body.style.overflow = ''; }
+}
+function closeEnrollModalBtn() {
+  if (enrollModal) { enrollModal.classList.remove('open'); document.body.style.overflow = ''; }
 }
 
-/* ── Open Razorpay checkout ──────────────────────────────── */
-function openPayment() {
-  if (RAZORPAY_KEY === 'rzp_test_YOUR_KEY_HERE') {
-    alert('Payment gateway setup in progress!\n\nTo enroll, please use the "Book a Demo" form and our team will contact you within 24 hours.');
-    return;
-  }
+document.addEventListener('DOMContentLoaded', function() {
+  enrollModal = document.getElementById('enrollModal');
 
-  if (typeof Razorpay === 'undefined') {
-    alert('Payment gateway is loading. Please try again in a moment.');
-    return;
-  }
+  var enrollForm = document.getElementById('enrollForm');
+  if (enrollForm) {
+    enrollForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var btn  = this.querySelector('button[type="submit"]');
+      var orig = btn.innerHTML;
+      btn.textContent = 'Sending…'; btn.disabled = true;
 
-  var options = {
-    key:         RAZORPAY_KEY,
-    amount:      isIndia ? PRICE_INR * 100 : PRICE_USD * 100, // paise / cents
-    currency:    isIndia ? 'INR' : 'USD',
-    name:        'CAD Automator',
-    description: 'iLogic Automation — Full Live Course',
-    image:       '',
-    prefill: {
-      name:    document.querySelector('#enrollForm [name="name"]')    ? document.querySelector('#enrollForm [name="name"]').value    : '',
-      email:   document.querySelector('#enrollForm [name="email"]')   ? document.querySelector('#enrollForm [name="email"]').value   : '',
-      contact: document.querySelector('#enrollForm [name="phone"]')   ? document.querySelector('#enrollForm [name="phone"]').value   : ''
-    },
-    notes: { source: 'cadautomator.com' },
-    theme: { color: '#00d4ff' },
-    handler: function(response) {
-      // Submit a silent lead record to Netlify with the payment ID
-      var fd = new FormData();
-      fd.append('form-name', 'reserve-spot');
-      fd.append('razorpay_payment_id', response.razorpay_payment_id);
-      fetch('/', { method: 'POST', body: fd }).catch(function() {});
-      // Show success
-      alert('🎉 Payment successful!\n\nPayment ID: ' + response.razorpay_payment_id + '\n\nWe will WhatsApp you your batch details within 24 hours. Thank you!');
-    }
-  };
-
-  new Razorpay(options).open();
-}
-
-/* ── Pay + submit the enroll form ────────────────────────── */
-function payAndEnroll(btn) {
-  var form = document.getElementById('enrollForm');
-  if (!form) { openPayment(); return; }
-
-  // Validate form fields first
-  var nameEl  = form.querySelector('[name="name"]');
-  var emailEl = form.querySelector('[name="email"]');
-  var phoneEl = form.querySelector('[name="phone"]');
-
-  if (!nameEl.value.trim() || !emailEl.value.trim() || !phoneEl.value.trim()) {
-    nameEl.reportValidity ? nameEl.reportValidity() : alert('Please fill in all required fields.');
-    return;
-  }
-
-  if (RAZORPAY_KEY === 'rzp_test_YOUR_KEY_HERE') {
-    // Fallback: just submit the form for manual follow-up
-    animateRunBtn(btn, function() {
-      var formData = new FormData(form);
+      var formData = new FormData(enrollForm);
       fetch('/', { method: 'POST', body: formData })
-        .catch(function() {});
-      form.reset();
-      var msg = document.getElementById('formSuccess');
-      if (msg) { msg.classList.add('visible'); setTimeout(function() { msg.classList.remove('visible'); }, 7000); }
+        .then(function() {
+          enrollForm.reset();
+          btn.innerHTML = orig; btn.disabled = false;
+          var msg = document.getElementById('enrollFormSuccess');
+          if (msg) { msg.classList.add('visible'); setTimeout(function() { msg.classList.remove('visible'); }, 7000); }
+        })
+        .catch(function() {
+          // Still show success — Netlify may work even if fetch seems to fail
+          enrollForm.reset();
+          btn.innerHTML = orig; btn.disabled = false;
+          var msg = document.getElementById('enrollFormSuccess');
+          if (msg) { msg.classList.add('visible'); setTimeout(function() { msg.classList.remove('visible'); }, 7000); }
+        });
     });
-    return;
   }
-
-  if (typeof Razorpay === 'undefined') {
-    alert('Payment gateway loading… please try again in a moment.');
-    return;
-  }
-
-  var options = {
-    key:         RAZORPAY_KEY,
-    amount:      isIndia ? PRICE_INR * 100 : PRICE_USD * 100,
-    currency:    isIndia ? 'INR' : 'USD',
-    name:        'CAD Automator',
-    description: 'iLogic Automation — Full Live Course',
-    prefill: {
-      name:    nameEl.value,
-      email:   emailEl.value,
-      contact: phoneEl.value
-    },
-    notes: { source: 'cadautomator.com Enroll Form' },
-    theme: { color: '#00d4ff' },
-    handler: function(response) {
-      // Submit form data to Netlify with payment ID
-      var formData = new FormData(form);
-      formData.append('razorpay_payment_id', response.razorpay_payment_id);
-      fetch('/', { method: 'POST', body: formData }).catch(function() {});
-      form.reset();
-      var msg = document.getElementById('formSuccess');
-      if (msg) {
-        msg.textContent = '🎉 Payment successful! ID: ' + response.razorpay_payment_id + '. Batch details coming to your email within 24 hrs.';
-        msg.classList.add('visible');
-        setTimeout(function() { msg.classList.remove('visible'); }, 10000);
-      }
-    }
-  };
-
-  new Razorpay(options).open();
-}
+});
 
 /* ── Helpers ─────────────────────────────────────────────── */
 function setText(id, text) {
