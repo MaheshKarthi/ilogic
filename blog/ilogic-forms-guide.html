@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>iLogic Forms: Build Custom Input Dialogs in Autodesk Inventor | CAD Automator</title>
+  <meta name="description" content="Learn how to build iLogic Forms in Autodesk Inventor — custom dialog boxes that let engineers input data and drive automation rules. Step-by-step guide with real code." />
+  <meta name="keywords" content="ilogic forms, ilogic dialog box, autodesk inventor ilogic UI, ilogic input form, ilogic user interface, inventor automation forms" />
+  <link rel="canonical" href="https://cadautomator.com/blog/ilogic-forms-guide" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta property="og:title" content="iLogic Forms: Build Custom Input Dialogs in Autodesk Inventor" />
+  <meta property="og:description" content="iLogic Forms let you create professional input dialogs inside Inventor — no external software needed. Learn how with real code examples." />
+  <meta property="og:url" content="https://cadautomator.com/blog/ilogic-forms-guide" />
+  <meta property="og:type" content="article" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "iLogic Forms: Build Custom Input Dialogs in Autodesk Inventor",
+    "description": "Learn how to build iLogic Forms in Autodesk Inventor — custom dialog boxes that let engineers input data and drive automation rules.",
+    "author": { "@type": "Organization", "name": "CAD Automator", "url": "https://cadautomator.com" },
+    "publisher": { "@type": "Organization", "name": "CAD Automator", "url": "https://cadautomator.com" },
+    "datePublished": "2026-06-07",
+    "mainEntityOfPage": "https://cadautomator.com/blog/ilogic-forms-guide"
+  }
+  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-97KYLBNP5W"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-97KYLBNP5W');</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .blog-hero { padding: 120px 0 60px; background: var(--dark2); border-bottom: 1px solid rgba(255,255,255,.06); }
+    .blog-meta { display:flex; gap:16px; align-items:center; margin-bottom:24px; flex-wrap:wrap; }
+    .blog-tag { background:rgba(0,212,255,.1); color:var(--blue); border:1px solid rgba(0,212,255,.3); padding:4px 12px; border-radius:20px; font-size:.75rem; font-weight:600; }
+    .blog-tag.orange { background:rgba(255,107,53,.1); color:var(--orange); border:1px solid rgba(255,107,53,.3); }
+    .blog-date { color:var(--mid); font-size:.85rem; }
+    .blog-read { color:var(--mid); font-size:.85rem; }
+    .blog-title { font-size:clamp(1.8rem,4vw,3rem); font-weight:900; color:var(--white); line-height:1.2; margin-bottom:20px; }
+    .blog-intro { font-size:1.1rem; color:var(--light); line-height:1.8; max-width:700px; }
+    .blog-body { max-width:780px; margin:0 auto; padding:60px 24px 80px; }
+    .blog-body h2 { font-size:1.6rem; font-weight:800; color:var(--white); margin:48px 0 16px; }
+    .blog-body h3 { font-size:1.15rem; font-weight:700; color:var(--blue); margin:32px 0 12px; }
+    .blog-body p { color:var(--light); line-height:1.9; margin-bottom:18px; font-size:.97rem; }
+    .blog-body ul, .blog-body ol { padding-left:24px; margin-bottom:18px; }
+    .blog-body li { color:var(--light); line-height:1.8; margin-bottom:8px; font-size:.97rem; }
+    .blog-body strong { color:var(--white); }
+    .blog-code { background:var(--dark3); border:1px solid rgba(0,212,255,.2); border-radius:10px; padding:20px 24px; font-family:'JetBrains Mono',monospace; font-size:.85rem; color:#e2e8f0; margin:24px 0; overflow-x:auto; line-height:1.7; }
+    .blog-code .kw { color:#00d4ff; } .blog-code .str { color:#39ff14; } .blog-code .cm { color:#64748b; } .blog-code .fn { color:#ff6b35; }
+    .blog-cta { background:linear-gradient(135deg,var(--dark3),var(--dark2)); border:1px solid rgba(0,212,255,.25); border-radius:20px; padding:40px; text-align:center; margin:48px 0 0; }
+    .blog-cta h3 { font-size:1.4rem; font-weight:800; color:var(--white); margin-bottom:12px; }
+    .blog-cta p { color:var(--mid); margin-bottom:24px; }
+    .blog-nav-bar { background:var(--dark2); padding:16px 0; border-bottom:1px solid rgba(255,255,255,.06); }
+    .blog-nav-inner { max-width:1200px; margin:0 auto; padding:0 24px; display:flex; justify-content:space-between; align-items:center; }
+    .back-link { color:var(--mid); text-decoration:none; font-size:.85rem; display:flex; align-items:center; gap:6px; }
+    .back-link:hover { color:var(--blue); }
+    .callout { background:rgba(0,212,255,.06); border-left:3px solid var(--blue); border-radius:0 8px 8px 0; padding:16px 20px; margin:24px 0; }
+    .callout.orange { background:rgba(255,107,53,.06); border-left-color:var(--orange); }
+    .callout p { margin:0; color:var(--light); }
+    .step-box { background:var(--dark3); border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:24px 28px; margin:20px 0; display:flex; gap:20px; align-items:flex-start; }
+    .step-num { background:var(--blue); color:#020817; font-weight:900; font-size:.9rem; min-width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:2px; }
+    .step-box p { margin:0; color:var(--light); font-size:.95rem; line-height:1.7; }
+    .step-box strong { color:var(--white); }
+    .comparison-table { width:100%; border-collapse:collapse; margin:24px 0; font-size:.88rem; }
+    .comparison-table th { background:var(--dark3); color:var(--white); font-weight:700; padding:12px 16px; text-align:left; border:1px solid rgba(255,255,255,.08); }
+    .comparison-table td { padding:11px 16px; border:1px solid rgba(255,255,255,.06); color:var(--light); vertical-align:top; }
+    .comparison-table tr:nth-child(even) td { background:rgba(255,255,255,.02); }
+    .tag-yes { color:#39ff14; font-weight:600; }
+    .tag-no { color:#ff4757; font-weight:600; }
+    @media(max-width:640px){
+      .blog-hero { padding: 80px 0 40px; }
+      .blog-title { font-size: 1.6rem; }
+      .blog-intro { font-size: .95rem; }
+      .blog-body { padding: 40px 16px 60px; }
+      .blog-body h2 { font-size: 1.3rem; margin: 36px 0 12px; }
+      .blog-nav-inner { padding: 0 16px; }
+      .blog-code { padding: 14px 16px; font-size: .78rem; }
+      .step-box { flex-direction:column; gap:12px; padding:18px; }
+      .comparison-table { font-size:.78rem; }
+      .comparison-table td, .comparison-table th { padding:9px 10px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="blog-nav-bar">
+  <div class="blog-nav-inner">
+    <a href="../index.html" class="logo"><svg width="22" height="22" viewBox="0 0 28 28" fill="none"><polygon points="14,2 26,8 26,20 14,26 2,20 2,8" fill="none" stroke="#00d4ff" stroke-width="1.5"/><circle cx="14" cy="14" r="3" fill="#00d4ff"/></svg><span>CAD<span class="logo-accent">Automator</span></span></a>
+    <a href="../index.html" class="btn btn-neon" style="font-size:.8rem;padding:8px 18px">⚡ Enroll Now</a>
+  </div>
+</nav>
+
+<section class="blog-hero">
+  <div class="container">
+    <div class="blog-meta">
+      <span class="blog-tag">iLogic</span>
+      <span class="blog-tag orange">iLogic Forms</span>
+      <span class="blog-date">June 7, 2026</span>
+      <span class="blog-read">⏱ 7 min read</span>
+    </div>
+    <h1 class="blog-title">iLogic Forms: Build Custom Input Dialogs<br>in Autodesk Inventor</h1>
+    <p class="blog-intro">iLogic Forms let you create professional dialog boxes inside Autodesk Inventor — with dropdowns, checkboxes, and text inputs — that drive your automation rules. No external software. No coding degree. Here's everything you need to know.</p>
+  </div>
+</section>
+
+<article class="blog-body">
+
+  <h2>What Are iLogic Forms?</h2>
+  <p><strong>iLogic Forms are custom dialog boxes that appear inside Autodesk Inventor.</strong> They give engineers and operators a clean, simple interface to enter product data — load ratings, materials, dimensions, customer options — which iLogic then uses to automatically configure the 3D model.</p>
+  <p>Without iLogic Forms, engineers interact with Inventor through the parameters panel or by editing numbers directly in a sketch — which is confusing for anyone who didn't build the model. With Forms, you build a purpose-built UI that hides the complexity and presents only the inputs that matter.</p>
+
+  <div class="callout"><p>💡 <strong>Think of it like this:</strong> iLogic rules are the engine. iLogic Forms are the dashboard. The operator just sees the controls — not the wiring behind them.</p></div>
+
+  <h2>What Can You Put Inside an iLogic Form?</h2>
+  <p>iLogic Forms support a wide range of input controls, making them flexible enough for almost any engineering configuration task:</p>
+  <ul>
+    <li><strong>Text boxes</strong> — free-text input for part numbers, descriptions, customer names</li>
+    <li><strong>Numeric inputs</strong> — for dimensions, loads, quantities (with optional min/max validation)</li>
+    <li><strong>Dropdowns (ComboBox)</strong> — predefined lists of options, e.g. beam sizes, material grades</li>
+    <li><strong>Checkboxes</strong> — toggle features on/off, e.g. include lifting lugs, add access platform</li>
+    <li><strong>Radio buttons</strong> — exclusive choices, e.g. select frame type: welded / bolted / hybrid</li>
+    <li><strong>Labels and images</strong> — annotate the form, add a product diagram, guide the operator</li>
+    <li><strong>Buttons</strong> — trigger rules, run calculations, update the model instantly</li>
+  </ul>
+
+  <h2>How to Create an iLogic Form — Step by Step</h2>
+
+  <div class="step-box">
+    <div class="step-num">1</div>
+    <p><strong>Open the iLogic Browser.</strong> In Autodesk Inventor, go to the <strong>Manage</strong> tab → click <strong>iLogic</strong> → select <strong>iLogic Browser</strong>. You'll see two tabs: Rules and Forms.</p>
+  </div>
+
+  <div class="step-box">
+    <div class="step-num">2</div>
+    <p><strong>Create a new Form.</strong> Click the <strong>Forms</strong> tab in the iLogic Browser → right-click → <strong>Add Form</strong>. Give it a clear name like <code>ProductConfigurator</code>.</p>
+  </div>
+
+  <div class="step-box">
+    <div class="step-num">3</div>
+    <p><strong>Design the form layout.</strong> The Form Designer opens — a drag-and-drop canvas. Drag controls from the left panel onto your form. Each control can be linked directly to an Inventor parameter by right-clicking → <strong>Set Parameter</strong>.</p>
+  </div>
+
+  <div class="step-box">
+    <div class="step-num">4</div>
+    <p><strong>Link controls to parameters.</strong> Select a Numeric Input → in the Properties panel, set <strong>Parameter Name</strong> to the Inventor parameter you want it to drive (e.g. <code>LoadRating</code>). The form now reads and writes that parameter directly.</p>
+  </div>
+
+  <div class="step-box">
+    <div class="step-num">5</div>
+    <p><strong>Add an "Update Model" button.</strong> Drag a Button control onto the form. Set its action to run your iLogic rule. When the operator clicks it, iLogic fires, reads all form values, and updates the model.</p>
+  </div>
+
+  <div class="step-box">
+    <div class="step-num">6</div>
+    <p><strong>Show the form from a rule.</strong> In any iLogic rule, call <code>GoTo Form("ProductConfigurator")</code> to open your form. You can trigger this from a button, a model event, or when the document opens.</p>
+  </div>
+
+  <h2>Real Example: A Product Configurator Form</h2>
+  <p>Here's a practical scenario: you manufacture steel skid frames in three sizes. Instead of an engineer opening Parameters and guessing which values to change, you build this form:</p>
+
+  <div class="blog-code">
+<span class="cm">' Rule: Apply configuration when form button is clicked</span>
+<span class="cm">' The form has a ComboBox named "FrameSize" linked to a custom parameter</span>
+
+<span class="kw">Dim</span> size <span class="kw">As String</span> = <span class="fn">Parameter</span>(<span class="str">"FrameSize"</span>)
+
+<span class="kw">If</span> size = <span class="str">"Small (2T)"</span> <span class="kw">Then</span>
+  <span class="fn">Parameter</span>(<span class="str">"FrameLength"</span>) = <span class="kw">2000</span>
+  <span class="fn">Parameter</span>(<span class="str">"FrameWidth"</span>)  = <span class="kw">1000</span>
+  <span class="fn">Parameter</span>(<span class="str">"BeamSize"</span>)    = <span class="str">"150x75"</span>
+
+<span class="kw">ElseIf</span> size = <span class="str">"Medium (5T)"</span> <span class="kw">Then</span>
+  <span class="fn">Parameter</span>(<span class="str">"FrameLength"</span>) = <span class="kw">3000</span>
+  <span class="fn">Parameter</span>(<span class="str">"FrameWidth"</span>)  = <span class="kw">1500</span>
+  <span class="fn">Parameter</span>(<span class="str">"BeamSize"</span>)    = <span class="str">"200x100"</span>
+
+<span class="kw">ElseIf</span> size = <span class="str">"Large (10T)"</span> <span class="kw">Then</span>
+  <span class="fn">Parameter</span>(<span class="str">"FrameLength"</span>) = <span class="kw">4500</span>
+  <span class="fn">Parameter</span>(<span class="str">"FrameWidth"</span>)  = <span class="kw">2000</span>
+  <span class="fn">Parameter</span>(<span class="str">"BeamSize"</span>)    = <span class="str">"300x150"</span>
+<span class="kw">End If</span>
+
+<span class="cm">' Suppress lifting lugs if checkbox is unchecked</span>
+<span class="fn">Feature</span>.IsActive(<span class="str">"LiftingLugs"</span>) = <span class="fn">Parameter</span>(<span class="str">"IncludeLiftingLugs"</span>)
+
+iLogicVb.UpdateWhenDone = <span class="kw">True</span>
+  </div>
+
+  <p>The operator opens Inventor, sees a clean form with one dropdown and one checkbox, makes their selection, clicks "Update Model" — and Inventor rebuilds the entire frame in seconds. No parameter panel. No risk of editing the wrong value.</p>
+
+  <h2>Triggering a Form Automatically When a Document Opens</h2>
+  <p>One of the most powerful iLogic Forms features is <strong>automatic triggering</strong>. You can configure a form to appear every time a document is opened:</p>
+
+  <div class="blog-code">
+<span class="cm">' Place this in a rule triggered by the "Document Opened" event</span>
+<span class="cm">' Go to: iLogic Browser → Rules → right-click → Event Triggers → Document Opened</span>
+
+<span class="fn">GoTo</span> Form(<span class="str">"ProductConfigurator"</span>)
+  </div>
+
+  <p>Now whenever anyone opens the master assembly, the configurator pops up first. This is the standard approach for <strong>engineer-to-order (ETO)</strong> workflows — where each project is a variation of a base design.</p>
+
+  <h2>Validating Inputs Before the Model Updates</h2>
+  <p>iLogic Forms can validate user inputs before running the automation. This prevents errors from reaching the model:</p>
+
+  <div class="blog-code">
+<span class="cm">' Check that the user entered a valid load before updating</span>
+<span class="kw">Dim</span> load <span class="kw">As Double</span> = <span class="fn">Parameter</span>(<span class="str">"DesignLoad"</span>)
+
+<span class="kw">If</span> load <= <span class="kw">0</span> <span class="kw">Then</span>
+  <span class="fn">MessageBox.Show</span>(<span class="str">"Design load must be greater than zero. Please check your input."</span>, <span class="str">"Input Error"</span>)
+  <span class="kw">Return</span>   <span class="cm">' Stop — don't update the model</span>
+<span class="kw">End If</span>
+
+<span class="kw">If</span> load > <span class="kw">50</span> <span class="kw">Then</span>
+  <span class="fn">MessageBox.Show</span>(<span class="str">"Load exceeds the maximum capacity of this frame (50T). Contact engineering."</span>, <span class="str">"Warning"</span>)
+  <span class="kw">Return</span>
+<span class="kw">End If</span>
+
+<span class="cm">' Validation passed — proceed with configuration</span>
+iLogicVb.UpdateWhenDone = <span class="kw">True</span>
+  </div>
+
+  <div class="callout orange"><p>⚠️ <strong>Important:</strong> Without input validation, a user entering 0 or a negative number can break model geometry or cause rebuild failures. Always validate before updating.</p></div>
+
+  <h2>iLogic Forms vs the Parameters Panel — Which Should You Use?</h2>
+  <table class="comparison-table">
+    <thead>
+      <tr>
+        <th>Feature</th>
+        <th>Parameters Panel</th>
+        <th>iLogic Form</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Usable by non-engineers</td>
+        <td><span class="tag-no">✗ No</span></td>
+        <td><span class="tag-yes">✓ Yes</span></td>
+      </tr>
+      <tr>
+        <td>Hides irrelevant parameters</td>
+        <td><span class="tag-no">✗ No — shows everything</span></td>
+        <td><span class="tag-yes">✓ Show only what matters</span></td>
+      </tr>
+      <tr>
+        <td>Input validation</td>
+        <td><span class="tag-no">✗ None</span></td>
+        <td><span class="tag-yes">✓ Full validation logic</span></td>
+      </tr>
+      <tr>
+        <td>Trigger automation rules</td>
+        <td><span class="tag-no">✗ Manual only</span></td>
+        <td><span class="tag-yes">✓ One button</span></td>
+      </tr>
+      <tr>
+        <td>Auto-open on file load</td>
+        <td><span class="tag-no">✗ No</span></td>
+        <td><span class="tag-yes">✓ Yes, with event trigger</span></td>
+      </tr>
+      <tr>
+        <td>Custom labels and guidance</td>
+        <td><span class="tag-no">✗ Parameter names only</span></td>
+        <td><span class="tag-yes">✓ Full labels, images, notes</span></td>
+      </tr>
+      <tr>
+        <td>Dropdowns with preset options</td>
+        <td><span class="tag-no">✗ No</span></td>
+        <td><span class="tag-yes">✓ ComboBox, Radio buttons</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>When Should You Use iLogic Forms?</h2>
+  <p>iLogic Forms are the right choice when:</p>
+  <ul>
+    <li>Multiple people use the same Inventor model (not just the designer who built it)</li>
+    <li>Your products have many variants driven by just a few key inputs</li>
+    <li>You want to eliminate configuration errors in your design process</li>
+    <li>You're building a product configurator for sales or project engineers</li>
+    <li>You need to guide operators through a defined input sequence</li>
+    <li>You want to protect the model from invalid or out-of-range inputs</li>
+  </ul>
+
+  <h2>Common iLogic Forms Mistakes (and How to Avoid Them)</h2>
+
+  <h3>Mistake 1: Linking controls to the wrong parameter type</h3>
+  <p>iLogic has two types of parameters: <strong>Inventor parameters</strong> (dimensions, constraints) and <strong>custom iLogic parameters</strong> (strings, booleans, custom logic values). Dropdowns for text options must be linked to string-type iLogic parameters, not numeric Inventor parameters. Mixing these causes silent errors where the form appears to work but doesn't update the model.</p>
+
+  <h3>Mistake 2: Not setting a default value</h3>
+  <p>If a form control has no default value, and the rule runs before the operator fills in the field, you'll get an empty string or zero — which may break the model. Always set sensible defaults in the Form Designer's Properties panel.</p>
+
+  <h3>Mistake 3: Building the form before the rules are stable</h3>
+  <p>Forms are a presentation layer on top of your rules. If the underlying iLogic rules have logic errors, fixing them after the form is built is harder. Write and test your rules first — then build the form on top.</p>
+
+  <h3>Mistake 4: Too many controls on one form</h3>
+  <p>Engineers sometimes try to put every possible option on one mega-form. This creates confusion. Break complex configurators into multiple linked forms, or use tab controls inside a single form to organise inputs by category.</p>
+
+  <h2>What's Next After Learning iLogic Forms?</h2>
+  <p>iLogic Forms are one module in a complete iLogic skill set. Once you can build forms, the natural progression is:</p>
+  <ul>
+    <li><strong>Excel integration</strong> — read product specs from spreadsheets directly into your forms</li>
+    <li><strong>Assembly automation</strong> — use form inputs to configure multiple parts simultaneously</li>
+    <li><strong>Drawing automation</strong> — trigger drawing generation and PDF export from a form button</li>
+    <li><strong>BOM export</strong> — auto-generate and export Bills of Materials after configuration</li>
+    <li><strong>Email / file output</strong> — send the configured model package automatically after form submission</li>
+  </ul>
+  <p>These are advanced capabilities that — when combined — create a fully automated engineer-to-order workflow. A job that used to take a senior engineer half a day can be configured and output in under 10 minutes.</p>
+
+  <div class="callout"><p>💡 <strong>Real numbers:</strong> Engineers who complete a structured iLogic training programme typically report saving <strong>6–12 hours per week</strong> on repetitive configuration and documentation tasks within the first month of implementation.</p></div>
+
+  <div class="blog-cta">
+    <h3>Ready to Build Your First iLogic Form?</h3>
+    <p>CAD Automator's live iLogic training covers Forms, Excel integration, drawing automation, BOM generation — and everything in between. 50+ hours, 19 modules, real engineering projects.</p>
+    <a href="../index.html" class="btn btn-neon btn-xl">⚡ View Course &amp; Enroll</a>
+    <br><br>
+    <a href="../index.html#demo" class="btn btn-ghost">👀 See a Live iLogic Demo First</a>
+  </div>
+
+</article>
+
+<!-- ── Related Articles ── -->
+<section style="background:var(--dark2);padding:60px 0;border-top:1px solid rgba(255,255,255,.06)">
+  <div style="max-width:780px;margin:0 auto;padding:0 24px">
+    <p style="font-size:.75rem;font-weight:700;color:var(--mid);letter-spacing:.1em;text-transform:uppercase;margin-bottom:24px">Related Articles</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px">
+      <a href="what-is-ilogic.html" style="background:var(--dark3);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:22px;text-decoration:none;display:block;transition:border-color .2s" onmouseover="this.style.borderColor='rgba(0,212,255,.35)'" onmouseout="this.style.borderColor='rgba(255,255,255,.08)'">
+        <p style="font-size:.72rem;font-weight:700;color:var(--blue);margin:0 0 8px;text-transform:uppercase;letter-spacing:.05em">iLogic Basics</p>
+        <p style="font-size:.92rem;font-weight:700;color:var(--white);margin:0 0 6px;line-height:1.4">What is iLogic? Complete Guide to Autodesk Inventor Automation</p>
+        <p style="font-size:.8rem;color:var(--blue);margin:0">Read article →</p>
+      </a>
+      <a href="cad-automation-examples.html" style="background:var(--dark3);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:22px;text-decoration:none;display:block;transition:border-color .2s" onmouseover="this.style.borderColor='rgba(0,212,255,.35)'" onmouseout="this.style.borderColor='rgba(255,255,255,.08)'">
+        <p style="font-size:.72rem;font-weight:700;color:var(--orange);margin:0 0 8px;text-transform:uppercase;letter-spacing:.05em">Real Examples</p>
+        <p style="font-size:.92rem;font-weight:700;color:var(--white);margin:0 0 6px;line-height:1.4">CAD Automation with iLogic — 5 Real Engineering Examples</p>
+        <p style="font-size:.8rem;color:var(--blue);margin:0">Read article →</p>
+      </a>
+      <a href="ilogic-training-guide.html" style="background:var(--dark3);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:22px;text-decoration:none;display:block;transition:border-color .2s" onmouseover="this.style.borderColor='rgba(0,212,255,.35)'" onmouseout="this.style.borderColor='rgba(255,255,255,.08)'">
+        <p style="font-size:.72rem;font-weight:700;color:var(--green);margin:0 0 8px;text-transform:uppercase;letter-spacing:.05em">Get Trained</p>
+        <p style="font-size:.92rem;font-weight:700;color:var(--white);margin:0 0 6px;line-height:1.4">iLogic Training — The Complete Beginner's Guide (2026)</p>
+        <p style="font-size:.8rem;color:var(--blue);margin:0">Read article →</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer" style="margin-top:0">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <a href="../index.html" class="logo"><svg width="22" height="22" viewBox="0 0 28 28" fill="none"><polygon points="14,2 26,8 26,20 14,26 2,20 2,8" fill="none" stroke="#00d4ff" stroke-width="1.5"/><circle cx="14" cy="14" r="3" fill="#00d4ff"/></svg><span>CAD<span class="logo-accent">Automator</span></span></a>
+      <p>Professional live iLogic training for mechanical engineers.</p>
+    </div>
+    <div class="footer-links">
+      <div class="fl-col">
+        <h4>Blog</h4>
+        <a href="what-is-ilogic.html">What is iLogic?</a>
+        <a href="ilogic-training-guide.html">iLogic Training Guide</a>
+        <a href="cad-automation-examples.html">CAD Automation Examples</a>
+        <a href="ilogic-forms-guide.html">iLogic Forms Guide</a>
+      </div>
+      <div class="fl-col">
+        <h4>Course</h4>
+        <a href="../index.html#why">Why iLogic</a>
+        <a href="../index.html#demo">Live Demo</a>
+        <a href="../index.html#structure">Curriculum</a>
+        <a href="../index.html#faq">FAQ</a>
+        <a href="mailto:connect@cadautomator.com">connect@cadautomator.com</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-copy"><p>&copy; 2026 CAD Automator · <a href="https://cadautomator.com" style="color:var(--mid)">cadautomator.com</a> · Not affiliated with Autodesk, Inc.</p></div>
+</footer>
+
+</body>
+</html>
