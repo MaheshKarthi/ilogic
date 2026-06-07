@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How to Fix Common iLogic Errors in Autodesk Inventor | CAD Automator</title>
+  <meta name="description" content="Stuck on an iLogic error? This guide covers the most common iLogic errors in Autodesk Inventor — unspecified error, DLL missing, rules not updating, startup failures — with exact fixes." />
+  <meta name="keywords" content="ilogic error fix, ilogic unspecified error, ilogic not working, ilogic error autodesk inventor, ilogic dll missing, ilogic rules not updating, ilogic troubleshooting" />
+  <link rel="canonical" href="https://cadautomator.com/blog/ilogic-errors-fix" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta property="og:title" content="How to Fix Common iLogic Errors in Autodesk Inventor" />
+  <meta property="og:description" content="The most common iLogic errors and exactly how to fix them — unspecified error, startup failures, rules not running, network slowness and more." />
+  <meta property="og:url" content="https://cadautomator.com/blog/ilogic-errors-fix" />
+  <meta property="og:type" content="article" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How to Fix Common iLogic Errors in Autodesk Inventor",
+    "description": "The most common iLogic errors in Autodesk Inventor and exactly how to fix them — unspecified error, DLL missing, rules not updating, startup failures.",
+    "author": { "@type": "Organization", "name": "CAD Automator", "url": "https://cadautomator.com" },
+    "publisher": { "@type": "Organization", "name": "CAD Automator", "url": "https://cadautomator.com" },
+    "datePublished": "2026-06-07",
+    "mainEntityOfPage": "https://cadautomator.com/blog/ilogic-errors-fix"
+  }
+  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-97KYLBNP5W"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-97KYLBNP5W');</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .blog-hero { padding: 120px 0 60px; background: var(--dark2); border-bottom: 1px solid rgba(255,255,255,.06); }
+    .blog-meta { display:flex; gap:16px; align-items:center; margin-bottom:24px; flex-wrap:wrap; }
+    .blog-tag { background:rgba(0,212,255,.1); color:var(--blue); border:1px solid rgba(0,212,255,.3); padding:4px 12px; border-radius:20px; font-size:.75rem; font-weight:600; }
+    .blog-tag.red { background:rgba(255,71,87,.1); color:#ff4757; border:1px solid rgba(255,71,87,.3); }
+    .blog-tag.orange { background:rgba(255,107,53,.1); color:var(--orange); border:1px solid rgba(255,107,53,.3); }
+    .blog-date { color:var(--mid); font-size:.85rem; }
+    .blog-read { color:var(--mid); font-size:.85rem; }
+    .blog-title { font-size:clamp(1.8rem,4vw,3rem); font-weight:900; color:var(--white); line-height:1.2; margin-bottom:20px; }
+    .blog-intro { font-size:1.1rem; color:var(--light); line-height:1.8; max-width:700px; }
+    .blog-body { max-width:780px; margin:0 auto; padding:60px 24px 80px; }
+    .blog-body h2 { font-size:1.6rem; font-weight:800; color:var(--white); margin:48px 0 16px; }
+    .blog-body h3 { font-size:1.15rem; font-weight:700; color:var(--blue); margin:32px 0 12px; }
+    .blog-body p { color:var(--light); line-height:1.9; margin-bottom:18px; font-size:.97rem; }
+    .blog-body ul, .blog-body ol { padding-left:24px; margin-bottom:18px; }
+    .blog-body li { color:var(--light); line-height:1.8; margin-bottom:8px; font-size:.97rem; }
+    .blog-body strong { color:var(--white); }
+    .blog-code { background:var(--dark3); border:1px solid rgba(0,212,255,.2); border-radius:10px; padding:20px 24px; font-family:'JetBrains Mono',monospace; font-size:.85rem; color:#e2e8f0; margin:24px 0; overflow-x:auto; line-height:1.7; }
+    .blog-code .kw { color:#00d4ff; } .blog-code .str { color:#39ff14; } .blog-code .cm { color:#64748b; } .blog-code .err { color:#ff4757; }
+    .blog-cta { background:linear-gradient(135deg,var(--dark3),var(--dark2)); border:1px solid rgba(0,212,255,.25); border-radius:20px; padding:40px; text-align:center; margin:48px 0 0; }
+    .blog-cta h3 { font-size:1.4rem; font-weight:800; color:var(--white); margin-bottom:12px; }
+    .blog-cta p { color:var(--mid); margin-bottom:24px; }
+    .blog-nav-bar { background:var(--dark2); padding:16px 0; border-bottom:1px solid rgba(255,255,255,.06); }
+    .blog-nav-inner { max-width:1200px; margin:0 auto; padding:0 24px; display:flex; justify-content:space-between; align-items:center; }
+    .callout { background:rgba(0,212,255,.06); border-left:3px solid var(--blue); border-radius:0 8px 8px 0; padding:16px 20px; margin:24px 0; }
+    .callout.red { background:rgba(255,71,87,.06); border-left-color:#ff4757; }
+    .callout.green { background:rgba(57,255,20,.05); border-left-color:var(--green); }
+    .callout.orange { background:rgba(255,107,53,.06); border-left-color:var(--orange); }
+    .callout p { margin:0; color:var(--light); }
+    .error-card { background:var(--dark3); border:1px solid rgba(255,71,87,.25); border-radius:16px; padding:28px; margin:32px 0; }
+    .error-card .error-title { font-size:1rem; font-weight:800; color:#ff4757; margin:0 0 6px; display:flex; align-items:center; gap:8px; }
+    .error-card .error-msg { font-family:'JetBrains Mono',monospace; font-size:.82rem; color:#94a3b8; background:rgba(0,0,0,.3); padding:10px 14px; border-radius:8px; margin:10px 0 16px; overflow-x:auto; }
+    .error-card h4 { font-size:.88rem; font-weight:700; color:var(--white); margin:16px 0 8px; text-transform:uppercase; letter-spacing:.05em; }
+    .error-card p { font-size:.92rem; color:var(--light); margin:0 0 10px; line-height:1.8; }
+    .error-card ul { padding-left:20px; margin:8px 0 0; }
+    .error-card li { font-size:.92rem; color:var(--light); line-height:1.8; margin-bottom:6px; }
+    .fix-badge { display:inline-block; background:rgba(57,255,20,.12); color:var(--green); border:1px solid rgba(57,255,20,.3); border-radius:20px; font-size:.72rem; font-weight:700; padding:3px 10px; margin-left:8px; }
+    .toc { background:var(--dark3); border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:24px 28px; margin:0 0 40px; }
+    .toc h4 { font-size:.8rem; font-weight:700; color:var(--mid); letter-spacing:.08em; text-transform:uppercase; margin:0 0 14px; }
+    .toc ol { padding-left:20px; margin:0; }
+    .toc li { margin-bottom:8px; }
+    .toc a { color:var(--blue); text-decoration:none; font-size:.9rem; }
+    .toc a:hover { text-decoration:underline; }
+    @media(max-width:640px){
+      .blog-hero { padding: 80px 0 40px; }
+      .blog-title { font-size: 1.6rem; }
+      .blog-body { padding: 40px 16px 60px; }
+      .blog-body h2 { font-size: 1.3rem; margin: 36px 0 12px; }
+      .blog-nav-inner { padding: 0 16px; }
+      .blog-code { font-size:.76rem; padding:14px 16px; }
+      .error-card { padding: 20px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="blog-nav-bar">
+  <div class="blog-nav-inner">
+    <a href="../index.html" class="logo"><svg width="22" height="22" viewBox="0 0 28 28" fill="none"><polygon points="14,2 26,8 26,20 14,26 2,20 2,8" fill="none" stroke="#00d4ff" stroke-width="1.5"/><circle cx="14" cy="14" r="3" fill="#00d4ff"/></svg><span>CAD<span class="logo-accent">Automator</span></span></a>
+    <a href="../index.html" class="btn btn-neon" style="font-size:.8rem;padding:8px 18px">⚡ Enroll Now</a>
+  </div>
+</nav>
+
+<section class="blog-hero">
+  <div class="container">
+    <div class="blog-meta">
+      <span class="blog-tag red">Troubleshooting</span>
+      <span class="blog-tag orange">iLogic Errors</span>
+      <span class="blog-date">June 7, 2026</span>
+      <span class="blog-read">⏱ 9 min read</span>
+    </div>
+    <h1 class="blog-title">How to Fix the Most Common iLogic Errors<br>in Autodesk Inventor</h1>
+    <p class="blog-intro">iLogic errors can stop your automation dead. This guide covers the 8 most common iLogic error messages in Autodesk Inventor — with the exact cause and step-by-step fix for each one.</p>
+  </div>
+</section>
+
+<article class="blog-body">
+
+  <div class="toc">
+    <h4>Jump to an error</h4>
+    <ol>
+      <li><a href="#error1">Unspecified Error (0x80004005)</a></li>
+      <li><a href="#error2">iLogic fails to load at Inventor startup</a></li>
+      <li><a href="#error3">Rule runs but model doesn't update</a></li>
+      <li><a href="#error4">Autodesk.iLogic.dll not found</a></li>
+      <li><a href="#error5">Inventor is very slow when iLogic is enabled</a></li>
+      <li><a href="#error6">iLogic rule errors with Level of Detail (LOD)</a></li>
+      <li><a href="#error7">Parameter not found / parameter name error</a></li>
+      <li><a href="#error8">iLogic Excel read returns empty or zero</a></li>
+    </ol>
+  </div>
+
+  <p>These are the errors that come up again and again in the Autodesk Community forums, on Reddit, and in iLogic training sessions. Most of them have a known fix — but that fix is rarely documented in one place. Until now.</p>
+
+  <!-- ERROR 1 -->
+  <div class="error-card" id="error1">
+    <p class="error-title">❌ Error 1 — Unspecified Error <span class="fix-badge">✓ Fixable</span></p>
+    <div class="error-msg">Exception from HRESULT: 0x80004005 (E_FAIL) — Unspecified error</div>
+    <h4>When it appears</h4>
+    <p>During file save, Save As, DXF export, or after a rule runs that modifies file properties. One of the most common iLogic errors reported in the Autodesk forums.</p>
+    <h4>Cause</h4>
+    <p>Usually caused by iLogic trying to modify a file or property that Inventor hasn't finished processing yet — a timing issue between the rule execution and Inventor's internal update cycle.</p>
+    <h4>Fix</h4>
+    <ul>
+      <li>Add <code>iLogicVb.UpdateWhenDone = True</code> at the end of every rule that modifies parameters or properties — this tells Inventor to wait for the full update before moving on</li>
+      <li>If saving from a rule, wrap the save in a try/catch to handle the timing gracefully</li>
+      <li>If it appears during DXF export, add a short delay before the export call using <code>System.Threading.Thread.Sleep(500)</code></li>
+      <li>Check if the file is checked out in Vault — locked files cause this error on save</li>
+    </ul>
+  </div>
+
+  <!-- ERROR 2 -->
+  <div class="error-card" id="error2">
+    <p class="error-title">❌ Error 2 — iLogic Fails to Load at Inventor Startup <span class="fix-badge">✓ Fixable</span></p>
+    <div class="error-msg">iLogic could not be loaded. Check the iLogic add-in status in the Add-In Manager.</div>
+    <h4>When it appears</h4>
+    <p>Inventor opens but the iLogic panel is missing, or you see a warning that the iLogic add-in failed to initialise.</p>
+    <h4>Cause</h4>
+    <p>Corrupted iLogic add-in registration, a failed Inventor update, or a conflict with another add-in or antivirus software blocking the DLL.</p>
+    <h4>Fix</h4>
+    <ul>
+      <li><strong>Step 1:</strong> In Inventor go to <strong>Tools → Add-Ins</strong>. Find iLogic in the list. If it shows as inactive, tick both "Loaded" and "Load on Startup" and click OK</li>
+      <li><strong>Step 2:</strong> If it's not listed at all, run <strong>Inventor repair</strong> from Windows Apps &amp; Features → select Autodesk Inventor → Modify → Repair</li>
+      <li><strong>Step 3:</strong> If repair doesn't fix it, open a new empty project in Inventor (File → New Project), then restart Inventor — this resets the add-in paths</li>
+      <li><strong>Step 4:</strong> Add the Inventor installation folder to your antivirus exclusions list — some AV software blocks iLogic DLL loading</li>
+    </ul>
+  </div>
+
+  <!-- ERROR 3 -->
+  <div class="error-card" id="error3">
+    <p class="error-title">❌ Error 3 — Rule Runs But Model Doesn't Update <span class="fix-badge">✓ Fixable</span></p>
+    <div class="error-msg">Rule executes without errors but the 3D model shows no changes</div>
+    <h4>When it appears</h4>
+    <p>You run an iLogic rule, it shows "Success" in the editor, but the part dimensions or features in the model haven't changed at all.</p>
+    <h4>Cause</h4>
+    <p>Either the parameter names in the rule don't exactly match the parameter names in the model, or Inventor's update is deferred and hasn't applied yet.</p>
+    <h4>Fix</h4>
+    <ul>
+      <li>Open the <strong>Parameters panel</strong> (Manage tab → Parameters) and check the <em>exact</em> name of the parameter — iLogic parameter names are case-sensitive and must match character for character</li>
+      <li>Check for spaces: a parameter named <code>FrameLength</code> is different from <code>Frame Length</code> (with a space)</li>
+      <li>Add <code>iLogicVb.UpdateWhenDone = True</code> at the bottom of the rule</li>
+      <li>If the model is an assembly, make sure you're referencing the correct document — use <code>ThisDoc.Document</code> to explicitly target the active file</li>
+      <li>Check for a suppressed sketch or feature that contains the driven dimension — iLogic can't update a suppressed sketch constraint</li>
+    </ul>
+  </div>
+
+  <!-- ERROR 4 -->
+  <div class="error-card" id="error4">
+    <p class="error-title">❌ Error 4 — Autodesk.iLogic.dll Not Found <span class="fix-badge">✓ Fixable</span></p>
+    <div class="error-msg">Could not load file or assembly 'Autodesk.iLogic.dll' or one of its dependencies</div>
+    <h4>When it appears</h4>
+    <p>When launching Inventor, or when trying to open the iLogic editor. More common after a Windows update, an unexpected shutdown, or a failed Inventor update.</p>
+    <h4>Cause</h4>
+    <p>The iLogic DLL file has become corrupted or is missing from the Inventor installation directory.</p>
+    <h4>Fix</h4>
+    <ul>
+      <li><strong>Quick fix:</strong> Run Inventor as Administrator — some DLL registration issues are permissions-related</li>
+      <li><strong>Proper fix:</strong> Navigate to <code>C:\Program Files\Autodesk\Inventor [year]\Bin\</code> and verify <code>Autodesk.iLogic.dll</code> exists. If missing, run Inventor Repair from Windows Apps &amp; Features</li>
+      <li><strong>After repair:</strong> Open a Command Prompt as Administrator and run: <code>regsvr32 "C:\Program Files\Autodesk\Inventor [year]\Bin\Autodesk.iLogic.dll"</code> to re-register it</li>
+      <li>If the DLL exists but still errors, your antivirus may have quarantined it — check your AV quarantine folder</li>
+    </ul>
+  </div>
+
+  <!-- ERROR 5 -->
+  <div class="error-card" id="error5">
+    <p class="error-title">❌ Error 5 — Inventor is Very Slow When iLogic is Active <span class="fix-badge">✓ Fixable</span></p>
+    <div class="error-msg">Inventor takes 3–10 minutes to open when iLogic external rules are configured</div>
+    <h4>When it appears</h4>
+    <p>Inventor starts extremely slowly — sometimes 5 to 10 minutes — after you configure iLogic External Rules. The slowness disappears if you disconnect from the network.</p>
+    <h4>Cause</h4>
+    <p>iLogic loads External Rules at startup. If those rules are stored on a network drive, Inventor waits for a network response for <em>every single rule file</em> before it finishes loading. On a slow or busy network, this multiplies into minutes.</p>
+    <h4>Fix</h4>
+    <ul>
+      <li><strong>Best practice:</strong> Copy your iLogic External Rules folder to a local drive — e.g. <code>C:\iLogicRules\</code></li>
+      <li>In Inventor go to <strong>Tools → Application Options → iLogic → External Rules path</strong> and point it to the local folder</li>
+      <li>Set up a script or robocopy task to sync the local folder from the network folder periodically — this way you get local speed but the rules stay centralised</li>
+      <li>Alternatively, reduce the number of External Rules loaded at startup — only load what's genuinely needed globally</li>
+    </ul>
+  </div>
+
+  <!-- ERROR 6 -->
+  <div class="error-card" id="error6">
+    <p class="error-title">❌ Error 6 — iLogic Errors with Level of Detail (LOD) <span class="fix-badge">✓ Fixable</span></p>
+    <div class="error-msg">Rule cannot modify features in the Master Level of Detail</div>
+    <h4>When it appears</h4>
+    <p>You run an iLogic rule on an assembly and get an error related to Level of Detail — especially after switching LODs or working with suppressed components.</p>
+    <h4>Cause</h4>
+    <p>iLogic <strong>cannot modify the Master Level of Detail</strong>. This is a known Inventor limitation. If your assembly is set to Master LOD when the rule runs, any feature or component modification will fail.</p>
+    <h4>Fix</h4>
+    <ul>
+      <li>Create a custom Level of Detail called <strong>"iLogic"</strong> in your assembly (Manage tab → Level of Detail → New)</li>
+      <li>Set your assembly to the "iLogic" LOD before running automation rules</li>
+      <li>Add this to the top of your rule to switch LOD programmatically before any changes: </li>
+    </ul>
+    <div class="blog-code" style="margin:12px 0 0">
+<span class="cm">' Switch to iLogic LOD before making changes</span>
+ThisDoc.Document.ComponentDefinition.LevelOfDetailRepresentations.Item(<span class="str">"iLogic"</span>).Activate()
+    </div>
+  </div>
+
+  <!-- ERROR 7 -->
+  <div class="error-card" id="error7">
+    <p class="error-title">❌ Error 7 — Parameter Not Found / Name Error <span class="fix-badge">✓ Fixable</span></p>
+    <div class="error-msg">The parameter 'FrameLength' was not found in this document</div>
+    <h4>When it appears</h4>
+    <p>A rule that worked yesterday throws a "parameter not found" error today, or when you copy a rule from one file to another.</p>
+    <h4>Cause</h4>
+    <p>The parameter name in the rule doesn't match the name in the current document. Common when rules are copied between files, when parameters are renamed, or when a rule targets an assembly component but uses the wrong document reference.</p>
+    <h4>Fix</h4>
+    <ul>
+      <li>Open the <strong>Parameters panel</strong> and verify the exact parameter name, including capitalisation</li>
+      <li>For assembly rules targeting a specific part, use the full document reference: <code>Component.Parameter("PartName:1", "MyParam")</code></li>
+      <li>Use <code>iLogicVb.ParameterExists("FrameLength")</code> to check before accessing — prevents crashes when parameters are optional</li>
+    </ul>
+    <div class="blog-code" style="margin:12px 0 0">
+<span class="cm">' Safe way to read a parameter — check it exists first</span>
+<span class="kw">If</span> iLogicVb.ParameterExists(<span class="str">"FrameLength"</span>) <span class="kw">Then</span>
+  <span class="kw">Dim</span> len <span class="kw">As Double</span> = Parameter(<span class="str">"FrameLength"</span>)
+<span class="kw">Else</span>
+  MessageBox.Show(<span class="str">"Parameter 'FrameLength' not found in this document."</span>)
+<span class="kw">End If</span>
+    </div>
+  </div>
+
+  <!-- ERROR 8 -->
+  <div class="error-card" id="error8">
+    <p class="error-title">❌ Error 8 — iLogic Excel Read Returns Empty or Zero <span class="fix-badge">✓ Fixable</span></p>
+    <div class="error-msg">ExcelGetValue returns "" or 0 even though the Excel cell has a value</div>
+    <h4>When it appears</h4>
+    <p>Your iLogic–Excel rule runs without errors but all the values it reads come back as empty strings or zeros, even though you can see the correct values in Excel.</p>
+    <h4>Cause</h4>
+    <p>Four common causes: wrong sheet name, wrong row/column index (off by one), the Excel file path has changed, or the cell contains a formula result rather than a literal value (some versions have issues reading formula outputs).</p>
+    <h4>Fix</h4>
+    <ul>
+      <li>Double-check the sheet name is spelled exactly right — including capitalisation and spaces. "Sheet1" and "sheet1" are different</li>
+      <li>Row and column numbers in <code>ExcelGetValue</code> are <strong>1-based</strong> (row 1 = the top row, column 1 = column A). A common mistake is using 0 as the first index</li>
+      <li>Print the file path to a message box to confirm it's resolving correctly: <code>MessageBox.Show(xlFile)</code></li>
+      <li>If the cell contains a formula, try adding <code>xlApp.CalculateFullRebuild()</code> before reading, or convert the formula cells to static values</li>
+      <li>Make sure the Excel file is <strong>saved</strong> before the rule runs — unsaved changes are not visible to ExcelGetValue</li>
+    </ul>
+  </div>
+
+  <h2>General iLogic Debugging Tips</h2>
+  <p>When an iLogic rule is throwing errors you can't immediately explain, these techniques help narrow down the cause fast:</p>
+
+  <h3>Use MessageBox.Show() to print variable values mid-rule</h3>
+  <div class="blog-code">
+<span class="cm">' Add these lines anywhere in your rule to inspect values</span>
+MessageBox.Show(<span class="str">"FrameLength = "</span> &amp; Parameter(<span class="str">"FrameLength"</span>), <span class="str">"Debug"</span>)
+MessageBox.Show(<span class="str">"Excel path = "</span> &amp; xlFile, <span class="str">"Debug"</span>)
+  </div>
+
+  <h3>Comment out sections to isolate the problem</h3>
+  <p>If a long rule is failing, comment out the bottom half and run it. If it passes, the error is in the commented section. Keep halving until you find the exact line.</p>
+
+  <h3>Check the iLogic rule editor status bar</h3>
+  <p>The iLogic editor shows a coloured status indicator after each run — green for success, red for failure. The error message in the status bar is often more specific than any pop-up dialog. Read it carefully.</p>
+
+  <h3>Always end rules with UpdateWhenDone</h3>
+  <div class="blog-code">
+<span class="cm">' Add this line at the end of every rule that changes the model</span>
+iLogicVb.UpdateWhenDone = <span class="kw">True</span>
+  </div>
+
+  <div class="callout green"><p>✅ <strong>The fastest way to avoid iLogic errors long-term</strong> is to learn the right patterns from the start — naming conventions, parameter validation, LOD handling, and error-safe Excel reads. These are core skills in structured iLogic training, not things you pick up by trial and error over months.</p></div>
+
+  <div class="blog-cta">
+    <h3>Learn iLogic the Right Way — No More Errors</h3>
+    <p>CAD Automator's live iLogic training covers error-free rule writing from day one — correct patterns, validation techniques, and debugging skills built in. 50+ hours, 19 modules, real engineering projects.</p>
+    <a href="../index.html" class="btn btn-neon btn-xl">⚡ View Course &amp; Enroll</a>
+    <br><br>
+    <a href="../index.html#demo" class="btn btn-ghost">👀 See a Live iLogic Demo First</a>
+  </div>
+
+</article>
+
+<!-- Related Articles -->
+<section style="background:var(--dark2);padding:60px 0;border-top:1px solid rgba(255,255,255,.06)">
+  <div style="max-width:780px;margin:0 auto;padding:0 24px">
+    <p style="font-size:.75rem;font-weight:700;color:var(--mid);letter-spacing:.1em;text-transform:uppercase;margin-bottom:24px">Related Articles</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px">
+      <a href="what-is-ilogic.html" style="background:var(--dark3);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:22px;text-decoration:none;display:block;transition:border-color .2s" onmouseover="this.style.borderColor='rgba(0,212,255,.35)'" onmouseout="this.style.borderColor='rgba(255,255,255,.08)'">
+        <p style="font-size:.72rem;font-weight:700;color:var(--blue);margin:0 0 8px;text-transform:uppercase;letter-spacing:.05em">Start Here</p>
+        <p style="font-size:.92rem;font-weight:700;color:var(--white);margin:0 0 6px;line-height:1.4">What is iLogic? Complete Guide to Autodesk Inventor Automation</p>
+        <p style="font-size:.8rem;color:var(--blue);margin:0">Read article →</p>
+      </a>
+      <a href="ilogic-excel-integration.html" style="background:var(--dark3);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:22px;text-decoration:none;display:block;transition:border-color .2s" onmouseover="this.style.borderColor='rgba(0,212,255,.35)'" onmouseout="this.style.borderColor='rgba(255,255,255,.08)'">
+        <p style="font-size:.72rem;font-weight:700;color:var(--green);margin:0 0 8px;text-transform:uppercase;letter-spacing:.05em">Excel Integration</p>
+        <p style="font-size:.92rem;font-weight:700;color:var(--white);margin:0 0 6px;line-height:1.4">iLogic Excel Integration: Drive Inventor from a Spreadsheet</p>
+        <p style="font-size:.8rem;color:var(--blue);margin:0">Read article →</p>
+      </a>
+      <a href="ilogic-forms-guide.html" style="background:var(--dark3);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:22px;text-decoration:none;display:block;transition:border-color .2s" onmouseover="this.style.borderColor='rgba(0,212,255,.35)'" onmouseout="this.style.borderColor='rgba(255,255,255,.08)'">
+        <p style="font-size:.72rem;font-weight:700;color:var(--orange);margin:0 0 8px;text-transform:uppercase;letter-spacing:.05em">iLogic Forms</p>
+        <p style="font-size:.92rem;font-weight:700;color:var(--white);margin:0 0 6px;line-height:1.4">Build Custom Input Dialogs in Autodesk Inventor</p>
+        <p style="font-size:.8rem;color:var(--blue);margin:0">Read article →</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer" style="margin-top:0">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <a href="../index.html" class="logo"><svg width="22" height="22" viewBox="0 0 28 28" fill="none"><polygon points="14,2 26,8 26,20 14,26 2,20 2,8" fill="none" stroke="#00d4ff" stroke-width="1.5"/><circle cx="14" cy="14" r="3" fill="#00d4ff"/></svg><span>CAD<span class="logo-accent">Automator</span></span></a>
+      <p>Professional live iLogic training for mechanical engineers.</p>
+    </div>
+    <div class="footer-links">
+      <div class="fl-col">
+        <h4>Blog</h4>
+        <a href="what-is-ilogic.html">What is iLogic?</a>
+        <a href="ilogic-training-guide.html">iLogic Training Guide</a>
+        <a href="cad-automation-examples.html">CAD Automation Examples</a>
+        <a href="ilogic-forms-guide.html">iLogic Forms Guide</a>
+        <a href="ilogic-excel-integration.html">iLogic &amp; Excel</a>
+        <a href="ilogic-errors-fix.html">Fix iLogic Errors</a>
+      </div>
+      <div class="fl-col">
+        <h4>Course</h4>
+        <a href="../index.html#why">Why iLogic</a>
+        <a href="../index.html#demo">Live Demo</a>
+        <a href="../index.html#structure">Curriculum</a>
+        <a href="../index.html#faq">FAQ</a>
+        <a href="mailto:connect@cadautomator.com">connect@cadautomator.com</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-copy"><p>&copy; 2026 CAD Automator · <a href="https://cadautomator.com" style="color:var(--mid)">cadautomator.com</a> · Not affiliated with Autodesk, Inc.</p></div>
+</footer>
+
+</body>
+</html>

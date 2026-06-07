@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>iLogic iProperties: Auto-Fill Part Numbers, Title Blocks & BOM Data | CAD Automator</title>
+  <meta name="description" content="Learn how to use iLogic to automatically fill iProperties in Autodesk Inventor — part numbers, descriptions, materials, drawing title blocks and BOM data. Real code included." />
+  <meta name="keywords" content="ilogic iproperties, ilogic auto fill title block, ilogic part number automation, ilogic description, ilogic material, ilogic BOM properties, autodesk inventor iproperties automation" />
+  <link rel="canonical" href="https://cadautomator.com/blog/ilogic-iproperties" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta property="og:title" content="iLogic iProperties: Auto-Fill Part Numbers, Title Blocks & BOM Data" />
+  <meta property="og:description" content="Stop manually filling iProperties. Use iLogic to auto-populate part numbers, descriptions, materials and drawing title blocks across your entire assembly." />
+  <meta property="og:url" content="https://cadautomator.com/blog/ilogic-iproperties" />
+  <meta property="og:type" content="article" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "iLogic iProperties: Auto-Fill Part Numbers, Title Blocks & BOM Data",
+    "description": "Learn how to use iLogic to automatically populate iProperties in Autodesk Inventor — part numbers, descriptions, materials, title blocks, and BOM data.",
+    "author": { "@type": "Organization", "name": "CAD Automator", "url": "https://cadautomator.com" },
+    "publisher": { "@type": "Organization", "name": "CAD Automator", "url": "https://cadautomator.com" },
+    "datePublished": "2026-06-07",
+    "mainEntityOfPage": "https://cadautomator.com/blog/ilogic-iproperties"
+  }
+  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-97KYLBNP5W"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-97KYLBNP5W');</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .blog-hero { padding: 120px 0 60px; background: var(--dark2); border-bottom: 1px solid rgba(255,255,255,.06); }
+    .blog-meta { display:flex; gap:16px; align-items:center; margin-bottom:24px; flex-wrap:wrap; }
+    .blog-tag { background:rgba(0,212,255,.1); color:var(--blue); border:1px solid rgba(0,212,255,.3); padding:4px 12px; border-radius:20px; font-size:.75rem; font-weight:600; }
+    .blog-tag.orange { background:rgba(255,107,53,.1); color:var(--orange); border:1px solid rgba(255,107,53,.3); }
+    .blog-date { color:var(--mid); font-size:.85rem; }
+    .blog-read { color:var(--mid); font-size:.85rem; }
+    .blog-title { font-size:clamp(1.8rem,4vw,3rem); font-weight:900; color:var(--white); line-height:1.2; margin-bottom:20px; }
+    .blog-intro { font-size:1.1rem; color:var(--light); line-height:1.8; max-width:700px; }
+    .blog-body { max-width:780px; margin:0 auto; padding:60px 24px 80px; }
+    .blog-body h2 { font-size:1.6rem; font-weight:800; color:var(--white); margin:48px 0 16px; }
+    .blog-body h3 { font-size:1.15rem; font-weight:700; color:var(--blue); margin:32px 0 12px; }
+    .blog-body p { color:var(--light); line-height:1.9; margin-bottom:18px; font-size:.97rem; }
+    .blog-body ul, .blog-body ol { padding-left:24px; margin-bottom:18px; }
+    .blog-body li { color:var(--light); line-height:1.8; margin-bottom:8px; font-size:.97rem; }
+    .blog-body strong { color:var(--white); }
+    .blog-code { background:var(--dark3); border:1px solid rgba(0,212,255,.2); border-radius:10px; padding:20px 24px; font-family:'JetBrains Mono',monospace; font-size:.85rem; color:#e2e8f0; margin:24px 0; overflow-x:auto; line-height:1.7; }
+    .blog-code .kw { color:#00d4ff; } .blog-code .str { color:#39ff14; } .blog-code .cm { color:#64748b; } .blog-code .fn { color:#ff6b35; }
+    .blog-cta { background:linear-gradient(135deg,var(--dark3),var(--dark2)); border:1px solid rgba(0,212,255,.25); border-radius:20px; padding:40px; text-align:center; margin:48px 0 0; }
+    .blog-cta h3 { font-size:1.4rem; font-weight:800; color:var(--white); margin-bottom:12px; }
+    .blog-cta p { color:var(--mid); margin-bottom:24px; }
+    .blog-nav-bar { background:var(--dark2); padding:16px 0; border-bottom:1px solid rgba(255,255,255,.06); }
+    .blog-nav-inner { max-width:1200px; margin:0 auto; padding:0 24px; display:flex; justify-content:space-between; align-items:center; }
+    .callout { background:rgba(0,212,255,.06); border-left:3px solid var(--blue); border-radius:0 8px 8px 0; padding:16px 20px; margin:24px 0; }
+    .callout.green { background:rgba(57,255,20,.05); border-left-color:var(--green); }
+    .callout.orange { background:rgba(255,107,53,.06); border-left-color:var(--orange); }
+    .callout p { margin:0; color:var(--light); }
+    .prop-table { width:100%; border-collapse:collapse; margin:24px 0; font-size:.88rem; }
+    .prop-table th { background:var(--dark3); color:var(--white); font-weight:700; padding:11px 16px; text-align:left; border:1px solid rgba(255,255,255,.08); }
+    .prop-table td { padding:10px 16px; border:1px solid rgba(255,255,255,.06); color:var(--light); vertical-align:top; }
+    .prop-table tr:nth-child(even) td { background:rgba(255,255,255,.02); }
+    .prop-table code { font-family:'JetBrains Mono',monospace; font-size:.8rem; color:#00d4ff; }
+    @media(max-width:640px){
+      .blog-hero { padding: 80px 0 40px; }
+      .blog-title { font-size: 1.6rem; }
+      .blog-body { padding: 40px 16px 60px; }
+      .blog-body h2 { font-size: 1.3rem; }
+      .blog-nav-inner { padding: 0 16px; }
+      .blog-code { font-size:.76rem; padding:14px 16px; }
+      .prop-table { font-size:.78rem; }
+      .prop-table td, .prop-table th { padding:8px 10px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="blog-nav-bar">
+  <div class="blog-nav-inner">
+    <a href="../index.html" class="logo"><svg width="22" height="22" viewBox="0 0 28 28" fill="none"><polygon points="14,2 26,8 26,20 14,26 2,20 2,8" fill="none" stroke="#00d4ff" stroke-width="1.5"/><circle cx="14" cy="14" r="3" fill="#00d4ff"/></svg><span>CAD<span class="logo-accent">Automator</span></span></a>
+    <a href="../index.html" class="btn btn-neon" style="font-size:.8rem;padding:8px 18px">⚡ Enroll Now</a>
+  </div>
+</nav>
+
+<section class="blog-hero">
+  <div class="container">
+    <div class="blog-meta">
+      <span class="blog-tag">iLogic</span>
+      <span class="blog-tag orange">iProperties</span>
+      <span class="blog-date">June 7, 2026</span>
+      <span class="blog-read">⏱ 7 min read</span>
+    </div>
+    <h1 class="blog-title">iLogic iProperties: Auto-Fill Part Numbers,<br>Title Blocks &amp; BOM Data</h1>
+    <p class="blog-intro">Manually filling iProperties — part numbers, descriptions, materials, revision numbers — is one of the biggest time sinks in Autodesk Inventor. iLogic can populate all of it automatically, consistently, across every part in your assembly.</p>
+  </div>
+</section>
+
+<article class="blog-body">
+
+  <h2>What Are iProperties?</h2>
+  <p><strong>iProperties are metadata fields attached to every Autodesk Inventor file.</strong> They store information like part number, description, material, revision, author, project, and any custom fields your company defines. This data flows automatically into drawing title blocks, Bills of Materials, and PDM/PLM systems.</p>
+  <p>The problem is that iProperties are normally filled manually — file by file, field by field. On a complex assembly with 200 parts, filling iProperties manually takes hours and introduces errors. iLogic eliminates this entirely.</p>
+
+  <div class="callout"><p>💡 <strong>Why iProperties matter for your BOM:</strong> If iProperties aren't filled correctly, your Bill of Materials will have blank descriptions, missing part numbers, and wrong materials. Your drawings will have incomplete title blocks. iLogic is the solution.</p></div>
+
+  <h2>The Complete iProperties Reference</h2>
+  <p>iLogic uses the <code>iProperties.Value()</code> function to read and write any property. Here's every commonly used iProperty and its exact syntax:</p>
+
+  <table class="prop-table">
+    <thead>
+      <tr><th>Property</th><th>Category</th><th>iLogic Syntax</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Part Number</td><td>Project</td><td><code>iProperties.Value("Project", "Part Number")</code></td></tr>
+      <tr><td>Description</td><td>Project</td><td><code>iProperties.Value("Project", "Description")</code></td></tr>
+      <tr><td>Revision</td><td>Project</td><td><code>iProperties.Value("Project", "Revision Number")</code></td></tr>
+      <tr><td>Status</td><td>Project</td><td><code>iProperties.Value("Project", "Design State")</code></td></tr>
+      <tr><td>Material</td><td>Physical</td><td><code>iProperties.Value("Physical", "Material")</code></td></tr>
+      <tr><td>Author</td><td>Summary</td><td><code>iProperties.Value("Summary", "Author")</code></td></tr>
+      <tr><td>Company</td><td>Summary</td><td><code>iProperties.Value("Summary", "Company")</code></td></tr>
+      <tr><td>Comments</td><td>Summary</td><td><code>iProperties.Value("Summary", "Comments")</code></td></tr>
+      <tr><td>Custom Field</td><td>Custom</td><td><code>iProperties.Value("Custom", "YourFieldName")</code></td></tr>
+    </tbody>
+  </table>
+
+  <h2>Basic Example: Set iProperties from Parameters</h2>
+  <p>The most common use case is driving iProperties directly from your model's parameters — so when dimensions change, the description and part number update automatically:</p>
+
+  <div class="blog-code">
+<span class="cm">' ── Auto-fill iProperties from model parameters ──</span>
+
+<span class="cm">' Read parameters from the model</span>
+<span class="kw">Dim</span> length  <span class="kw">As Double</span> = <span class="fn">Parameter</span>(<span class="str">"FrameLength"</span>)
+<span class="kw">Dim</span> width   <span class="kw">As Double</span> = <span class="fn">Parameter</span>(<span class="str">"FrameWidth"</span>)
+<span class="kw">Dim</span> load    <span class="kw">As Double</span> = <span class="fn">Parameter</span>(<span class="str">"DesignLoad"</span>)
+<span class="kw">Dim</span> grade   <span class="kw">As String</span> = <span class="fn">Parameter</span>(<span class="str">"SteelGrade"</span>)
+
+<span class="cm">' Build a structured description automatically</span>
+iProperties.Value(<span class="str">"Project"</span>, <span class="str">"Description"</span>) = _
+  <span class="str">"Skid Frame "</span> &amp; length &amp; <span class="str">"x"</span> &amp; width &amp; <span class="str">"mm - "</span> &amp; load &amp; <span class="str">"T - "</span> &amp; grade
+
+<span class="cm">' Build a part number from project parameters</span>
+<span class="kw">Dim</span> projNum <span class="kw">As String</span> = <span class="fn">Parameter</span>(<span class="str">"ProjectNumber"</span>)
+iProperties.Value(<span class="str">"Project"</span>, <span class="str">"Part Number"</span>) = projNum &amp; <span class="str">"-SF-001"</span>
+
+<span class="cm">' Set standard fields</span>
+iProperties.Value(<span class="str">"Project"</span>, <span class="str">"Revision Number"</span>) = <span class="str">"A"</span>
+iProperties.Value(<span class="str">"Physical"</span>, <span class="str">"Material"</span>)          = <span class="str">"Steel, "</span> &amp; grade
+iProperties.Value(<span class="str">"Summary"</span>, <span class="str">"Company"</span>)            = <span class="str">"CAD Automator Ltd"</span>
+iProperties.Value(<span class="str">"Summary"</span>, <span class="str">"Author"</span>)             = <span class="str">"Engineering Dept"</span>
+
+iLogicVb.UpdateWhenDone = <span class="kw">True</span>
+  </div>
+
+  <h2>Auto-Fill iProperties Across an Entire Assembly</h2>
+  <p>The real power comes when you loop through every component in an assembly and update iProperties on all of them at once. This is how you populate an entire BOM in one click:</p>
+
+  <div class="blog-code">
+<span class="cm">' ── Loop through all components and fill iProperties ──</span>
+
+<span class="kw">Dim</span> oDoc  <span class="kw">As</span> AssemblyDocument = ThisDoc.Document
+<span class="kw">Dim</span> oComp <span class="kw">As</span> ComponentOccurrence
+
+<span class="kw">For Each</span> oComp <span class="kw">In</span> oDoc.ComponentDefinition.Occurrences
+  <span class="kw">Dim</span> oPartDoc <span class="kw">As</span> Document = oComp.Definition.Document
+
+  <span class="cm">' Skip sub-assemblies — only process parts</span>
+  <span class="kw">If</span> oPartDoc.DocumentType = kPartDocumentObject <span class="kw">Then</span>
+
+    <span class="cm">' Set company and revision on every part</span>
+    oPartDoc.PropertySets.Item(<span class="str">"Summary Information"</span>).Item(<span class="str">"Company"</span>).Value = <span class="str">"CAD Automator Ltd"</span>
+    oPartDoc.PropertySets.Item(<span class="str">"Design Tracking Properties"</span>).Item(<span class="str">"Revision Number"</span>).Value = <span class="str">"A"</span>
+
+    <span class="cm">' Save each part after updating</span>
+    oPartDoc.Save()
+
+  <span class="kw">End If</span>
+<span class="kw">Next</span>
+
+MessageBox.Show(<span class="str">"iProperties updated on all parts in the assembly."</span>, <span class="str">"Done"</span>)
+  </div>
+
+  <h2>Linking iProperties to the Drawing Title Block</h2>
+  <p>Once iProperties are filled, your Inventor drawing title block can pull them in automatically — no manual entry in the drawing at all. Here's how to set it up:</p>
+  <ol>
+    <li>In your drawing template, double-click the title block to edit it</li>
+    <li>Select a text field (e.g. "Part Number") → right-click → <strong>Edit Field Text</strong></li>
+    <li>Choose <strong>Properties — Model</strong> → select the matching iProperty (e.g. Part Number)</li>
+    <li>Repeat for Description, Material, Revision, Author</li>
+    <li>Save as your company drawing template</li>
+  </ol>
+  <p>From now on, every drawing made from a model with correctly filled iProperties will have a complete, accurate title block — automatically. Zero manual entry.</p>
+
+  <div class="callout green"><p>✅ <strong>Pro tip:</strong> Combine this with the iLogic rule above. Run the rule when the model is finalised → iProperties fill → open the drawing → title block is already complete. The entire documentation step is automated.</p></div>
+
+  <h2>Reading iProperties (Not Just Writing)</h2>
+  <p>iLogic can also <strong>read</strong> iProperties — useful for building logic based on existing metadata:</p>
+
+  <div class="blog-code">
+<span class="cm">' Read iProperties into variables</span>
+<span class="kw">Dim</span> currentRev  <span class="kw">As String</span> = iProperties.Value(<span class="str">"Project"</span>, <span class="str">"Revision Number"</span>)
+<span class="kw">Dim</span> currentPN   <span class="kw">As String</span> = iProperties.Value(<span class="str">"Project"</span>, <span class="str">"Part Number"</span>)
+<span class="kw">Dim</span> currentMat  <span class="kw">As String</span> = iProperties.Value(<span class="str">"Physical"</span>, <span class="str">"Material"</span>)
+
+<span class="cm">' Use them in logic — e.g. only update if revision is still "A"</span>
+<span class="kw">If</span> currentRev = <span class="str">"A"</span> <span class="kw">Then</span>
+  <span class="cm">' Still in preliminary design — allow auto-updates</span>
+  iProperties.Value(<span class="str">"Project"</span>, <span class="str">"Description"</span>) = <span class="str">"PRELIMINARY - "</span> &amp; currentPN
+<span class="kw">Else</span>
+  <span class="cm">' Issued drawing — warn before overwriting</span>
+  MessageBox.Show(<span class="str">"Warning: This part is at Rev "</span> &amp; currentRev &amp; <span class="str">". Are you sure you want to update iProperties?"</span>)
+<span class="kw">End If</span>
+  </div>
+
+  <h2>Creating Custom iProperties</h2>
+  <p>Autodesk Inventor lets you add your own custom iProperties beyond the built-in ones. These are perfect for project-specific data — customer name, purchase order number, surface finish, weld inspection status:</p>
+
+  <div class="blog-code">
+<span class="cm">' Create and set a custom iProperty</span>
+<span class="cm">' If the property doesn't exist yet, iLogic creates it automatically</span>
+
+iProperties.Value(<span class="str">"Custom"</span>, <span class="str">"Customer"</span>)         = <span class="str">"Precision Parts Ltd"</span>
+iProperties.Value(<span class="str">"Custom"</span>, <span class="str">"PO Number"</span>)        = <span class="str">"PO-2026-1042"</span>
+iProperties.Value(<span class="str">"Custom"</span>, <span class="str">"Surface Finish"</span>)   = <span class="str">"Hot Dip Galvanised"</span>
+iProperties.Value(<span class="str">"Custom"</span>, <span class="str">"Weld Standard"</span>)    = <span class="str">"AWS D1.1"</span>
+iProperties.Value(<span class="str">"Custom"</span>, <span class="str">"Inspection Date"</span>) = <span class="fn">Now</span>().ToString(<span class="str">"dd-MMM-yyyy"</span>)
+  </div>
+
+  <p>These custom properties then appear in your BOM automatically — making the Bill of Materials a complete document with all project-specific data, not just basic part information.</p>
+
+  <h2>Common iProperties Mistakes to Avoid</h2>
+
+  <h3>Using the wrong category name</h3>
+  <p>The category names in iLogic must match exactly. The most common mistake is using <code>"Project"</code> when the property is actually in <code>"Design Tracking Properties"</code>. If you get a "property not found" error, open the iProperties dialog in Inventor and check which tab the property is on — that's the category name.</p>
+
+  <h3>Not saving after updating</h3>
+  <p>iProperties set by iLogic are in memory until the file is saved. If you close without saving, the iProperties revert. Always call <code>ThisDoc.Document.Save()</code> at the end of any rule that modifies iProperties, or remind the user to save.</p>
+
+  <h3>Overwriting iProperties on released parts</h3>
+  <p>If your company uses a PDM system (like Vault), iProperties on released/checked-in parts may be locked. Check the document's checkout status before writing to avoid silent failures or access errors.</p>
+
+  <div class="callout orange"><p>⚠️ <strong>Watch out:</strong> iLogic can only write iProperties on files that are not write-protected. If Inventor shows the file as read-only, the rule will appear to succeed but the properties won't actually be saved.</p></div>
+
+  <div class="blog-cta">
+    <h3>Master iProperties Automation</h3>
+    <p>iProperties automation is one module in CAD Automator's complete iLogic training — alongside parameters, Forms, Excel integration, drawing output and BOM generation. 50+ hours, 19 modules, live instruction.</p>
+    <a href="../index.html" class="btn btn-neon btn-xl">⚡ View Course &amp; Enroll</a>
+    <br><br>
+    <a href="../index.html#demo" class="btn btn-ghost">👀 See a Live iLogic Demo First</a>
+  </div>
+
+</article>
+
+<!-- Related Articles -->
+<section style="background:var(--dark2);padding:60px 0;border-top:1px solid rgba(255,255,255,.06)">
+  <div style="max-width:780px;margin:0 auto;padding:0 24px">
+    <p style="font-size:.75rem;font-weight:700;color:var(--mid);letter-spacing:.1em;text-transform:uppercase;margin-bottom:24px">Related Articles</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px">
+      <a href="ilogic-excel-integration.html" style="background:var(--dark3);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:22px;text-decoration:none;display:block;transition:border-color .2s" onmouseover="this.style.borderColor='rgba(0,212,255,.35)'" onmouseout="this.style.borderColor='rgba(255,255,255,.08)'">
+        <p style="font-size:.72rem;font-weight:700;color:var(--green);margin:0 0 8px;text-transform:uppercase;letter-spacing:.05em">Excel Integration</p>
+        <p style="font-size:.92rem;font-weight:700;color:var(--white);margin:0 0 6px;line-height:1.4">Drive Inventor from a Spreadsheet with iLogic</p>
+        <p style="font-size:.8rem;color:var(--blue);margin:0">Read article →</p>
+      </a>
+      <a href="ilogic-errors-fix.html" style="background:var(--dark3);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:22px;text-decoration:none;display:block;transition:border-color .2s" onmouseover="this.style.borderColor='rgba(0,212,255,.35)'" onmouseout="this.style.borderColor='rgba(255,255,255,.08)'">
+        <p style="font-size:.72rem;font-weight:700;color:#ff4757;margin:0 0 8px;text-transform:uppercase;letter-spacing:.05em">Troubleshooting</p>
+        <p style="font-size:.92rem;font-weight:700;color:var(--white);margin:0 0 6px;line-height:1.4">Fix Common iLogic Errors in Autodesk Inventor</p>
+        <p style="font-size:.8rem;color:var(--blue);margin:0">Read article →</p>
+      </a>
+      <a href="cad-automation-examples.html" style="background:var(--dark3);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:22px;text-decoration:none;display:block;transition:border-color .2s" onmouseover="this.style.borderColor='rgba(0,212,255,.35)'" onmouseout="this.style.borderColor='rgba(255,255,255,.08)'">
+        <p style="font-size:.72rem;font-weight:700;color:var(--orange);margin:0 0 8px;text-transform:uppercase;letter-spacing:.05em">Real Examples</p>
+        <p style="font-size:.92rem;font-weight:700;color:var(--white);margin:0 0 6px;line-height:1.4">CAD Automation with iLogic — 5 Real Engineering Examples</p>
+        <p style="font-size:.8rem;color:var(--blue);margin:0">Read article →</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer" style="margin-top:0">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <a href="../index.html" class="logo"><svg width="22" height="22" viewBox="0 0 28 28" fill="none"><polygon points="14,2 26,8 26,20 14,26 2,20 2,8" fill="none" stroke="#00d4ff" stroke-width="1.5"/><circle cx="14" cy="14" r="3" fill="#00d4ff"/></svg><span>CAD<span class="logo-accent">Automator</span></span></a>
+      <p>Professional live iLogic training for mechanical engineers.</p>
+    </div>
+    <div class="footer-links">
+      <div class="fl-col">
+        <h4>Blog</h4>
+        <a href="what-is-ilogic.html">What is iLogic?</a>
+        <a href="ilogic-training-guide.html">iLogic Training Guide</a>
+        <a href="cad-automation-examples.html">CAD Automation Examples</a>
+        <a href="ilogic-forms-guide.html">iLogic Forms Guide</a>
+        <a href="ilogic-excel-integration.html">iLogic &amp; Excel</a>
+        <a href="ilogic-errors-fix.html">Fix iLogic Errors</a>
+        <a href="ilogic-iproperties.html">iLogic iProperties</a>
+      </div>
+      <div class="fl-col">
+        <h4>Course</h4>
+        <a href="../index.html#why">Why iLogic</a>
+        <a href="../index.html#demo">Live Demo</a>
+        <a href="../index.html#structure">Curriculum</a>
+        <a href="../index.html#faq">FAQ</a>
+        <a href="mailto:connect@cadautomator.com">connect@cadautomator.com</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-copy"><p>&copy; 2026 CAD Automator · <a href="https://cadautomator.com" style="color:var(--mid)">cadautomator.com</a> · Not affiliated with Autodesk, Inc.</p></div>
+</footer>
+
+</body>
+</html>
