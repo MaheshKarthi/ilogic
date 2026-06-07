@@ -1,9 +1,47 @@
 [build]
   publish = "."
 
+[build.processing.html]
+  pretty_urls = true
+
 [[redirects]]
-  from = "/*"
-  to   = "/index.html"
+  from = "/blog/what-is-ilogic"
+  to   = "/blog/what-is-ilogic.html"
+  status = 200
+
+[[redirects]]
+  from = "/blog/ilogic-training-guide"
+  to   = "/blog/ilogic-training-guide.html"
+  status = 200
+
+[[redirects]]
+  from = "/blog/cad-automation-examples"
+  to   = "/blog/cad-automation-examples.html"
+  status = 200
+
+[[redirects]]
+  from = "/blog/ilogic-forms-guide"
+  to   = "/blog/ilogic-forms-guide.html"
+  status = 200
+
+[[redirects]]
+  from = "/blog/ilogic-excel-integration"
+  to   = "/blog/ilogic-excel-integration.html"
+  status = 200
+
+[[redirects]]
+  from = "/blog/ilogic-errors-fix"
+  to   = "/blog/ilogic-errors-fix.html"
+  status = 200
+
+[[redirects]]
+  from = "/blog/ilogic-iproperties"
+  to   = "/blog/ilogic-iproperties.html"
+  status = 200
+
+[[redirects]]
+  from = "/blog"
+  to   = "/blog/index.html"
   status = 200
 
 [forms]
