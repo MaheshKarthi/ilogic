@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>iLogic Excel Integration: Drive Autodesk Inventor from a Spreadsheet | CAD Automator</title>
+  <meta name="description" content="Learn how to connect iLogic to Excel in Autodesk Inventor. Read data, drive dimensions, auto-fill iProperties, and generate variants from a spreadsheet. Step-by-step guide with real code." />
+  <meta name="keywords" content="ilogic excel, ilogic excel integration, autodesk inventor excel automation, ilogic read excel, inventor excel spreadsheet, ilogic parameter from excel" />
+  <link rel="canonical" href="https://cadautomator.com/blog/ilogic-excel-integration" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta property="og:title" content="iLogic Excel Integration: Drive Autodesk Inventor from a Spreadsheet" />
+  <meta property="og:description" content="Connect iLogic to Excel and drive your Inventor models directly from spreadsheet data. Step-by-step guide with real code examples." />
+  <meta property="og:url" content="https://cadautomator.com/blog/ilogic-excel-integration" />
+  <meta property="og:type" content="article" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "iLogic Excel Integration: Drive Autodesk Inventor from a Spreadsheet",
+    "description": "Learn how to connect iLogic to Excel in Autodesk Inventor — read data, drive dimensions, auto-fill iProperties, and generate product variants from a spreadsheet.",
+    "author": { "@type": "Organization", "name": "CAD Automator", "url": "https://cadautomator.com" },
+    "publisher": { "@type": "Organization", "name": "CAD Automator", "url": "https://cadautomator.com" },
+    "datePublished": "2026-06-07",
+    "mainEntityOfPage": "https://cadautomator.com/blog/ilogic-excel-integration"
+  }
+  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-97KYLBNP5W"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-97KYLBNP5W');</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .blog-hero { padding: 120px 0 60px; background: var(--dark2); border-bottom: 1px solid rgba(255,255,255,.06); }
+    .blog-meta { display:flex; gap:16px; align-items:center; margin-bottom:24px; flex-wrap:wrap; }
+    .blog-tag { background:rgba(0,212,255,.1); color:var(--blue); border:1px solid rgba(0,212,255,.3); padding:4px 12px; border-radius:20px; font-size:.75rem; font-weight:600; }
+    .blog-tag.green { background:rgba(57,255,20,.08); color:var(--green); border:1px solid rgba(57,255,20,.25); }
+    .blog-date { color:var(--mid); font-size:.85rem; }
+    .blog-read { color:var(--mid); font-size:.85rem; }
+    .blog-title { font-size:clamp(1.8rem,4vw,3rem); font-weight:900; color:var(--white); line-height:1.2; margin-bottom:20px; }
+    .blog-intro { font-size:1.1rem; color:var(--light); line-height:1.8; max-width:700px; }
+    .blog-body { max-width:780px; margin:0 auto; padding:60px 24px 80px; }
+    .blog-body h2 { font-size:1.6rem; font-weight:800; color:var(--white); margin:48px 0 16px; }
+    .blog-body h3 { font-size:1.15rem; font-weight:700; color:var(--blue); margin:32px 0 12px; }
+    .blog-body p { color:var(--light); line-height:1.9; margin-bottom:18px; font-size:.97rem; }
+    .blog-body ul, .blog-body ol { padding-left:24px; margin-bottom:18px; }
+    .blog-body li { color:var(--light); line-height:1.8; margin-bottom:8px; font-size:.97rem; }
+    .blog-body strong { color:var(--white); }
+    .blog-code { background:var(--dark3); border:1px solid rgba(0,212,255,.2); border-radius:10px; padding:20px 24px; font-family:'JetBrains Mono',monospace; font-size:.85rem; color:#e2e8f0; margin:24px 0; overflow-x:auto; line-height:1.7; }
+    .blog-code .kw  { color:#00d4ff; }
+    .blog-code .str { color:#39ff14; }
+    .blog-code .cm  { color:#64748b; }
+    .blog-code .fn  { color:#ff6b35; }
+    .blog-code .num { color:#f59e0b; }
+    .blog-cta { background:linear-gradient(135deg,var(--dark3),var(--dark2)); border:1px solid rgba(0,212,255,.25); border-radius:20px; padding:40px; text-align:center; margin:48px 0 0; }
+    .blog-cta h3 { font-size:1.4rem; font-weight:800; color:var(--white); margin-bottom:12px; }
+    .blog-cta p { color:var(--mid); margin-bottom:24px; }
+    .blog-nav-bar { background:var(--dark2); padding:16px 0; border-bottom:1px solid rgba(255,255,255,.06); }
+    .blog-nav-inner { max-width:1200px; margin:0 auto; padding:0 24px; display:flex; justify-content:space-between; align-items:center; }
+    .callout { background:rgba(0,212,255,.06); border-left:3px solid var(--blue); border-radius:0 8px 8px 0; padding:16px 20px; margin:24px 0; }
+    .callout.orange { background:rgba(255,107,53,.06); border-left-color:var(--orange); }
+    .callout.green  { background:rgba(57,255,20,.05); border-left-color:var(--green); }
+    .callout p { margin:0; color:var(--light); }
+
+    /* Excel table visual */
+    .excel-table { width:100%; border-collapse:collapse; margin:24px 0; font-size:.85rem; font-family:'JetBrains Mono',monospace; }
+    .excel-table th { background:#1d6a32; color:#fff; font-weight:700; padding:10px 14px; text-align:left; border:1px solid rgba(255,255,255,.15); font-family:'Inter',sans-serif; letter-spacing:.03em; }
+    .excel-table td { padding:9px 14px; border:1px solid rgba(255,255,255,.07); color:var(--light); }
+    .excel-table tr:nth-child(even) td { background:rgba(29,106,50,.08); }
+    .excel-table .row-num { color:var(--mid); font-size:.75rem; width:32px; text-align:center; border-right:2px solid rgba(255,255,255,.1); }
+
+    .step-box { background:var(--dark3); border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:24px 28px; margin:20px 0; display:flex; gap:20px; align-items:flex-start; }
+    .step-num { background:var(--green); color:#020817; font-weight:900; font-size:.9rem; min-width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:2px; }
+    .step-box p { margin:0; color:var(--light); font-size:.95rem; line-height:1.7; }
+    .step-box strong { color:var(--white); }
+
+    .use-case-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:24px 0; }
+    .use-case-card { background:var(--dark3); border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:20px 22px; }
+    .use-case-card h4 { color:var(--white); font-size:.95rem; font-weight:700; margin:0 0 8px; }
+    .use-case-card p { color:var(--mid); font-size:.83rem; line-height:1.6; margin:0; }
+    .use-case-card .uc-icon { font-size:1.4rem; margin-bottom:10px; display:block; }
+
+    @media(max-width:640px){
+      .blog-hero { padding: 80px 0 40px; }
+      .blog-title { font-size: 1.6rem; }
+      .blog-intro { font-size: .95rem; }
+      .blog-body { padding: 40px 16px 60px; }
+      .blog-body h2 { font-size: 1.3rem; margin: 36px 0 12px; }
+      .blog-nav-inner { padding: 0 16px; }
+      .blog-code { padding: 14px 16px; font-size: .76rem; }
+      .step-box { flex-direction:column; gap:12px; padding:18px; }
+      .use-case-grid { grid-template-columns:1fr; }
+      .excel-table { font-size:.76rem; }
+      .excel-table td, .excel-table th { padding:7px 10px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="blog-nav-bar">
+  <div class="blog-nav-inner">
+    <a href="../index.html" class="logo"><svg width="22" height="22" viewBox="0 0 28 28" fill="none"><polygon points="14,2 26,8 26,20 14,26 2,20 2,8" fill="none" stroke="#00d4ff" stroke-width="1.5"/><circle cx="14" cy="14" r="3" fill="#00d4ff"/></svg><span>CAD<span class="logo-accent">Automator</span></span></a>
+    <a href="../index.html" class="btn btn-neon" style="font-size:.8rem;padding:8px 18px">⚡ Enroll Now</a>
+  </div>
+</nav>
+
+<section class="blog-hero">
+  <div class="container">
+    <div class="blog-meta">
+      <span class="blog-tag">iLogic</span>
+      <span class="blog-tag green">Excel Integration</span>
+      <span class="blog-date">June 7, 2026</span>
+      <span class="blog-read">⏱ 8 min read</span>
+    </div>
+    <h1 class="blog-title">iLogic Excel Integration: Drive Autodesk<br>Inventor from a Spreadsheet</h1>
+    <p class="blog-intro">Your engineering data already lives in Excel — project specs, product tables, customer requirements. iLogic can read that data directly and use it to configure your Inventor models automatically. No copy-pasting. No manual parameter updates. Here's exactly how it works.</p>
+  </div>
+</section>
+
+<article class="blog-body">
+
+  <h2>Why Connect iLogic to Excel?</h2>
+  <p>In most engineering companies, the product specification lives in a spreadsheet long before anyone opens Inventor. A sales engineer fills in a project data sheet. A project manager updates a requirements table. The CAD engineer then has to manually translate those numbers into Inventor — dimension by dimension, parameter by parameter.</p>
+  <p>This translation step is where errors happen. It's also completely unnecessary.</p>
+  <p><strong>iLogic can read your Excel file directly and drive the Inventor model from it.</strong> When the spec changes in Excel, you run one rule — and the model updates to match. No re-entering data. No risk of misreading a number.</p>
+
+  <div class="callout green"><p>✅ <strong>Real impact:</strong> Engineers who implement iLogic–Excel integration typically eliminate 80–90% of the manual data transfer time on configure-to-order and engineer-to-order projects.</p></div>
+
+  <h2>What Can iLogic Read from Excel?</h2>
+  <p>iLogic uses Inventor's built-in <strong>iLogicVb.ExcelGetValue</strong> method to read any cell from any Excel workbook. You can pull:</p>
+  <ul>
+    <li>Dimensions and numeric parameters (lengths, loads, thicknesses)</li>
+    <li>Text strings (part numbers, descriptions, material grades, customer names)</li>
+    <li>Boolean flags (yes/no, include/exclude feature toggles)</li>
+    <li>Lookup table values (beam sizes mapped to load ratings)</li>
+    <li>Entire rows of product variant data</li>
+  </ul>
+  <p>The Excel file can be open or closed — iLogic reads it either way. It can be on the same machine, on a shared network drive, or in a project folder alongside the Inventor files.</p>
+
+  <h2>Example Spreadsheet Structure</h2>
+  <p>Here's a typical project data sheet that engineers use as input to their iLogic rules. Each column maps to a parameter in the Inventor model:</p>
+
+  <table class="excel-table">
+    <thead>
+      <tr>
+        <th class="row-num"></th>
+        <th>A — Parameter</th>
+        <th>B — Value</th>
+        <th>C — Unit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td class="row-num">1</td><td><strong>PROJECT DATA SHEET</strong></td><td></td><td></td></tr>
+      <tr><td class="row-num">2</td><td>Project Number</td><td>PRJ-2026-047</td><td>—</td></tr>
+      <tr><td class="row-num">3</td><td>Client Name</td><td>Precision Parts Ltd</td><td>—</td></tr>
+      <tr><td class="row-num">4</td><td>Frame Length</td><td>3500</td><td>mm</td></tr>
+      <tr><td class="row-num">5</td><td>Frame Width</td><td>1800</td><td>mm</td></tr>
+      <tr><td class="row-num">6</td><td>Design Load</td><td>8</td><td>Tonnes</td></tr>
+      <tr><td class="row-num">7</td><td>Beam Grade</td><td>S275</td><td>—</td></tr>
+      <tr><td class="row-num">8</td><td>Include Lifting Lugs</td><td>Yes</td><td>—</td></tr>
+      <tr><td class="row-num">9</td><td>Access Platform</td><td>No</td><td>—</td></tr>
+      <tr><td class="row-num">10</td><td>Surface Finish</td><td>Hot Dip Galvanised</td><td>—</td></tr>
+    </tbody>
+  </table>
+
+  <p>The iLogic rule reads column B (the value column) and maps each row to the corresponding Inventor parameter. The project data sheet becomes the single source of truth for the model.</p>
+
+  <h2>Basic iLogic Code: Reading from Excel</h2>
+  <p>Here is the core iLogic syntax for reading values from an Excel file:</p>
+
+  <div class="blog-code">
+<span class="cm">' ── Reading values from Excel into Inventor ──</span>
+<span class="cm">' iLogicVb.ExcelGetValue(FilePath, SheetName, Row, Column)</span>
+
+<span class="cm">' Define the Excel file path</span>
+<span class="kw">Dim</span> xlFile <span class="kw">As String</span> = <span class="str">"C:\Projects\PRJ-2026-047\ProjectDataSheet.xlsx"</span>
+<span class="kw">Dim</span> sheet  <span class="kw">As String</span> = <span class="str">"Sheet1"</span>
+
+<span class="cm">' Read numeric dimensions from column B</span>
+<span class="kw">Dim</span> frameLength <span class="kw">As Double</span> = <span class="fn">iLogicVb.ExcelGetValue</span>(xlFile, sheet, <span class="num">4</span>, <span class="num">2</span>)
+<span class="kw">Dim</span> frameWidth  <span class="kw">As Double</span> = <span class="fn">iLogicVb.ExcelGetValue</span>(xlFile, sheet, <span class="num">5</span>, <span class="num">2</span>)
+<span class="kw">Dim</span> designLoad  <span class="kw">As Double</span> = <span class="fn">iLogicVb.ExcelGetValue</span>(xlFile, sheet, <span class="num">6</span>, <span class="num">2</span>)
+
+<span class="cm">' Read text strings from column B</span>
+<span class="kw">Dim</span> projectNum <span class="kw">As String</span> = <span class="fn">iLogicVb.ExcelGetValue</span>(xlFile, sheet, <span class="num">2</span>, <span class="num">2</span>)
+<span class="kw">Dim</span> clientName <span class="kw">As String</span> = <span class="fn">iLogicVb.ExcelGetValue</span>(xlFile, sheet, <span class="num">3</span>, <span class="num">2</span>)
+<span class="kw">Dim</span> beamGrade  <span class="kw">As String</span> = <span class="fn">iLogicVb.ExcelGetValue</span>(xlFile, sheet, <span class="num">7</span>, <span class="num">2</span>)
+
+<span class="cm">' Apply dimensions to Inventor parameters</span>
+<span class="fn">Parameter</span>(<span class="str">"FrameLength"</span>) = frameLength
+<span class="fn">Parameter</span>(<span class="str">"FrameWidth"</span>)  = frameWidth
+
+<span class="cm">' Apply text values to iProperties</span>
+iProperties.Value(<span class="str">"Custom"</span>, <span class="str">"Project Number"</span>) = projectNum
+iProperties.Value(<span class="str">"Custom"</span>, <span class="str">"Client"</span>)         = clientName
+iProperties.Value(<span class="str">"Summary"</span>, <span class="str">"Comments"</span>)      = <span class="str">"Grade: "</span> & beamGrade
+
+iLogicVb.UpdateWhenDone = <span class="kw">True</span>
+  </div>
+
+  <p>Run this rule once — and Inventor reads all 10 rows, updates the model dimensions, and populates the iProperties. What used to take 15 minutes of careful manual entry takes under 3 seconds.</p>
+
+  <h2>Advanced: Reading a Feature Toggle (Yes/No)</h2>
+  <p>When Excel contains Yes/No flags that control whether a feature is included in the model, you read the string and convert it to a boolean:</p>
+
+  <div class="blog-code">
+<span class="cm">' Read Yes/No flag from Excel and toggle a feature</span>
+<span class="kw">Dim</span> liftingLugsFlag <span class="kw">As String</span> = <span class="fn">iLogicVb.ExcelGetValue</span>(xlFile, sheet, <span class="num">8</span>, <span class="num">2</span>)
+<span class="kw">Dim</span> platformFlag    <span class="kw">As String</span> = <span class="fn">iLogicVb.ExcelGetValue</span>(xlFile, sheet, <span class="num">9</span>, <span class="num">2</span>)
+
+<span class="cm">' Convert "Yes"/"No" string to feature active/suppressed</span>
+<span class="fn">Feature</span>.IsActive(<span class="str">"LiftingLugs"</span>)     = (liftingLugsFlag.ToUpper() = <span class="str">"YES"</span>)
+<span class="fn">Feature</span>.IsActive(<span class="str">"AccessPlatform"</span>)   = (platformFlag.ToUpper() = <span class="str">"YES"</span>)
+
+<span class="cm">' Also stamp it in iProperties for the BOM</span>
+iProperties.Value(<span class="str">"Custom"</span>, <span class="str">"Lifting Lugs"</span>)    = liftingLugsFlag
+iProperties.Value(<span class="str">"Custom"</span>, <span class="str">"Access Platform"</span>) = platformFlag
+  </div>
+
+  <h2>Advanced: Excel as a Lookup Table</h2>
+  <p>One of the most powerful patterns in iLogic–Excel integration is using Excel as a <strong>lookup table</strong>. Instead of hard-coding beam sizes in your iLogic rules, you store them in Excel — where non-programmers can update them without touching the rule code.</p>
+
+  <p>Here's what the lookup table sheet looks like:</p>
+
+  <table class="excel-table">
+    <thead>
+      <tr>
+        <th class="row-num"></th>
+        <th>A — Load (T)</th>
+        <th>B — Beam Height (mm)</th>
+        <th>C — Beam Width (mm)</th>
+        <th>D — Wall Thickness</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td class="row-num">1</td><td><strong>Load</strong></td><td><strong>Height</strong></td><td><strong>Width</strong></td><td><strong>Thickness</strong></td></tr>
+      <tr><td class="row-num">2</td><td>2</td><td>150</td><td>75</td><td>5</td></tr>
+      <tr><td class="row-num">3</td><td>5</td><td>200</td><td>100</td><td>6</td></tr>
+      <tr><td class="row-num">4</td><td>8</td><td>250</td><td>125</td><td>8</td></tr>
+      <tr><td class="row-num">5</td><td>10</td><td>300</td><td>150</td><td>10</td></tr>
+      <tr><td class="row-num">6</td><td>15</td><td>350</td><td>175</td><td>12</td></tr>
+      <tr><td class="row-num">7</td><td>20</td><td>400</td><td>200</td><td>16</td></tr>
+    </tbody>
+  </table>
+
+  <p>The iLogic rule reads the design load from the project data sheet, then loops through the lookup table to find the matching row:</p>
+
+  <div class="blog-code">
+<span class="cm">' ── Lookup beam size from Excel table ──</span>
+<span class="kw">Dim</span> lookupFile  <span class="kw">As String</span> = <span class="str">"C:\Standards\BeamSizeTable.xlsx"</span>
+<span class="kw">Dim</span> lookupSheet <span class="kw">As String</span> = <span class="str">"BeamSizes"</span>
+<span class="kw">Dim</span> load        <span class="kw">As Double</span> = designLoad  <span class="cm">' from project data sheet above</span>
+
+<span class="kw">Dim</span> beamHeight    <span class="kw">As Double</span> = <span class="num">200</span>  <span class="cm">' defaults in case no match</span>
+<span class="kw">Dim</span> beamWidth     <span class="kw">As Double</span> = <span class="num">100</span>
+<span class="kw">Dim</span> wallThickness <span class="kw">As Double</span> = <span class="num">6</span>
+
+<span class="cm">' Loop through table rows 2–7 (skip header row 1)</span>
+<span class="kw">Dim</span> i <span class="kw">As Integer</span>
+<span class="kw">For</span> i = <span class="num">2</span> <span class="kw">To</span> <span class="num">7</span>
+  <span class="kw">Dim</span> tableLoad <span class="kw">As Double</span> = <span class="fn">iLogicVb.ExcelGetValue</span>(lookupFile, lookupSheet, i, <span class="num">1</span>)
+  <span class="kw">If</span> load <= tableLoad <span class="kw">Then</span>
+    beamHeight    = <span class="fn">iLogicVb.ExcelGetValue</span>(lookupFile, lookupSheet, i, <span class="num">2</span>)
+    beamWidth     = <span class="fn">iLogicVb.ExcelGetValue</span>(lookupFile, lookupSheet, i, <span class="num">3</span>)
+    wallThickness = <span class="fn">iLogicVb.ExcelGetValue</span>(lookupFile, lookupSheet, i, <span class="num">4</span>)
+    <span class="kw">Exit For</span>  <span class="cm">' found the right row — stop looping</span>
+  <span class="kw">End If</span>
+<span class="kw">Next</span>
+
+<span class="cm">' Apply to model</span>
+<span class="fn">Parameter</span>(<span class="str">"BeamHeight"</span>)    = beamHeight
+<span class="fn">Parameter</span>(<span class="str">"BeamWidth"</span>)     = beamWidth
+<span class="fn">Parameter</span>(<span class="str">"WallThickness"</span>) = wallThickness
+  </div>
+
+  <p>Now when your structural engineer updates the beam size table in Excel — adding a new load rating, changing a wall thickness — the iLogic rule automatically picks up the new values next time it runs. <strong>No one needs to touch the iLogic code.</strong></p>
+
+  <h2>Writing Data Back to Excel</h2>
+  <p>iLogic can also <strong>write data back to Excel</strong> — not just read from it. This is useful for generating reports, populating BOM summaries, or creating a project log every time a model is configured:</p>
+
+  <div class="blog-code">
+<span class="cm">' ── Write calculated results back to Excel ──</span>
+<span class="cm">' iLogicVb.ExcelPutValue(FilePath, SheetName, Row, Column, Value)</span>
+
+<span class="kw">Dim</span> reportFile <span class="kw">As String</span> = <span class="str">"C:\Projects\PRJ-2026-047\ModelReport.xlsx"</span>
+
+<span class="cm">' Write confirmation data to the report sheet</span>
+<span class="fn">iLogicVb.ExcelPutValue</span>(reportFile, <span class="str">"ModelData"</span>, <span class="num">2</span>, <span class="num">2</span>, <span class="fn">Parameter</span>(<span class="str">"FrameLength"</span>))
+<span class="fn">iLogicVb.ExcelPutValue</span>(reportFile, <span class="str">"ModelData"</span>, <span class="num">3</span>, <span class="num">2</span>, <span class="fn">Parameter</span>(<span class="str">"FrameWidth"</span>))
+<span class="fn">iLogicVb.ExcelPutValue</span>(reportFile, <span class="str">"ModelData"</span>, <span class="num">4</span>, <span class="num">2</span>, beamHeight)
+<span class="fn">iLogicVb.ExcelPutValue</span>(reportFile, <span class="str">"ModelData"</span>, <span class="num">5</span>, <span class="num">2</span>, beamWidth)
+<span class="fn">iLogicVb.ExcelPutValue</span>(reportFile, <span class="str">"ModelData"</span>, <span class="num">6</span>, <span class="num">2</span>, <span class="str">"Configured: "</span> & <span class="fn">Now</span>())
+
+iLogicVb.UpdateWhenDone = <span class="kw">True</span>
+  </div>
+
+  <p>After the rule runs, the Excel report is automatically updated with the final model dimensions and a timestamp. This creates a complete audit trail of every configuration — useful for revision control and client documentation.</p>
+
+  <h2>5 Real-World Use Cases for iLogic–Excel Integration</h2>
+
+  <div class="use-case-grid">
+    <div class="use-case-card">
+      <span class="uc-icon">🏗️</span>
+      <h4>Structural Frame Configurator</h4>
+      <p>Sales engineer fills project data sheet → iLogic reads load, span, and material → Inventor builds the frame and outputs a PDF drawing — all in one click.</p>
+    </div>
+    <div class="use-case-card">
+      <span class="uc-icon">📦</span>
+      <h4>Product Variant Generator</h4>
+      <p>An Excel table lists 50 product variants. A loop rule reads each row and generates a separate 3D model and drawing for every variant automatically.</p>
+    </div>
+    <div class="use-case-card">
+      <span class="uc-icon">📋</span>
+      <h4>BOM Auto-Population</h4>
+      <p>iLogic reads a component list from Excel and populates iProperties (Part Number, Description, Material) across all parts in the assembly simultaneously.</p>
+    </div>
+    <div class="use-case-card">
+      <span class="uc-icon">🔩</span>
+      <h4>Standards Lookup</h4>
+      <p>Company beam sizes, fastener specs, and weld sizes stored in Excel. iLogic looks them up by load rating — keeping the model compliant with internal standards automatically.</p>
+    </div>
+    <div class="use-case-card">
+      <span class="uc-icon">🗂️</span>
+      <h4>Drawing Title Block Filler</h4>
+      <p>Project data (client, revision, date, drawn by) lives in Excel. iLogic reads it and auto-fills every drawing title block — no manual entry, no typos.</p>
+    </div>
+    <div class="use-case-card">
+      <span class="uc-icon">📊</span>
+      <h4>Configuration Report</h4>
+      <p>After configuration, iLogic writes the final model dimensions back to an Excel report with a timestamp — creating a full project audit trail automatically.</p>
+    </div>
+  </div>
+
+  <h2>Best Practices for iLogic–Excel Integration</h2>
+
+  <h3>Use named ranges, not hardcoded row numbers</h3>
+  <p>If your Excel file uses named ranges (e.g. <code>FrameLength</code> instead of row 4 column 2), your iLogic code becomes far easier to maintain. If a row is added to the spreadsheet, code referencing row numbers breaks — named ranges don't.</p>
+
+  <div class="blog-code">
+<span class="cm">' Better: read by named range using a helper function</span>
+<span class="cm">' ExcelGetValueByName(FilePath, SheetName, NamedRange)</span>
+<span class="kw">Dim</span> frameLength <span class="kw">As Double</span> = <span class="fn">iLogicVb.ExcelGetValueByName</span>(xlFile, sheet, <span class="str">"FrameLength"</span>)
+  </div>
+
+  <h3>Store the file path as a relative reference</h3>
+  <p>Hardcoding <code>C:\Projects\...</code> breaks when the project moves to a different machine or shared drive. Store the Excel path in an iLogic parameter so it can be updated once per project without touching the rule code.</p>
+
+  <h3>Handle missing or empty cells gracefully</h3>
+  <p>If a cell is empty, <code>iLogicVb.ExcelGetValue</code> returns an empty string or zero — which can silently set a dimension to zero and crash the model rebuild. Always validate before applying:</p>
+
+  <div class="blog-code">
+<span class="kw">Dim</span> rawLength = <span class="fn">iLogicVb.ExcelGetValue</span>(xlFile, sheet, <span class="num">4</span>, <span class="num">2</span>)
+<span class="kw">If</span> rawLength = <span class="str">""</span> <span class="kw">Or</span> rawLength = <span class="num">0</span> <span class="kw">Then</span>
+  <span class="fn">MessageBox.Show</span>(<span class="str">"Frame Length cell is empty in the data sheet. Please check row 4."</span>, <span class="str">"Missing Data"</span>)
+  <span class="kw">Return</span>
+<span class="kw">End If</span>
+<span class="fn">Parameter</span>(<span class="str">"FrameLength"</span>) = rawLength
+  </div>
+
+  <h3>Keep the Excel file closed when iLogic reads it</h3>
+  <p>iLogic can read Excel files whether they're open or closed. But if two users have the file open simultaneously (common on shared drives), you can get file-lock errors. Structure your workflow so the data sheet is saved and closed before running the iLogic rule.</p>
+
+  <div class="callout orange"><p>⚠️ <strong>Avoid this:</strong> Never store the Excel data file inside the same folder as your Inventor master template. If the template is copied for a new project, the data sheet comes with it and points to stale data. Keep data sheets in project-specific folders.</p></div>
+
+  <h2>iLogic + Excel + Forms: The Complete Automation Stack</h2>
+  <p>The most powerful iLogic workflows combine all three tools together:</p>
+  <ol>
+    <li><strong>Excel</strong> stores the project data and lookup tables (the data layer)</li>
+    <li><strong>iLogic Forms</strong> provides a clean UI for the operator (the interface layer)</li>
+    <li><strong>iLogic Rules</strong> reads Excel, applies the data, updates the model (the logic layer)</li>
+  </ol>
+  <p>The operator sees only the Form. The Form triggers the Rule. The Rule reads Excel. Inventor rebuilds. A drawing comes out. The operator doesn't need to understand any of it — they just fill in the form and click "Generate".</p>
+  <p>This is what a fully automated engineer-to-order CAD workflow looks like in practice. It replaces hours of manual work with a process any team member can operate — not just the engineer who built it.</p>
+
+  <div class="callout"><p>💡 <strong>This is exactly what we teach</strong> in the CAD Automator iLogic training programme — building the complete stack: parameters → rules → forms → Excel integration → drawing output → BOM export.</p></div>
+
+  <div class="blog-cta">
+    <h3>Master iLogic–Excel Integration</h3>
+    <p>Excel integration is one of 19 modules in CAD Automator's live iLogic training. Learn it alongside parametric rules, Forms, assembly automation, drawing output, and BOM generation — in 50+ hours of live, hands-on instruction.</p>
+    <a href="../index.html" class="btn btn-neon btn-xl">⚡ View Course &amp; Enroll</a>
+    <br><br>
+    <a href="../index.html#demo" class="btn btn-ghost">👀 See a Live iLogic Demo First</a>
+  </div>
+
+</article>
+
+<!-- ── Related Articles ── -->
+<section style="background:var(--dark2);padding:60px 0;border-top:1px solid rgba(255,255,255,.06)">
+  <div style="max-width:780px;margin:0 auto;padding:0 24px">
+    <p style="font-size:.75rem;font-weight:700;color:var(--mid);letter-spacing:.1em;text-transform:uppercase;margin-bottom:24px">Related Articles</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px">
+      <a href="ilogic-forms-guide.html" style="background:var(--dark3);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:22px;text-decoration:none;display:block;transition:border-color .2s" onmouseover="this.style.borderColor='rgba(0,212,255,.35)'" onmouseout="this.style.borderColor='rgba(255,255,255,.08)'">
+        <p style="font-size:.72rem;font-weight:700;color:var(--blue);margin:0 0 8px;text-transform:uppercase;letter-spacing:.05em">iLogic Forms</p>
+        <p style="font-size:.92rem;font-weight:700;color:var(--white);margin:0 0 6px;line-height:1.4">Build Custom Input Dialogs in Autodesk Inventor</p>
+        <p style="font-size:.8rem;color:var(--blue);margin:0">Read article →</p>
+      </a>
+      <a href="cad-automation-examples.html" style="background:var(--dark3);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:22px;text-decoration:none;display:block;transition:border-color .2s" onmouseover="this.style.borderColor='rgba(0,212,255,.35)'" onmouseout="this.style.borderColor='rgba(255,255,255,.08)'">
+        <p style="font-size:.72rem;font-weight:700;color:var(--orange);margin:0 0 8px;text-transform:uppercase;letter-spacing:.05em">Real Examples</p>
+        <p style="font-size:.92rem;font-weight:700;color:var(--white);margin:0 0 6px;line-height:1.4">CAD Automation with iLogic — 5 Real Engineering Examples</p>
+        <p style="font-size:.8rem;color:var(--blue);margin:0">Read article →</p>
+      </a>
+      <a href="what-is-ilogic.html" style="background:var(--dark3);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:22px;text-decoration:none;display:block;transition:border-color .2s" onmouseover="this.style.borderColor='rgba(0,212,255,.35)'" onmouseout="this.style.borderColor='rgba(255,255,255,.08)'">
+        <p style="font-size:.72rem;font-weight:700;color:var(--green);margin:0 0 8px;text-transform:uppercase;letter-spacing:.05em">Start Here</p>
+        <p style="font-size:.92rem;font-weight:700;color:var(--white);margin:0 0 6px;line-height:1.4">What is iLogic? Complete Guide to Autodesk Inventor Automation</p>
+        <p style="font-size:.8rem;color:var(--blue);margin:0">Read article →</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer" style="margin-top:0">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <a href="../index.html" class="logo"><svg width="22" height="22" viewBox="0 0 28 28" fill="none"><polygon points="14,2 26,8 26,20 14,26 2,20 2,8" fill="none" stroke="#00d4ff" stroke-width="1.5"/><circle cx="14" cy="14" r="3" fill="#00d4ff"/></svg><span>CAD<span class="logo-accent">Automator</span></span></a>
+      <p>Professional live iLogic training for mechanical engineers.</p>
+    </div>
+    <div class="footer-links">
+      <div class="fl-col">
+        <h4>Blog</h4>
+        <a href="what-is-ilogic.html">What is iLogic?</a>
+        <a href="ilogic-training-guide.html">iLogic Training Guide</a>
+        <a href="cad-automation-examples.html">CAD Automation Examples</a>
+        <a href="ilogic-forms-guide.html">iLogic Forms Guide</a>
+        <a href="ilogic-excel-integration.html">iLogic &amp; Excel</a>
+      </div>
+      <div class="fl-col">
+        <h4>Course</h4>
+        <a href="../index.html#why">Why iLogic</a>
+        <a href="../index.html#demo">Live Demo</a>
+        <a href="../index.html#structure">Curriculum</a>
+        <a href="../index.html#faq">FAQ</a>
+        <a href="mailto:connect@cadautomator.com">connect@cadautomator.com</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-copy"><p>&copy; 2026 CAD Automator · <a href="https://cadautomator.com" style="color:var(--mid)">cadautomator.com</a> · Not affiliated with Autodesk, Inc.</p></div>
+</footer>
+
+</body>
+</html>
