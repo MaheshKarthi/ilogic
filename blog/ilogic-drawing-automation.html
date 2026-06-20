@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>iLogic Drawing Automation: Auto-Generate Views, Title Blocks & PDFs | CAD Automator</title>
+  <meta name="description" content="Use iLogic to automate drawing creation in Autodesk Inventor — auto-update title blocks, generate drawing views, export PDFs, and batch-print. Step-by-step guide with real code." />
+  <meta name="keywords" content="ilogic drawing automation, ilogic drawing views, ilogic title block, ilogic pdf export, autodesk inventor drawing automation, ilogic idw automation" />
+  <link rel="canonical" href="https://cadautomator.com/blog/ilogic-drawing-automation" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta property="og:title" content="iLogic Drawing Automation: Auto-Generate Views, Title Blocks & PDFs" />
+  <meta property="og:description" content="Stop manually updating drawings. Use iLogic to auto-fill title blocks, generate views, and export PDFs in Autodesk Inventor." />
+  <meta property="og:url" content="https://cadautomator.com/blog/ilogic-drawing-automation" />
+  <meta property="og:type" content="article" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "iLogic Drawing Automation: Auto-Generate Views, Title Blocks & PDFs",
+    "description": "Use iLogic to automate drawing creation in Autodesk Inventor — auto-update title blocks, generate drawing views, export PDFs, and batch-print.",
+    "author": { "@type": "Organization", "name": "CAD Automator", "url": "https://cadautomator.com" },
+    "publisher": { "@type": "Organization", "name": "CAD Automator", "url": "https://cadautomator.com" },
+    "datePublished": "2026-06-20",
+    "mainEntityOfPage": "https://cadautomator.com/blog/ilogic-drawing-automation"
+  }
+  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-97KYLBNP5W"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-97KYLBNP5W');</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .blog-hero { padding: 120px 0 60px; background: var(--dark2); border-bottom: 1px solid rgba(255,255,255,.06); }
+    .blog-meta { display:flex; gap:16px; align-items:center; margin-bottom:24px; flex-wrap:wrap; }
+    .blog-tag { background:rgba(0,212,255,.1); color:var(--blue); border:1px solid rgba(0,212,255,.3); padding:4px 12px; border-radius:20px; font-size:.75rem; font-weight:600; }
+    .blog-tag.orange { background:rgba(255,107,53,.1); color:var(--orange); border:1px solid rgba(255,107,53,.3); }
+    .blog-tag.purple { background:rgba(168,85,247,.1); color:#a855f7; border:1px solid rgba(168,85,247,.3); }
+    .blog-date { color:var(--mid); font-size:.85rem; }
+    .blog-read { color:var(--mid); font-size:.85rem; }
+    .blog-title { font-size:clamp(1.8rem,4vw,3rem); font-weight:900; color:var(--white); line-height:1.2; margin-bottom:20px; }
+    .blog-intro { font-size:1.1rem; color:var(--light); line-height:1.8; max-width:700px; }
+    .blog-body { max-width:780px; margin:0 auto; padding:60px 24px 80px; }
+    .blog-body h2 { font-size:1.6rem; font-weight:800; color:var(--white); margin:48px 0 16px; }
+    .blog-body h3 { font-size:1.15rem; font-weight:700; color:var(--blue); margin:32px 0 12px; }
+    .blog-body p { color:var(--light); line-height:1.9; margin-bottom:18px; font-size:.97rem; }
+    .blog-body ul, .blog-body ol { padding-left:24px; margin-bottom:18px; }
+    .blog-body li { color:var(--light); line-height:1.8; margin-bottom:8px; font-size:.97rem; }
+    .blog-body strong { color:var(--white); }
+    .blog-code { background:var(--dark3); border:1px solid rgba(0,212,255,.2); border-radius:10px; padding:20px 24px; font-family:'JetBrains Mono',monospace; font-size:.85rem; color:#e2e8f0; margin:24px 0; overflow-x:auto; line-height:1.7; }
+    .blog-code .kw { color:#00d4ff; } .blog-code .str { color:#39ff14; } .blog-code .cm { color:#64748b; } .blog-code .fn { color:#ff6b35; }
+    .blog-cta { background:linear-gradient(135deg,var(--dark3),var(--dark2)); border:1px solid rgba(0,212,255,.25); border-radius:20px; padding:40px; text-align:center; margin:48px 0 0; }
+    .blog-cta h3 { font-size:1.4rem; font-weight:800; color:var(--white); margin-bottom:12px; }
+    .blog-cta p { color:var(--mid); margin-bottom:24px; }
+    .blog-nav-bar { background:var(--dark2); padding:16px 0; border-bottom:1px solid rgba(255,255,255,.06); }
+    .blog-nav-inner { max-width:1200px; margin:0 auto; padding:0 24px; display:flex; justify-content:space-between; align-items:center; }
+    .callout { background:rgba(0,212,255,.06); border-left:3px solid var(--blue); border-radius:0 8px 8px 0; padding:16px 20px; margin:24px 0; }
+    .callout.orange { background:rgba(255,107,53,.06); border-left-color:var(--orange); }
+    .callout p { margin:0; color:var(--light); }
+    .step-box { background:var(--dark3); border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:24px 28px; margin:20px 0; display:flex; gap:20px; align-items:flex-start; }
+    .step-num { background:var(--blue); color:#020817; font-weight:900; font-size:.9rem; min-width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:2px; }
+    .step-box p { margin:0; color:var(--light); font-size:.95rem; line-height:1.7; }
+    .step-box strong { color:var(--white); }
+    .toc { background:var(--dark3); border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:24px 28px; margin:0 0 40px; }
+    .toc h4 { color:var(--white); font-size:.95rem; font-weight:700; margin:0 0 12px; }
+    .toc ol { padding-left:20px; margin:0; }
+    .toc li { margin-bottom:6px; }
+    .toc a { color:var(--blue); text-decoration:none; font-size:.88rem; }
+    .toc a:hover { text-decoration:underline; }
+    @media(max-width:640px){
+      .blog-hero { padding: 80px 0 40px; }
+      .blog-title { font-size: 1.6rem; }
+      .blog-body { padding: 40px 16px 60px; }
+      .blog-code { padding: 14px 16px; font-size: .78rem; }
+      .step-box { flex-direction:column; gap:12px; padding:18px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="blog-nav-bar">
+  <div class="blog-nav-inner">
+    <a href="../index.html" class="logo"><svg width="22" height="22" viewBox="0 0 28 28" fill="none"><polygon points="14,2 26,8 26,20 14,26 2,20 2,8" fill="none" stroke="#00d4ff" stroke-width="1.5"/><circle cx="14" cy="14" r="3" fill="#00d4ff"/></svg><span>CAD<span class="logo-accent">Automator</span></span></a>
+    <a href="../index.html" class="btn btn-neon" style="font-size:.8rem;padding:8px 18px">⚡ Enroll Now</a>
+  </div>
+</nav>
+
+<section class="blog-hero">
+  <div class="container">
+    <div class="blog-meta">
+      <span class="blog-tag">iLogic</span>
+      <span class="blog-tag purple">Drawing Automation</span>
+      <span class="blog-date">June 20, 2026</span>
+      <span class="blog-read">⏱ 9 min read</span>
+    </div>
+    <h1 class="blog-title">iLogic Drawing Automation: Auto-Generate<br>Views, Title Blocks &amp; PDFs</h1>
+    <p class="blog-intro">Manually updating drawing title blocks, adjusting views, and exporting PDFs after every design change is one of the most time-consuming tasks in Autodesk Inventor. iLogic eliminates it. This guide shows you exactly how to automate your entire drawing workflow.</p>
+  </div>
+</section>
+
+<article class="blog-body">
+
+  <div class="toc">
+    <h4>Contents</h4>
+    <ol>
+      <li><a href="#what-can-automate">What Can iLogic Automate in Drawings?</a></li>
+      <li><a href="#auto-title-block">Auto-Fill the Title Block</a></li>
+      <li><a href="#open-drawing">Open a Drawing File from iLogic</a></li>
+      <li><a href="#export-pdf">Export Drawing to PDF Automatically</a></li>
+      <li><a href="#batch-export">Batch Export Multiple Drawings</a></li>
+      <li><a href="#trigger-on-save">Trigger Drawing Updates on Model Save</a></li>
+      <li><a href="#real-example">Real-World Example: Full Auto-Drawing Rule</a></li>
+    </ol>
+  </div>
+
+  <h2 id="what-can-automate">What Can iLogic Automate in Drawings?</h2>
+  <p>iLogic has full access to Inventor's drawing environment. From a single rule, you can:</p>
+  <ul>
+    <li>Auto-fill title block fields (drawn by, checked by, revision, date, project number)</li>
+    <li>Open associated drawing files from the part or assembly</li>
+    <li>Export drawings as PDF, DWG, or DXF files automatically</li>
+    <li>Set drawing sheet scale based on model size</li>
+    <li>Update revision tables when model parameters change</li>
+    <li>Batch-export an entire project's drawings in one click</li>
+    <li>Print drawings directly to a network printer</li>
+  </ul>
+
+  <div class="callout"><p>💡 <strong>The biggest win:</strong> Trigger drawing export automatically when the model is saved — so every design iteration produces an up-to-date PDF without any manual steps.</p></div>
+
+  <h2 id="auto-title-block">Auto-Fill the Title Block</h2>
+  <p>The most common use of iLogic in drawings is automatically populating title block fields from the model's iProperties. This eliminates manual data entry and ensures the drawing always matches the model:</p>
+
+  <div class="blog-code">
+<span class="cm">' This rule runs in the drawing file (.idw)</span>
+<span class="cm">' It reads iProperties from the referenced part and fills the title block</span>
+
+<span class="kw">Dim</span> oDoc <span class="kw">As</span> DrawingDocument = ThisDoc.Document
+<span class="kw">Dim</span> oSheet <span class="kw">As</span> Sheet = oDoc.ActiveSheet
+<span class="kw">Dim</span> oTitleBlock <span class="kw">As</span> TitleBlockDefinition = oSheet.TitleBlock
+
+<span class="cm">' Get the referenced model document</span>
+<span class="kw">Dim</span> oRefDoc <span class="kw">As</span> PartDocument = oDoc.ReferencedDocuments.Item(1)
+
+<span class="cm">' Read iProperties from the model</span>
+<span class="kw">Dim</span> partNum <span class="kw">As String</span> = <span class="fn">iProperties.Value</span>(oRefDoc.FullFileName, <span class="str">"Project"</span>, <span class="str">"Part Number"</span>)
+<span class="kw">Dim</span> description <span class="kw">As String</span> = <span class="fn">iProperties.Value</span>(oRefDoc.FullFileName, <span class="str">"Summary"</span>, <span class="str">"Description"</span>)
+<span class="kw">Dim</span> material <span class="kw">As String</span> = <span class="fn">iProperties.Value</span>(oRefDoc.FullFileName, <span class="str">"Physical"</span>, <span class="str">"Material"</span>)
+
+<span class="cm">' Write to title block prompts</span>
+<span class="fn">iProperties.Value</span>(<span class="str">"Drawing"</span>, <span class="str">"Title"</span>) = description
+<span class="fn">iProperties.Value</span>(<span class="str">"Drawing"</span>, <span class="str">"Part Number"</span>) = partNum
+<span class="fn">iProperties.Value</span>(<span class="str">"Drawing"</span>, <span class="str">"Material"</span>) = material
+<span class="fn">iProperties.Value</span>(<span class="str">"Drawing"</span>, <span class="str">"Date"</span>) = Now.ToString(<span class="str">"dd-MMM-yyyy"</span>)
+  </div>
+
+  <h2 id="open-drawing">Open a Drawing File from iLogic</h2>
+  <p>If you want to trigger drawing operations from the part or assembly file, first open the associated drawing:</p>
+
+  <div class="blog-code">
+<span class="cm">' Build the drawing file path (same folder, same name, .idw extension)</span>
+<span class="kw">Dim</span> modelPath <span class="kw">As String</span> = ThisDoc.Document.FullFileName
+<span class="kw">Dim</span> drawingPath <span class="kw">As String</span> = System.IO.Path.ChangeExtension(modelPath, <span class="str">".idw"</span>)
+
+<span class="cm">' Check if the drawing exists before opening</span>
+<span class="kw">If</span> System.IO.File.Exists(drawingPath) <span class="kw">Then</span>
+    <span class="kw">Dim</span> oDrawDoc <span class="kw">As</span> DrawingDocument = ThisApplication.Documents.Open(drawingPath)
+    <span class="cm">' Now you can work with oDrawDoc</span>
+<span class="kw">Else</span>
+    MsgBox(<span class="str">"Drawing file not found: "</span> &amp; drawingPath)
+<span class="kw">End If</span>
+  </div>
+
+  <h2 id="export-pdf">Export Drawing to PDF Automatically</h2>
+  <p>Exporting a PDF from a drawing file is one of the most useful iLogic automations. Here's the complete code:</p>
+
+  <div class="blog-code">
+<span class="cm">' Export the active drawing to PDF</span>
+<span class="kw">Dim</span> oDoc <span class="kw">As</span> DrawingDocument = ThisDoc.Document
+
+<span class="cm">' Build the output PDF path (same folder as drawing)</span>
+<span class="kw">Dim</span> drawingPath <span class="kw">As String</span> = oDoc.FullFileName
+<span class="kw">Dim</span> pdfPath <span class="kw">As String</span> = System.IO.Path.ChangeExtension(drawingPath, <span class="str">".pdf"</span>)
+
+<span class="cm">' Set up the PDF export options</span>
+<span class="kw">Dim</span> oPDFExporter <span class="kw">As</span> PDFExportOptions = ThisApplication.TranslatorAddIns.ItemById(<span class="str">"{0AC6FD96-2F4D-42CE-8BE0-8AEA580399E4}"</span>)
+
+<span class="cm">' Export all sheets to a single PDF</span>
+<span class="kw">Dim</span> oContext <span class="kw">As</span> TranslationContext = ThisApplication.TransientObjects.CreateTranslationContext()
+oContext.Type = IOMechanismEnum.kFileBrowseIOMechanism
+
+<span class="kw">Dim</span> oOptions <span class="kw">As</span> NameValueMap = ThisApplication.TransientObjects.CreateNameValueMap()
+oOptions.Value(<span class="str">"ExportFileType"</span>) = <span class="str">"PDF"</span>
+oOptions.Value(<span class="str">"AllColor"</span>) = <span class="kw">True</span>
+oOptions.Value(<span class="str">"OpenAfterExport"</span>) = <span class="kw">False</span>
+
+<span class="kw">Dim</span> oData <span class="kw">As</span> DataMedium = ThisApplication.TransientObjects.CreateDataMedium()
+oData.FileName = pdfPath
+
+oPDFExporter.SaveCopyAs(oDoc, oContext, oOptions, oData)
+MsgBox(<span class="str">"PDF saved: "</span> &amp; pdfPath)
+  </div>
+
+  <h2 id="batch-export">Batch Export Multiple Drawings</h2>
+  <p>For projects with many drawings, you can loop through an entire folder and export every .idw file to PDF in one operation:</p>
+
+  <div class="blog-code">
+<span class="cm">' Batch export all .idw files in a folder to PDF</span>
+<span class="kw">Dim</span> drawingFolder <span class="kw">As String</span> = <span class="str">"C:\Projects\MyProject\Drawings\"</span>
+<span class="kw">Dim</span> files() <span class="kw">As String</span> = System.IO.Directory.GetFiles(drawingFolder, <span class="str">"*.idw"</span>)
+
+<span class="kw">For Each</span> filePath <span class="kw">As String In</span> files
+    <span class="kw">Dim</span> oDrawDoc <span class="kw">As</span> DrawingDocument = ThisApplication.Documents.Open(filePath, <span class="kw">False</span>)
+    <span class="kw">Dim</span> pdfPath <span class="kw">As String</span> = System.IO.Path.ChangeExtension(filePath, <span class="str">".pdf"</span>)
+
+    <span class="cm">' Export to PDF (same code as above)</span>
+    <span class="cm">' ... (PDF export code here)</span>
+
+    oDrawDoc.Close(<span class="kw">False</span>)
+<span class="kw">Next</span>
+
+MsgBox(<span class="str">"Batch export complete. "</span> &amp; files.Length &amp; <span class="str">" drawings exported."</span>)
+  </div>
+
+  <div class="callout"><p>💡 <strong>Pro tip:</strong> Pass <code>False</code> as the second argument to <code>Documents.Open()</code> to open the drawing silently (without displaying it). This makes batch operations much faster.</p></div>
+
+  <h2 id="trigger-on-save">Trigger Drawing Updates on Model Save</h2>
+  <p>The most powerful setup is a rule that fires every time the model is saved — automatically updating the drawing and exporting a PDF without any manual steps:</p>
+
+  <div class="blog-code">
+<span class="cm">' Place this rule in the model file with trigger: "On Save"</span>
+<span class="cm">' It will auto-export the drawing PDF every time the model is saved</span>
+
+<span class="kw">Dim</span> modelPath <span class="kw">As String</span> = ThisDoc.Document.FullFileName
+<span class="kw">Dim</span> drawingPath <span class="kw">As String</span> = System.IO.Path.ChangeExtension(modelPath, <span class="str">".idw"</span>)
+
+<span class="kw">If</span> System.IO.File.Exists(drawingPath) <span class="kw">Then</span>
+    <span class="kw">Dim</span> oDrawDoc <span class="kw">As</span> DrawingDocument = ThisApplication.Documents.Open(drawingPath, <span class="kw">False</span>)
+
+    <span class="cm">' Update title block iProperties first</span>
+    <span class="fn">iProperties.Value</span>(drawingPath, <span class="str">"Drawing"</span>, <span class="str">"Date"</span>) = Now.ToString(<span class="str">"dd-MMM-yyyy"</span>)
+
+    <span class="cm">' Save the drawing</span>
+    oDrawDoc.Save()
+
+    <span class="cm">' Export PDF (insert PDF export code here)</span>
+
+    oDrawDoc.Close(<span class="kw">False</span>)
+<span class="kw">End If</span>
+  </div>
+
+  <h2 id="real-example">Real-World Example: Full Auto-Drawing Rule</h2>
+  <p>Here's a practical scenario: an engineer changes a beam size in the model, and iLogic automatically:</p>
+  <ol>
+    <li>Updates all model parameters</li>
+    <li>Opens the drawing file</li>
+    <li>Updates the title block (part number, description, date, revision)</li>
+    <li>Saves the drawing</li>
+    <li>Exports a PDF to the project's output folder</li>
+    <li>Closes the drawing</li>
+  </ol>
+  <p>This entire sequence runs in under 10 seconds — what used to take 15–20 minutes of manual work.</p>
+
+  <div class="callout orange"><p>⚠️ <strong>Important:</strong> Drawing automation rules that open and close files are best set to trigger manually (via a button) or on model save — not on every parameter change. Opening files mid-edit can cause unexpected behaviour.</p></div>
+
+  <h2>Related iLogic Guides</h2>
+  <ul>
+    <li><a href="ilogic-iproperties.html" style="color:var(--blue)">iLogic iProperties</a> — auto-fill part numbers and title block data that drawing automation reads</li>
+    <li><a href="ilogic-parameters.html" style="color:var(--blue)">iLogic Parameters</a> — drive model dimensions that the drawing reflects</li>
+    <li><a href="ilogic-errors-fix.html" style="color:var(--blue)">iLogic Errors Fix</a> — fix common drawing automation errors</li>
+  </ul>
+
+  <div class="blog-cta">
+    <h3>Learn Drawing Automation Live in Autodesk Inventor</h3>
+    <p>Our iLogic training covers drawing automation, title block rules, PDF export, and real project workflows — all live with an instructor.</p>
+    <a href="../index.html" class="btn btn-neon btn-xl">⚡ View the Training Program</a>
+  </div>
+
+</article>
+
+<footer class="footer">
+  <div class="container footer-grid">
+    <div>
+      <a href="../index.html" class="logo"><svg width="20" height="20" viewBox="0 0 28 28" fill="none"><polygon points="14,2 26,8 26,20 14,26 2,20 2,8" fill="none" stroke="#00d4ff" stroke-width="1.5"/><circle cx="14" cy="14" r="3" fill="#00d4ff"/></svg><span>CAD<span class="logo-accent">Automator</span></span></a>
+      <p style="color:var(--mid);font-size:.85rem;margin-top:12px;line-height:1.6">Live iLogic training for Autodesk Inventor engineers.</p>
+    </div>
+    <div>
+      <p style="color:var(--white);font-weight:600;margin-bottom:12px">Blog</p>
+      <a href="what-is-ilogic.html" style="display:block;color:var(--mid);font-size:.85rem;margin-bottom:8px;text-decoration:none">What is iLogic?</a>
+      <a href="ilogic-parameters.html" style="display:block;color:var(--mid);font-size:.85rem;margin-bottom:8px;text-decoration:none">iLogic Parameters</a>
+      <a href="ilogic-drawing-automation.html" style="display:block;color:var(--mid);font-size:.85rem;margin-bottom:8px;text-decoration:none">Drawing Automation</a>
+      <a href="ilogic-forms-guide.html" style="display:block;color:var(--mid);font-size:.85rem;margin-bottom:8px;text-decoration:none">iLogic Forms</a>
+      <a href="ilogic-errors-fix.html" style="display:block;color:var(--mid);font-size:.85rem;margin-bottom:8px;text-decoration:none">iLogic Errors</a>
+      <a href="ilogic-iproperties.html" style="display:block;color:var(--mid);font-size:.85rem;text-decoration:none">iLogic iProperties</a>
+    </div>
+    <div>
+      <p style="color:var(--white);font-weight:600;margin-bottom:12px">Quick Links</p>
+      <a href="../index.html" style="display:block;color:var(--mid);font-size:.85rem;margin-bottom:8px;text-decoration:none">Enroll Now</a>
+      <a href="../index.html" style="display:block;color:var(--mid);font-size:.85rem;margin-bottom:8px;text-decoration:none">Book a Demo</a>
+      <a href="index.html" style="display:block;color:var(--mid);font-size:.85rem;text-decoration:none">All Articles</a>
+    </div>
+  </div>
+  <div class="container" style="border-top:1px solid rgba(255,255,255,.06);margin-top:40px;padding-top:24px;text-align:center">
+    <p style="color:var(--mid);font-size:.8rem">© 2026 CAD Automator. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>

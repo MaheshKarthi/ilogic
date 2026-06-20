@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>iLogic Tutorial for Beginners: Write Your First Automation Rule | CAD Automator</title>
+  <meta name="description" content="Complete iLogic beginner tutorial for Autodesk Inventor. Learn what iLogic is, how to open the editor, write your first rule, and run it — step by step with no coding experience needed." />
+  <meta name="keywords" content="ilogic beginner tutorial, ilogic for beginners, ilogic first rule, how to start ilogic, ilogic getting started, autodesk inventor ilogic tutorial beginners" />
+  <link rel="canonical" href="https://cadautomator.com/blog/ilogic-beginner-tutorial" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta property="og:title" content="iLogic Tutorial for Beginners: Write Your First Automation Rule" />
+  <meta property="og:description" content="New to iLogic? This step-by-step beginner tutorial walks you through writing and running your first iLogic rule in Autodesk Inventor — no coding experience needed." />
+  <meta property="og:url" content="https://cadautomator.com/blog/ilogic-beginner-tutorial" />
+  <meta property="og:type" content="article" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "iLogic Tutorial for Beginners: Write Your First Automation Rule",
+    "description": "Complete iLogic beginner tutorial for Autodesk Inventor. Learn what iLogic is, how to open the editor, write your first rule, and run it — step by step.",
+    "author": { "@type": "Organization", "name": "CAD Automator", "url": "https://cadautomator.com" },
+    "publisher": { "@type": "Organization", "name": "CAD Automator", "url": "https://cadautomator.com" },
+    "datePublished": "2026-06-20",
+    "mainEntityOfPage": "https://cadautomator.com/blog/ilogic-beginner-tutorial"
+  }
+  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-97KYLBNP5W"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-97KYLBNP5W');</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .blog-hero { padding: 120px 0 60px; background: var(--dark2); border-bottom: 1px solid rgba(255,255,255,.06); }
+    .blog-meta { display:flex; gap:16px; align-items:center; margin-bottom:24px; flex-wrap:wrap; }
+    .blog-tag { background:rgba(0,212,255,.1); color:var(--blue); border:1px solid rgba(0,212,255,.3); padding:4px 12px; border-radius:20px; font-size:.75rem; font-weight:600; }
+    .blog-tag.orange { background:rgba(255,107,53,.1); color:var(--orange); border:1px solid rgba(255,107,53,.3); }
+    .blog-date { color:var(--mid); font-size:.85rem; }
+    .blog-read { color:var(--mid); font-size:.85rem; }
+    .blog-title { font-size:clamp(1.8rem,4vw,3rem); font-weight:900; color:var(--white); line-height:1.2; margin-bottom:20px; }
+    .blog-intro { font-size:1.1rem; color:var(--light); line-height:1.8; max-width:700px; }
+    .blog-body { max-width:780px; margin:0 auto; padding:60px 24px 80px; }
+    .blog-body h2 { font-size:1.6rem; font-weight:800; color:var(--white); margin:48px 0 16px; }
+    .blog-body h3 { font-size:1.15rem; font-weight:700; color:var(--blue); margin:32px 0 12px; }
+    .blog-body p { color:var(--light); line-height:1.9; margin-bottom:18px; font-size:.97rem; }
+    .blog-body ul, .blog-body ol { padding-left:24px; margin-bottom:18px; }
+    .blog-body li { color:var(--light); line-height:1.8; margin-bottom:8px; font-size:.97rem; }
+    .blog-body strong { color:var(--white); }
+    .blog-code { background:var(--dark3); border:1px solid rgba(0,212,255,.2); border-radius:10px; padding:20px 24px; font-family:'JetBrains Mono',monospace; font-size:.85rem; color:#e2e8f0; margin:24px 0; overflow-x:auto; line-height:1.7; }
+    .blog-code .kw { color:#00d4ff; } .blog-code .str { color:#39ff14; } .blog-code .cm { color:#64748b; } .blog-code .fn { color:#ff6b35; }
+    .blog-cta { background:linear-gradient(135deg,var(--dark3),var(--dark2)); border:1px solid rgba(0,212,255,.25); border-radius:20px; padding:40px; text-align:center; margin:48px 0 0; }
+    .blog-cta h3 { font-size:1.4rem; font-weight:800; color:var(--white); margin-bottom:12px; }
+    .blog-cta p { color:var(--mid); margin-bottom:24px; }
+    .blog-nav-bar { background:var(--dark2); padding:16px 0; border-bottom:1px solid rgba(255,255,255,.06); }
+    .blog-nav-inner { max-width:1200px; margin:0 auto; padding:0 24px; display:flex; justify-content:space-between; align-items:center; }
+    .callout { background:rgba(0,212,255,.06); border-left:3px solid var(--blue); border-radius:0 8px 8px 0; padding:16px 20px; margin:24px 0; }
+    .callout.orange { background:rgba(255,107,53,.06); border-left-color:var(--orange); }
+    .callout.green { background:rgba(57,255,20,.06); border-left-color:#39ff14; }
+    .callout p { margin:0; color:var(--light); }
+    .step-box { background:var(--dark3); border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:24px 28px; margin:20px 0; display:flex; gap:20px; align-items:flex-start; }
+    .step-num { background:var(--blue); color:#020817; font-weight:900; font-size:.9rem; min-width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:2px; }
+    .step-box p { margin:0; color:var(--light); font-size:.95rem; line-height:1.7; }
+    .step-box strong { color:var(--white); }
+    .toc { background:var(--dark3); border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:24px 28px; margin:0 0 40px; }
+    .toc h4 { color:var(--white); font-size:.95rem; font-weight:700; margin:0 0 12px; }
+    .toc ol { padding-left:20px; margin:0; }
+    .toc li { margin-bottom:6px; }
+    .toc a { color:var(--blue); text-decoration:none; font-size:.88rem; }
+    .toc a:hover { text-decoration:underline; }
+    .next-steps { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:32px 0; }
+    .next-card { background:var(--dark3); border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:20px 24px; text-decoration:none; transition:border-color .2s; }
+    .next-card:hover { border-color:rgba(0,212,255,.4); }
+    .next-card h4 { color:var(--white); font-size:.95rem; font-weight:700; margin:0 0 6px; }
+    .next-card p { color:var(--mid); font-size:.82rem; margin:0; line-height:1.5; }
+    @media(max-width:640px){
+      .blog-hero { padding: 80px 0 40px; }
+      .blog-title { font-size: 1.6rem; }
+      .blog-body { padding: 40px 16px 60px; }
+      .blog-code { padding: 14px 16px; font-size: .78rem; }
+      .step-box { flex-direction:column; gap:12px; padding:18px; }
+      .next-steps { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="blog-nav-bar">
+  <div class="blog-nav-inner">
+    <a href="../index.html" class="logo"><svg width="22" height="22" viewBox="0 0 28 28" fill="none"><polygon points="14,2 26,8 26,20 14,26 2,20 2,8" fill="none" stroke="#00d4ff" stroke-width="1.5"/><circle cx="14" cy="14" r="3" fill="#00d4ff"/></svg><span>CAD<span class="logo-accent">Automator</span></span></a>
+    <a href="../index.html" class="btn btn-neon" style="font-size:.8rem;padding:8px 18px">⚡ Enroll Now</a>
+  </div>
+</nav>
+
+<section class="blog-hero">
+  <div class="container">
+    <div class="blog-meta">
+      <span class="blog-tag">iLogic</span>
+      <span class="blog-tag orange">Beginner</span>
+      <span class="blog-date">June 20, 2026</span>
+      <span class="blog-read">⏱ 10 min read</span>
+    </div>
+    <h1 class="blog-title">iLogic Tutorial for Beginners:<br>Write Your First Automation Rule</h1>
+    <p class="blog-intro">Never written a line of iLogic code before? This tutorial walks you through everything from scratch — opening the iLogic editor, understanding the basics, and writing a real rule that changes your Autodesk Inventor model. No coding experience needed.</p>
+  </div>
+</section>
+
+<article class="blog-body">
+
+  <div class="toc">
+    <h4>Contents</h4>
+    <ol>
+      <li><a href="#what-is-ilogic">What is iLogic?</a></li>
+      <li><a href="#before-you-start">Before You Start</a></li>
+      <li><a href="#open-editor">Step 1: Open the iLogic Editor</a></li>
+      <li><a href="#create-rule">Step 2: Create Your First Rule</a></li>
+      <li><a href="#write-code">Step 3: Write the Rule Code</a></li>
+      <li><a href="#run-rule">Step 4: Run the Rule</a></li>
+      <li><a href="#add-condition">Step 5: Add a Condition (If/Then)</a></li>
+      <li><a href="#trigger">Step 6: Set a Trigger</a></li>
+      <li><a href="#whats-next">What to Learn Next</a></li>
+    </ol>
+  </div>
+
+  <h2 id="what-is-ilogic">What is iLogic?</h2>
+  <p><strong>iLogic is Autodesk Inventor's built-in automation tool.</strong> It lets you write rules — small programs — that automatically control your 3D model. When a parameter changes, a rule can fire and automatically update dimensions, suppress features, fill in iProperties, or even export a PDF.</p>
+  <p>You write iLogic rules using a simple language called VBA (Visual Basic for Applications) — but you don't need to know VBA to get started. iLogic has a helper panel that inserts the code for you. You just need to understand the logic.</p>
+
+  <div class="callout green"><p>✅ <strong>Good news:</strong> If you can write an IF statement in Excel, you can write an iLogic rule. The thinking is identical — iLogic just applies it to a 3D model instead of a spreadsheet.</p></div>
+
+  <h2 id="before-you-start">Before You Start</h2>
+  <p>You need:</p>
+  <ul>
+    <li><strong>Autodesk Inventor</strong> installed (any version from 2018 onwards works fine)</li>
+    <li>A simple part file open — create a box with a Length parameter, or use any existing part</li>
+    <li>At least one <strong>named parameter</strong> in your model (we'll use <code>Length</code> as an example)</li>
+  </ul>
+
+  <div class="step-box">
+    <div class="step-num">!</div>
+    <p><strong>Create a named parameter first.</strong> Go to <strong>Manage → Parameters</strong>. Find your dimension parameter (e.g. <code>d0</code>) and rename it to <code>Length</code>. This is the parameter your rule will control.</p>
+  </div>
+
+  <h2 id="open-editor">Step 1: Open the iLogic Editor</h2>
+
+  <div class="step-box">
+    <div class="step-num">1</div>
+    <p><strong>Go to the Manage tab</strong> in the Inventor ribbon at the top of the screen.</p>
+  </div>
+  <div class="step-box">
+    <div class="step-num">2</div>
+    <p><strong>Click iLogic</strong> in the Manage tab. A dropdown appears with options: iLogic Browser, Add Rule, Edit Rule.</p>
+  </div>
+  <div class="step-box">
+    <div class="step-num">3</div>
+    <p><strong>Click iLogic Browser.</strong> A panel opens on the left side of your screen. You'll see two tabs: <strong>Rules</strong> and <strong>Forms</strong>. We'll work in the Rules tab.</p>
+  </div>
+
+  <div class="callout"><p>💡 <strong>Shortcut:</strong> You can also right-click in the iLogic Browser and choose "Add Rule" to jump straight to creating a rule.</p></div>
+
+  <h2 id="create-rule">Step 2: Create Your First Rule</h2>
+
+  <div class="step-box">
+    <div class="step-num">1</div>
+    <p><strong>In the iLogic Browser</strong>, right-click in the empty Rules area and select <strong>"Add Rule"</strong>.</p>
+  </div>
+  <div class="step-box">
+    <div class="step-num">2</div>
+    <p><strong>Name your rule</strong> something meaningful — for example, <code>SetLength</code>. Click OK.</p>
+  </div>
+  <div class="step-box">
+    <div class="step-num">3</div>
+    <p><strong>The rule editor opens.</strong> You'll see a large white text area on the left (where you write code) and a helper panel on the right (showing available parameters and functions).</p>
+  </div>
+
+  <h2 id="write-code">Step 3: Write the Rule Code</h2>
+  <p>In the rule editor, type this code exactly:</p>
+
+  <div class="blog-code">
+<span class="cm">' My first iLogic rule</span>
+<span class="cm">' This sets the Length parameter to 300mm</span>
+
+Parameter(<span class="str">"Length"</span>) = <span class="str">300</span>
+  </div>
+
+  <p>That's it — your first iLogic rule. It reads as: <em>"Set the model parameter called Length to the value 300."</em></p>
+
+  <div class="callout"><p>💡 <strong>Helper shortcut:</strong> Instead of typing <code>Parameter("Length")</code>, find <code>Length</code> in the right-hand parameter panel and double-click it. The code is inserted automatically with the correct syntax.</p></div>
+
+  <h2 id="run-rule">Step 4: Run the Rule</h2>
+
+  <div class="step-box">
+    <div class="step-num">1</div>
+    <p><strong>Click the green Run button</strong> (▶) at the top of the rule editor. Or press <strong>F5</strong>.</p>
+  </div>
+  <div class="step-box">
+    <div class="step-num">2</div>
+    <p><strong>Watch your model update.</strong> If your <code>Length</code> parameter was 200, it should now change to 300 — and the model geometry updates automatically.</p>
+  </div>
+  <div class="step-box">
+    <div class="step-num">3</div>
+    <p><strong>Congratulations</strong> — you just ran your first iLogic rule. You wrote code that changed a 3D model.</p>
+  </div>
+
+  <div class="callout green"><p>✅ <strong>If it worked:</strong> Your model dimension changed. Now let's make the rule smarter by adding a condition.</p></div>
+  <div class="callout orange"><p>⚠️ <strong>If you get an error:</strong> Check that the parameter name matches exactly — including capital letters. <code>Length</code> and <code>length</code> are different. See <a href="ilogic-errors-fix.html" style="color:var(--orange)">common iLogic errors</a> for help.</p></div>
+
+  <h2 id="add-condition">Step 5: Add a Condition (If/Then)</h2>
+  <p>Rules become powerful when they make decisions. Here's a rule that sets a different wall thickness based on a size category:</p>
+
+  <div class="blog-code">
+<span class="cm">' Read the Size parameter (e.g. "Small", "Medium", "Large")</span>
+<span class="kw">Dim</span> size <span class="kw">As String</span> = Parameter(<span class="str">"Size"</span>)
+
+<span class="cm">' Set dimensions based on the selected size</span>
+<span class="kw">If</span> size = <span class="str">"Small"</span> <span class="kw">Then</span>
+    Parameter(<span class="str">"Length"</span>)        = <span class="str">200</span>
+    Parameter(<span class="str">"WallThickness"</span>) = <span class="str">6</span>
+
+<span class="kw">ElseIf</span> size = <span class="str">"Medium"</span> <span class="kw">Then</span>
+    Parameter(<span class="str">"Length"</span>)        = <span class="str">350</span>
+    Parameter(<span class="str">"WallThickness"</span>) = <span class="str">8</span>
+
+<span class="kw">ElseIf</span> size = <span class="str">"Large"</span> <span class="kw">Then</span>
+    Parameter(<span class="str">"Length"</span>)        = <span class="str">500</span>
+    Parameter(<span class="str">"WallThickness"</span>) = <span class="str">12</span>
+
+<span class="kw">End If</span>
+  </div>
+
+  <p>Now when an engineer changes the <code>Size</code> parameter to <code>"Large"</code>, the rule fires and automatically sets the correct Length and WallThickness. One selection — multiple parameters updated.</p>
+
+  <h2 id="trigger">Step 6: Set a Trigger</h2>
+  <p>Right now, your rule only runs when you manually press Run. To make it fire automatically when a parameter changes:</p>
+
+  <div class="step-box">
+    <div class="step-num">1</div>
+    <p><strong>In the iLogic Browser</strong>, right-click your rule and select <strong>"Edit Rule Triggers"</strong>.</p>
+  </div>
+  <div class="step-box">
+    <div class="step-num">2</div>
+    <p><strong>Choose a trigger type:</strong>
+      <br>• <strong>Parameter Change</strong> — rule fires when a specific parameter changes
+      <br>• <strong>On Open</strong> — rule fires when the file is opened
+      <br>• <strong>On Save</strong> — rule fires when the file is saved
+      <br>• <strong>On Change</strong> — rule fires whenever any parameter changes
+    </p>
+  </div>
+  <div class="step-box">
+    <div class="step-num">3</div>
+    <p><strong>Select "Parameter Change"</strong> and choose the <code>Size</code> parameter. Now every time an engineer changes the Size, your rule runs automatically.</p>
+  </div>
+
+  <div class="callout"><p>💡 <strong>Best practice for beginners:</strong> Start with manual triggers (run button) while developing your rule. Add automatic triggers only once the rule is tested and working correctly.</p></div>
+
+  <h2 id="whats-next">What to Learn Next</h2>
+  <p>You've written and run your first iLogic rule. Here's the natural progression to build real automation skills:</p>
+
+  <div class="next-steps">
+    <a href="ilogic-parameters.html" class="next-card">
+      <h4>iLogic Parameters</h4>
+      <p>Read, write, and drive every dimension in your model with parameters.</p>
+    </a>
+    <a href="ilogic-suppress-features.html" class="next-card">
+      <h4>Suppress Features</h4>
+      <p>Show and hide features and components based on parameter values.</p>
+    </a>
+    <a href="ilogic-forms-guide.html" class="next-card">
+      <h4>iLogic Forms</h4>
+      <p>Build a professional input UI — dropdowns, checkboxes, buttons.</p>
+    </a>
+    <a href="ilogic-iproperties.html" class="next-card">
+      <h4>iLogic iProperties</h4>
+      <p>Auto-fill part numbers, descriptions, and title block data.</p>
+    </a>
+    <a href="ilogic-excel-integration.html" class="next-card">
+      <h4>iLogic + Excel</h4>
+      <p>Drive your model from a spreadsheet with lookup tables.</p>
+    </a>
+    <a href="ilogic-errors-fix.html" class="next-card">
+      <h4>Fix iLogic Errors</h4>
+      <p>The most common iLogic errors and exactly how to fix them.</p>
+    </a>
+  </div>
+
+  <div class="blog-cta">
+    <h3>Ready to Go Beyond the Basics?</h3>
+    <p>Our live iLogic training program takes you from your first rule to building real-world automation — skid frames, configurable products, BOM export, drawing automation — all in 50+ hours of live instructor-led sessions.</p>
+    <a href="../index.html" class="btn btn-neon btn-xl">⚡ View the Full Training Program</a>
+  </div>
+
+</article>
+
+<footer class="footer">
+  <div class="container footer-grid">
+    <div>
+      <a href="../index.html" class="logo"><svg width="20" height="20" viewBox="0 0 28 28" fill="none"><polygon points="14,2 26,8 26,20 14,26 2,20 2,8" fill="none" stroke="#00d4ff" stroke-width="1.5"/><circle cx="14" cy="14" r="3" fill="#00d4ff"/></svg><span>CAD<span class="logo-accent">Automator</span></span></a>
+      <p style="color:var(--mid);font-size:.85rem;margin-top:12px;line-height:1.6">Live iLogic training for Autodesk Inventor engineers.</p>
+    </div>
+    <div>
+      <p style="color:var(--white);font-weight:600;margin-bottom:12px">Blog</p>
+      <a href="ilogic-beginner-tutorial.html" style="display:block;color:var(--mid);font-size:.85rem;margin-bottom:8px;text-decoration:none">Beginner Tutorial</a>
+      <a href="ilogic-parameters.html" style="display:block;color:var(--mid);font-size:.85rem;margin-bottom:8px;text-decoration:none">iLogic Parameters</a>
+      <a href="ilogic-forms-guide.html" style="display:block;color:var(--mid);font-size:.85rem;margin-bottom:8px;text-decoration:none">iLogic Forms</a>
+      <a href="ilogic-excel-integration.html" style="display:block;color:var(--mid);font-size:.85rem;margin-bottom:8px;text-decoration:none">iLogic Excel</a>
+      <a href="ilogic-errors-fix.html" style="display:block;color:var(--mid);font-size:.85rem;margin-bottom:8px;text-decoration:none">iLogic Errors</a>
+      <a href="ilogic-iproperties.html" style="display:block;color:var(--mid);font-size:.85rem;text-decoration:none">iLogic iProperties</a>
+    </div>
+    <div>
+      <p style="color:var(--white);font-weight:600;margin-bottom:12px">Quick Links</p>
+      <a href="../index.html" style="display:block;color:var(--mid);font-size:.85rem;margin-bottom:8px;text-decoration:none">Enroll Now</a>
+      <a href="../index.html" style="display:block;color:var(--mid);font-size:.85rem;margin-bottom:8px;text-decoration:none">Book a Demo</a>
+      <a href="index.html" style="display:block;color:var(--mid);font-size:.85rem;text-decoration:none">All Articles</a>
+    </div>
+  </div>
+  <div class="container" style="border-top:1px solid rgba(255,255,255,.06);margin-top:40px;padding-top:24px;text-align:center">
+    <p style="color:var(--mid);font-size:.8rem">© 2026 CAD Automator. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>iLogic BOM Export: Auto-Generate Bills of Materials to Excel | CAD Automator</title>
+  <meta name="description" content="Use iLogic to automatically export Bills of Materials from Autodesk Inventor to Excel. Learn how to extract BOM data, format it, and save it with real iLogic code." />
+  <meta name="keywords" content="ilogic bom export, ilogic bill of materials, autodesk inventor bom ilogic, ilogic export bom excel, inventor bom automation, ilogic bom to excel" />
+  <link rel="canonical" href="https://cadautomator.com/blog/ilogic-bom-export" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta property="og:title" content="iLogic BOM Export: Auto-Generate Bills of Materials to Excel" />
+  <meta property="og:description" content="Stop manually copying BOM data. Use iLogic to automatically export your Autodesk Inventor BOM to Excel with real code examples." />
+  <meta property="og:url" content="https://cadautomator.com/blog/ilogic-bom-export" />
+  <meta property="og:type" content="article" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "iLogic BOM Export: Auto-Generate Bills of Materials to Excel",
+    "description": "Use iLogic to automatically export Bills of Materials from Autodesk Inventor to Excel.",
+    "author": { "@type": "Organization", "name": "CAD Automator", "url": "https://cadautomator.com" },
+    "publisher": { "@type": "Organization", "name": "CAD Automator", "url": "https://cadautomator.com" },
+    "datePublished": "2026-06-20",
+    "mainEntityOfPage": "https://cadautomator.com/blog/ilogic-bom-export"
+  }
+  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-97KYLBNP5W"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-97KYLBNP5W');</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .blog-hero { padding: 120px 0 60px; background: var(--dark2); border-bottom: 1px solid rgba(255,255,255,.06); }
+    .blog-meta { display:flex; gap:16px; align-items:center; margin-bottom:24px; flex-wrap:wrap; }
+    .blog-tag { background:rgba(0,212,255,.1); color:var(--blue); border:1px solid rgba(0,212,255,.3); padding:4px 12px; border-radius:20px; font-size:.75rem; font-weight:600; }
+    .blog-tag.green { background:rgba(57,255,20,.1); color:#39ff14; border:1px solid rgba(57,255,20,.3); }
+    .blog-date { color:var(--mid); font-size:.85rem; }
+    .blog-read { color:var(--mid); font-size:.85rem; }
+    .blog-title { font-size:clamp(1.8rem,4vw,3rem); font-weight:900; color:var(--white); line-height:1.2; margin-bottom:20px; }
+    .blog-intro { font-size:1.1rem; color:var(--light); line-height:1.8; max-width:700px; }
+    .blog-body { max-width:780px; margin:0 auto; padding:60px 24px 80px; }
+    .blog-body h2 { font-size:1.6rem; font-weight:800; color:var(--white); margin:48px 0 16px; }
+    .blog-body h3 { font-size:1.15rem; font-weight:700; color:var(--blue); margin:32px 0 12px; }
+    .blog-body p { color:var(--light); line-height:1.9; margin-bottom:18px; font-size:.97rem; }
+    .blog-body ul, .blog-body ol { padding-left:24px; margin-bottom:18px; }
+    .blog-body li { color:var(--light); line-height:1.8; margin-bottom:8px; font-size:.97rem; }
+    .blog-body strong { color:var(--white); }
+    .blog-code { background:var(--dark3); border:1px solid rgba(0,212,255,.2); border-radius:10px; padding:20px 24px; font-family:'JetBrains Mono',monospace; font-size:.85rem; color:#e2e8f0; margin:24px 0; overflow-x:auto; line-height:1.7; }
+    .blog-code .kw { color:#00d4ff; } .blog-code .str { color:#39ff14; } .blog-code .cm { color:#64748b; } .blog-code .fn { color:#ff6b35; }
+    .blog-cta { background:linear-gradient(135deg,var(--dark3),var(--dark2)); border:1px solid rgba(0,212,255,.25); border-radius:20px; padding:40px; text-align:center; margin:48px 0 0; }
+    .blog-cta h3 { font-size:1.4rem; font-weight:800; color:var(--white); margin-bottom:12px; }
+    .blog-cta p { color:var(--mid); margin-bottom:24px; }
+    .blog-nav-bar { background:var(--dark2); padding:16px 0; border-bottom:1px solid rgba(255,255,255,.06); }
+    .blog-nav-inner { max-width:1200px; margin:0 auto; padding:0 24px; display:flex; justify-content:space-between; align-items:center; }
+    .callout { background:rgba(0,212,255,.06); border-left:3px solid var(--blue); border-radius:0 8px 8px 0; padding:16px 20px; margin:24px 0; }
+    .callout.orange { background:rgba(255,107,53,.06); border-left-color:var(--orange); }
+    .callout p { margin:0; color:var(--light); }
+    .step-box { background:var(--dark3); border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:24px 28px; margin:20px 0; display:flex; gap:20px; align-items:flex-start; }
+    .step-num { background:var(--blue); color:#020817; font-weight:900; font-size:.9rem; min-width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:2px; }
+    .step-box p { margin:0; color:var(--light); font-size:.95rem; line-height:1.7; }
+    .step-box strong { color:var(--white); }
+    .toc { background:var(--dark3); border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:24px 28px; margin:0 0 40px; }
+    .toc h4 { color:var(--white); font-size:.95rem; font-weight:700; margin:0 0 12px; }
+    .toc ol { padding-left:20px; margin:0; }
+    .toc li { margin-bottom:6px; }
+    .toc a { color:var(--blue); text-decoration:none; font-size:.88rem; }
+    .toc a:hover { text-decoration:underline; }
+    @media(max-width:640px){
+      .blog-hero { padding: 80px 0 40px; }
+      .blog-title { font-size: 1.6rem; }
+      .blog-body { padding: 40px 16px 60px; }
+      .blog-code { padding: 14px 16px; font-size: .78rem; }
+      .step-box { flex-direction:column; gap:12px; padding:18px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="blog-nav-bar">
+  <div class="blog-nav-inner">
+    <a href="../index.html" class="logo"><svg width="22" height="22" viewBox="0 0 28 28" fill="none"><polygon points="14,2 26,8 26,20 14,26 2,20 2,8" fill="none" stroke="#00d4ff" stroke-width="1.5"/><circle cx="14" cy="14" r="3" fill="#00d4ff"/></svg><span>CAD<span class="logo-accent">Automator</span></span></a>
+    <a href="../index.html" class="btn btn-neon" style="font-size:.8rem;padding:8px 18px">⚡ Enroll Now</a>
+  </div>
+</nav>
+
+<section class="blog-hero">
+  <div class="container">
+    <div class="blog-meta">
+      <span class="blog-tag">iLogic</span>
+      <span class="blog-tag green">BOM Export</span>
+      <span class="blog-date">June 20, 2026</span>
+      <span class="blog-read">⏱ 8 min read</span>
+    </div>
+    <h1 class="blog-title">iLogic BOM Export: Auto-Generate Bills<br>of Materials to Excel</h1>
+    <p class="blog-intro">Manually copying part numbers, descriptions, quantities, and materials from Autodesk Inventor into an Excel BOM is slow, error-prone, and done after every design change. iLogic can generate your entire Bill of Materials automatically — in seconds, with no copy-paste.</p>
+  </div>
+</section>
+
+<article class="blog-body">
+
+  <div class="toc">
+    <h4>Contents</h4>
+    <ol>
+      <li><a href="#what-is-bom">What is a BOM in Autodesk Inventor?</a></li>
+      <li><a href="#two-approaches">Two Approaches to BOM Export</a></li>
+      <li><a href="#built-in-export">Method 1: Built-In BOM Export (No Code)</a></li>
+      <li><a href="#ilogic-export">Method 2: iLogic BOM Export to Excel</a></li>
+      <li><a href="#loop-components">Loop Through All Components</a></li>
+      <li><a href="#format-excel">Format the Excel Output</a></li>
+      <li><a href="#trigger-on-save">Auto-Export BOM on Save</a></li>
+      <li><a href="#common-mistakes">Common Mistakes</a></li>
+    </ol>
+  </div>
+
+  <h2 id="what-is-bom">What is a BOM in Autodesk Inventor?</h2>
+  <p>A Bill of Materials (BOM) is a structured list of all components in your assembly — part numbers, descriptions, quantities, materials, and weights. In Inventor, the BOM is driven by the assembly structure and the <a href="ilogic-iproperties.html" style="color:var(--blue)">iProperties</a> of each component.</p>
+  <p>Every time you change your design — add a component, change a quantity, update a part number — your BOM needs to be regenerated. With iLogic, this happens automatically.</p>
+
+  <h2 id="two-approaches">Two Approaches to BOM Export</h2>
+  <p>There are two ways to get BOM data out of Inventor:</p>
+  <ul>
+    <li><strong>Built-in BOM export</strong> — Inventor's native BOM export tool. Simple, no code needed, but limited formatting options.</li>
+    <li><strong>iLogic BOM export</strong> — Full control. Loop through components with code, pick exactly which data to export, format it however you need, and trigger it automatically.</li>
+  </ul>
+
+  <h2 id="built-in-export">Method 1: Built-In BOM Export (No Code)</h2>
+  <p>For a quick BOM export without any iLogic code:</p>
+
+  <div class="step-box">
+    <div class="step-num">1</div>
+    <p><strong>Open your assembly file</strong> in Autodesk Inventor.</p>
+  </div>
+  <div class="step-box">
+    <div class="step-num">2</div>
+    <p><strong>Go to Manage tab → BOM</strong> (Bill of Materials). The BOM editor opens showing all components.</p>
+  </div>
+  <div class="step-box">
+    <div class="step-num">3</div>
+    <p><strong>Click Export</strong> at the top of the BOM panel. Choose Excel (.xlsx) as the format and select your output location.</p>
+  </div>
+  <div class="step-box">
+    <div class="step-num">4</div>
+    <p><strong>Click OK</strong>. Inventor exports the BOM table to Excel with all visible columns.</p>
+  </div>
+
+  <div class="callout"><p>💡 This method works well for one-off exports. For automatic, repeatable BOM generation on every save, use the iLogic method below.</p></div>
+
+  <h2 id="ilogic-export">Method 2: iLogic BOM Export to Excel</h2>
+  <p>With iLogic, you can export the BOM to Excel with a single button click — or automatically on every model save. Here's the foundation:</p>
+
+  <div class="blog-code">
+<span class="cm">' iLogic BOM export to Excel</span>
+<span class="cm">' Run from an assembly file (.iam)</span>
+
+<span class="kw">Dim</span> oAsm <span class="kw">As</span> AssemblyDocument = ThisDoc.Document
+<span class="kw">Dim</span> oBOM <span class="kw">As</span> BOM = oAsm.ComponentDefinition.BOM
+
+<span class="cm">' Enable structured BOM view</span>
+oBOM.StructuredViewEnabled = <span class="kw">True</span>
+oBOM.StructuredViewFirstLevelOnly = <span class="kw">False</span>
+
+<span class="cm">' Set the output Excel file path</span>
+<span class="kw">Dim</span> outputPath <span class="kw">As String</span> = System.IO.Path.ChangeExtension(oAsm.FullFileName, <span class="str">"_BOM.xlsx"</span>)
+
+<span class="cm">' Export using Inventor's BOM export method</span>
+<span class="kw">Dim</span> oExporter <span class="kw">As</span> BOMExporter = oBOM.Export
+oExporter.ExportStructuredBOM(outputPath, BOMExportFormatEnum.kExcel)
+
+MsgBox(<span class="str">"BOM exported: "</span> &amp; outputPath)
+  </div>
+
+  <h2 id="loop-components">Loop Through All Components</h2>
+  <p>For full control over what gets exported, loop through the assembly components directly:</p>
+
+  <div class="blog-code">
+<span class="cm">' Loop through all components and collect BOM data</span>
+<span class="kw">Dim</span> oAsm <span class="kw">As</span> AssemblyDocument = ThisDoc.Document
+<span class="kw">Dim</span> oCompDef <span class="kw">As</span> AssemblyComponentDefinition = oAsm.ComponentDefinition
+
+<span class="cm">' Create Excel instance</span>
+<span class="kw">Dim</span> oExcel <span class="kw">As</span> Excel.Application = <span class="kw">New</span> Excel.Application
+<span class="kw">Dim</span> oWB <span class="kw">As</span> Excel.Workbook = oExcel.Workbooks.Add
+<span class="kw">Dim</span> oWS <span class="kw">As</span> Excel.Worksheet = oWB.Sheets(1)
+
+<span class="cm">' Write header row</span>
+oWS.Cells(1,1).Value = <span class="str">"Item"</span>
+oWS.Cells(1,2).Value = <span class="str">"Part Number"</span>
+oWS.Cells(1,3).Value = <span class="str">"Description"</span>
+oWS.Cells(1,4).Value = <span class="str">"Quantity"</span>
+oWS.Cells(1,5).Value = <span class="str">"Material"</span>
+
+<span class="kw">Dim</span> row <span class="kw">As Integer</span> = 2
+<span class="kw">Dim</span> item <span class="kw">As Integer</span> = 1
+
+<span class="cm">' Loop through each unique component occurrence</span>
+<span class="kw">For Each</span> oOccurrence <span class="kw">As</span> ComponentOccurrence <span class="kw">In</span> oCompDef.Occurrences
+    <span class="kw">If</span> oOccurrence.Suppressed = <span class="kw">False</span> <span class="kw">Then</span>
+        <span class="kw">Dim</span> refDoc <span class="kw">As String</span> = oOccurrence.ReferencedDocumentDescriptor.FullDocumentName
+
+        oWS.Cells(row,1).Value = item
+        oWS.Cells(row,2).Value = <span class="fn">iProperties.Value</span>(refDoc, <span class="str">"Project"</span>, <span class="str">"Part Number"</span>)
+        oWS.Cells(row,3).Value = <span class="fn">iProperties.Value</span>(refDoc, <span class="str">"Summary"</span>, <span class="str">"Description"</span>)
+        oWS.Cells(row,4).Value = <span class="str">1</span>  <span class="cm">' Update with actual quantity logic</span>
+        oWS.Cells(row,5).Value = <span class="fn">iProperties.Value</span>(refDoc, <span class="str">"Physical"</span>, <span class="str">"Material"</span>)
+
+        row += 1
+        item += 1
+    <span class="kw">End If</span>
+<span class="kw">Next</span>
+
+<span class="cm">' Save and close Excel</span>
+<span class="kw">Dim</span> outputPath <span class="kw">As String</span> = System.IO.Path.ChangeExtension(oAsm.FullFileName, <span class="str">"_BOM.xlsx"</span>)
+oWB.SaveAs(outputPath)
+oWB.Close()
+oExcel.Quit()
+
+MsgBox(<span class="str">"BOM exported to: "</span> &amp; outputPath)
+  </div>
+
+  <h2 id="format-excel">Format the Excel Output</h2>
+  <p>You can apply Excel formatting directly from iLogic to make the BOM professional:</p>
+
+  <div class="blog-code">
+<span class="cm">' Format the header row</span>
+<span class="kw">Dim</span> headerRange <span class="kw">As</span> Excel.Range = oWS.Range(<span class="str">"A1:E1"</span>)
+headerRange.Font.Bold = <span class="kw">True</span>
+headerRange.Interior.Color = RGB(<span class="str">0</span>, <span class="str">70</span>, <span class="str">127</span>)   <span class="cm">' Dark blue background</span>
+headerRange.Font.Color = RGB(<span class="str">255</span>, <span class="str">255</span>, <span class="str">255</span>) <span class="cm">' White text</span>
+
+<span class="cm">' Auto-fit column widths</span>
+oWS.Columns.AutoFit()
+
+<span class="cm">' Add borders to data range</span>
+<span class="kw">Dim</span> dataRange <span class="kw">As</span> Excel.Range = oWS.Range(<span class="str">"A1:E"</span> &amp; (row-1))
+dataRange.Borders.LineStyle = Excel.XlLineStyle.xlContinuous
+  </div>
+
+  <h2 id="trigger-on-save">Auto-Export BOM on Save</h2>
+  <p>Set the BOM export rule to trigger <strong>On Save</strong> in the iLogic rule settings. Every time the assembly is saved, a fresh BOM Excel file is automatically generated — no manual steps needed.</p>
+
+  <div class="callout orange"><p>⚠️ <strong>Excel must be installed</strong> on the same machine as Inventor for the Excel automation approach to work. If Excel is not available, use Inventor's native BOM export method instead.</p></div>
+
+  <h2 id="common-mistakes">Common Mistakes</h2>
+  <ul>
+    <li><strong>Suppressed components appearing in BOM</strong> — Always check <code>oOccurrence.Suppressed</code> and skip suppressed parts. See <a href="ilogic-suppress-features.html" style="color:var(--blue)">iLogic Suppress Features</a>.</li>
+    <li><strong>Missing iProperties</strong> — If part numbers or descriptions are blank, the BOM cells will be empty. Make sure all components have iProperties filled in. Use <a href="ilogic-iproperties.html" style="color:var(--blue)">iLogic iProperties</a> to auto-fill them.</li>
+    <li><strong>Duplicate rows for multi-instance parts</strong> — Each occurrence generates its own row. Add logic to group occurrences of the same part and sum quantities.</li>
+    <li><strong>Excel file locked open</strong> — If Excel is already open with the BOM file, the export will fail. Always close the file before running the export rule.</li>
+  </ul>
+
+  <div class="blog-cta">
+    <h3>Learn iLogic BOM Automation Live</h3>
+    <p>Our iLogic training program covers BOM export, iProperties automation, Excel integration, and complete project workflows — all live with an instructor inside Autodesk Inventor.</p>
+    <a href="../index.html" class="btn btn-neon btn-xl">⚡ View the Training Program</a>
+  </div>
+
+</article>
+
+<footer class="footer">
+  <div class="container footer-grid">
+    <div>
+      <a href="../index.html" class="logo"><svg width="20" height="20" viewBox="0 0 28 28" fill="none"><polygon points="14,2 26,8 26,20 14,26 2,20 2,8" fill="none" stroke="#00d4ff" stroke-width="1.5"/><circle cx="14" cy="14" r="3" fill="#00d4ff"/></svg><span>CAD<span class="logo-accent">Automator</span></span></a>
+      <p style="color:var(--mid);font-size:.85rem;margin-top:12px;line-height:1.6">Live iLogic training for Autodesk Inventor engineers.</p>
+    </div>
+    <div>
+      <p style="color:var(--white);font-weight:600;margin-bottom:12px">Blog</p>
+      <a href="what-is-ilogic.html" style="display:block;color:var(--mid);font-size:.85rem;margin-bottom:8px;text-decoration:none">What is iLogic?</a>
+      <a href="ilogic-parameters.html" style="display:block;color:var(--mid);font-size:.85rem;margin-bottom:8px;text-decoration:none">iLogic Parameters</a>
+      <a href="ilogic-bom-export.html" style="display:block;color:var(--mid);font-size:.85rem;margin-bottom:8px;text-decoration:none">BOM Export</a>
+      <a href="ilogic-excel-integration.html" style="display:block;color:var(--mid);font-size:.85rem;margin-bottom:8px;text-decoration:none">iLogic Excel</a>
+      <a href="ilogic-errors-fix.html" style="display:block;color:var(--mid);font-size:.85rem;margin-bottom:8px;text-decoration:none">iLogic Errors</a>
+      <a href="ilogic-iproperties.html" style="display:block;color:var(--mid);font-size:.85rem;text-decoration:none">iLogic iProperties</a>
+    </div>
+    <div>
+      <p style="color:var(--white);font-weight:600;margin-bottom:12px">Quick Links</p>
+      <a href="../index.html" style="display:block;color:var(--mid);font-size:.85rem;margin-bottom:8px;text-decoration:none">Enroll Now</a>
+      <a href="../index.html" style="display:block;color:var(--mid);font-size:.85rem;margin-bottom:8px;text-decoration:none">Book a Demo</a>
+      <a href="index.html" style="display:block;color:var(--mid);font-size:.85rem;text-decoration:none">All Articles</a>
+    </div>
+  </div>
+  <div class="container" style="border-top:1px solid rgba(255,255,255,.06);margin-top:40px;padding-top:24px;text-align:center">
+    <p style="color:var(--mid);font-size:.8rem">© 2026 CAD Automator. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>

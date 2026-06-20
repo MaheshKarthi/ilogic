@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>iLogic Parameters: Complete Guide to Driving Autodesk Inventor Models | CAD Automator</title>
+  <meta name="description" content="Master iLogic parameters in Autodesk Inventor. Learn how to read, write, and drive model dimensions using iLogic rules — with real code examples and step-by-step instructions." />
+  <meta name="keywords" content="ilogic parameters, ilogic parameter tutorial, autodesk inventor parameters ilogic, ilogic dim, ilogic parameter() function, inventor parameter automation" />
+  <link rel="canonical" href="https://cadautomator.com/blog/ilogic-parameters" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta property="og:title" content="iLogic Parameters: Complete Guide to Driving Autodesk Inventor Models" />
+  <meta property="og:description" content="Learn how to read and write Autodesk Inventor parameters using iLogic — the foundation of every automation rule." />
+  <meta property="og:url" content="https://cadautomator.com/blog/ilogic-parameters" />
+  <meta property="og:type" content="article" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "iLogic Parameters: Complete Guide to Driving Autodesk Inventor Models",
+    "description": "Master iLogic parameters in Autodesk Inventor. Learn how to read, write, and drive model dimensions using iLogic rules.",
+    "author": { "@type": "Organization", "name": "CAD Automator", "url": "https://cadautomator.com" },
+    "publisher": { "@type": "Organization", "name": "CAD Automator", "url": "https://cadautomator.com" },
+    "datePublished": "2026-06-20",
+    "mainEntityOfPage": "https://cadautomator.com/blog/ilogic-parameters"
+  }
+  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-97KYLBNP5W"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-97KYLBNP5W');</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .blog-hero { padding: 120px 0 60px; background: var(--dark2); border-bottom: 1px solid rgba(255,255,255,.06); }
+    .blog-meta { display:flex; gap:16px; align-items:center; margin-bottom:24px; flex-wrap:wrap; }
+    .blog-tag { background:rgba(0,212,255,.1); color:var(--blue); border:1px solid rgba(0,212,255,.3); padding:4px 12px; border-radius:20px; font-size:.75rem; font-weight:600; }
+    .blog-tag.orange { background:rgba(255,107,53,.1); color:var(--orange); border:1px solid rgba(255,107,53,.3); }
+    .blog-tag.green { background:rgba(57,255,20,.1); color:#39ff14; border:1px solid rgba(57,255,20,.3); }
+    .blog-date { color:var(--mid); font-size:.85rem; }
+    .blog-read { color:var(--mid); font-size:.85rem; }
+    .blog-title { font-size:clamp(1.8rem,4vw,3rem); font-weight:900; color:var(--white); line-height:1.2; margin-bottom:20px; }
+    .blog-intro { font-size:1.1rem; color:var(--light); line-height:1.8; max-width:700px; }
+    .blog-body { max-width:780px; margin:0 auto; padding:60px 24px 80px; }
+    .blog-body h2 { font-size:1.6rem; font-weight:800; color:var(--white); margin:48px 0 16px; }
+    .blog-body h3 { font-size:1.15rem; font-weight:700; color:var(--blue); margin:32px 0 12px; }
+    .blog-body p { color:var(--light); line-height:1.9; margin-bottom:18px; font-size:.97rem; }
+    .blog-body ul, .blog-body ol { padding-left:24px; margin-bottom:18px; }
+    .blog-body li { color:var(--light); line-height:1.8; margin-bottom:8px; font-size:.97rem; }
+    .blog-body strong { color:var(--white); }
+    .blog-code { background:var(--dark3); border:1px solid rgba(0,212,255,.2); border-radius:10px; padding:20px 24px; font-family:'JetBrains Mono',monospace; font-size:.85rem; color:#e2e8f0; margin:24px 0; overflow-x:auto; line-height:1.7; }
+    .blog-code .kw { color:#00d4ff; } .blog-code .str { color:#39ff14; } .blog-code .cm { color:#64748b; } .blog-code .fn { color:#ff6b35; }
+    .blog-cta { background:linear-gradient(135deg,var(--dark3),var(--dark2)); border:1px solid rgba(0,212,255,.25); border-radius:20px; padding:40px; text-align:center; margin:48px 0 0; }
+    .blog-cta h3 { font-size:1.4rem; font-weight:800; color:var(--white); margin-bottom:12px; }
+    .blog-cta p { color:var(--mid); margin-bottom:24px; }
+    .blog-nav-bar { background:var(--dark2); padding:16px 0; border-bottom:1px solid rgba(255,255,255,.06); }
+    .blog-nav-inner { max-width:1200px; margin:0 auto; padding:0 24px; display:flex; justify-content:space-between; align-items:center; }
+    .back-link { color:var(--mid); text-decoration:none; font-size:.85rem; display:flex; align-items:center; gap:6px; }
+    .back-link:hover { color:var(--blue); }
+    .callout { background:rgba(0,212,255,.06); border-left:3px solid var(--blue); border-radius:0 8px 8px 0; padding:16px 20px; margin:24px 0; }
+    .callout.orange { background:rgba(255,107,53,.06); border-left-color:var(--orange); }
+    .callout p { margin:0; color:var(--light); }
+    .step-box { background:var(--dark3); border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:24px 28px; margin:20px 0; display:flex; gap:20px; align-items:flex-start; }
+    .step-num { background:var(--blue); color:#020817; font-weight:900; font-size:.9rem; min-width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:2px; }
+    .step-box p { margin:0; color:var(--light); font-size:.95rem; line-height:1.7; }
+    .step-box strong { color:var(--white); }
+    .comparison-table { width:100%; border-collapse:collapse; margin:24px 0; font-size:.88rem; }
+    .comparison-table th { background:var(--dark3); color:var(--white); font-weight:700; padding:12px 16px; text-align:left; border:1px solid rgba(255,255,255,.08); }
+    .comparison-table td { padding:11px 16px; border:1px solid rgba(255,255,255,.06); color:var(--light); vertical-align:top; }
+    .comparison-table tr:nth-child(even) td { background:rgba(255,255,255,.02); }
+    .toc { background:var(--dark3); border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:24px 28px; margin:0 0 40px; }
+    .toc h4 { color:var(--white); font-size:.95rem; font-weight:700; margin:0 0 12px; }
+    .toc ol { padding-left:20px; margin:0; }
+    .toc li { margin-bottom:6px; }
+    .toc a { color:var(--blue); text-decoration:none; font-size:.88rem; }
+    .toc a:hover { text-decoration:underline; }
+    @media(max-width:640px){
+      .blog-hero { padding: 80px 0 40px; }
+      .blog-title { font-size: 1.6rem; }
+      .blog-body { padding: 40px 16px 60px; }
+      .blog-code { padding: 14px 16px; font-size: .78rem; }
+      .step-box { flex-direction:column; gap:12px; padding:18px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="blog-nav-bar">
+  <div class="blog-nav-inner">
+    <a href="../index.html" class="logo"><svg width="22" height="22" viewBox="0 0 28 28" fill="none"><polygon points="14,2 26,8 26,20 14,26 2,20 2,8" fill="none" stroke="#00d4ff" stroke-width="1.5"/><circle cx="14" cy="14" r="3" fill="#00d4ff"/></svg><span>CAD<span class="logo-accent">Automator</span></span></a>
+    <a href="../index.html" class="btn btn-neon" style="font-size:.8rem;padding:8px 18px">⚡ Enroll Now</a>
+  </div>
+</nav>
+
+<section class="blog-hero">
+  <div class="container">
+    <div class="blog-meta">
+      <span class="blog-tag">iLogic</span>
+      <span class="blog-tag green">Parameters</span>
+      <span class="blog-date">June 20, 2026</span>
+      <span class="blog-read">⏱ 8 min read</span>
+    </div>
+    <h1 class="blog-title">iLogic Parameters: Complete Guide to<br>Driving Your Autodesk Inventor Model</h1>
+    <p class="blog-intro">Parameters are the backbone of every iLogic rule. Every dimension, material, configuration, and calculation in Autodesk Inventor is controlled through parameters — and iLogic gives you full read/write access to all of them. This guide covers everything you need to know.</p>
+  </div>
+</section>
+
+<article class="blog-body">
+
+  <div class="toc">
+    <h4>Contents</h4>
+    <ol>
+      <li><a href="#what-are-parameters">What Are iLogic Parameters?</a></li>
+      <li><a href="#read-parameter">How to Read a Parameter in iLogic</a></li>
+      <li><a href="#write-parameter">How to Write / Change a Parameter</a></li>
+      <li><a href="#dim-vs-parameter">Dim vs Parameter() — What's the Difference?</a></li>
+      <li><a href="#string-parameters">Working with String Parameters</a></li>
+      <li><a href="#parameter-types">Parameter Types in Inventor</a></li>
+      <li><a href="#real-example">Real-World Example: Size Configurator</a></li>
+      <li><a href="#common-mistakes">Common Mistakes</a></li>
+    </ol>
+  </div>
+
+  <h2 id="what-are-parameters">What Are iLogic Parameters?</h2>
+  <p>In Autodesk Inventor, <strong>parameters are named values that control your model</strong> — dimensions, angles, quantities, material names, configuration flags. Every number driving your geometry is stored as a parameter.</p>
+  <p>iLogic lets you read these parameters (to make decisions) and write them (to change the model). This is the core of every automation rule: read some inputs, do some logic, update some parameters.</p>
+
+  <div class="callout"><p>💡 <strong>Think of parameters as variables your model lives in.</strong> When you change a parameter value, Inventor rebuilds the model automatically to match.</p></div>
+
+  <h2 id="read-parameter">How to Read a Parameter in iLogic</h2>
+  <p>To read a parameter, use the <code>Parameter()</code> function or simply reference the parameter name directly in your rule:</p>
+
+  <div class="blog-code">
+<span class="cm">' Method 1: Reference directly by name (most common)</span>
+<span class="kw">Dim</span> length <span class="kw">As Double</span> = Parameter(<span class="str">"Length"</span>)
+
+<span class="cm">' Method 2: Direct name reference (works when parameter name has no spaces)</span>
+<span class="kw">Dim</span> width <span class="kw">As Double</span> = Width
+
+<span class="cm">' Read a parameter and use it in a calculation</span>
+<span class="kw">Dim</span> area <span class="kw">As Double</span> = Parameter(<span class="str">"Length"</span>) * Parameter(<span class="str">"Width"</span>)
+<span class="fn">iLogicVb.SetParameter</span>(<span class="str">"Area"</span>, area)
+  </div>
+
+  <div class="callout"><p>⚠️ <strong>Parameter names are case-sensitive.</strong> <code>Length</code> and <code>length</code> are different parameters. Always match the exact name from your Parameters panel.</p></div>
+
+  <h2 id="write-parameter">How to Write / Change a Parameter</h2>
+  <p>To change a parameter value and update the model, assign a new value using the parameter name:</p>
+
+  <div class="blog-code">
+<span class="cm">' Directly assign a new value to a parameter</span>
+Parameter(<span class="str">"Length"</span>) = <span class="str">500</span>
+
+<span class="cm">' Or use the full method</span>
+<span class="fn">iLogicVb.SetParameter</span>(<span class="str">"Length"</span>, <span class="str">500</span>)
+
+<span class="cm">' Set based on a condition</span>
+<span class="kw">If</span> Parameter(<span class="str">"LoadRating"</span>) > <span class="str">5000</span> <span class="kw">Then</span>
+    Parameter(<span class="str">"PlateThickness"</span>) = <span class="str">20</span>
+<span class="kw">Else</span>
+    Parameter(<span class="str">"PlateThickness"</span>) = <span class="str">12</span>
+<span class="kw">End If</span>
+  </div>
+
+  <p>When you set a parameter, Inventor rebuilds the model immediately. If the model has suppression rules linked to that parameter, those also fire automatically.</p>
+
+  <h2 id="dim-vs-parameter">Dim vs Parameter() — What's the Difference?</h2>
+  <p>This is one of the most common points of confusion for new iLogic users:</p>
+
+  <table class="comparison-table">
+    <tr><th>Concept</th><th>What it is</th><th>Example</th></tr>
+    <tr><td><strong>Dim</strong></td><td>A local variable inside your rule. Exists only while the rule runs. Does NOT change the model.</td><td><code>Dim x As Double = 100</code></td></tr>
+    <tr><td><strong>Parameter()</strong></td><td>A model parameter in Inventor's parameter table. Persists in the file. Changes the model geometry.</td><td><code>Parameter("Width") = 100</code></td></tr>
+  </table>
+
+  <div class="callout orange"><p>⚠️ <strong>Common mistake:</strong> Using <code>Dim Length = 500</code> instead of <code>Parameter("Length") = 500</code>. The Dim version creates a local variable — your model doesn't change at all.</p></div>
+
+  <h2 id="string-parameters">Working with String Parameters</h2>
+  <p>Not all parameters are numbers. Inventor also supports text parameters — for storing material names, descriptions, part numbers, and configuration labels:</p>
+
+  <div class="blog-code">
+<span class="cm">' Read a text/string parameter</span>
+<span class="kw">Dim</span> material <span class="kw">As String</span> = Parameter(<span class="str">"Material"</span>)
+
+<span class="cm">' Write a text parameter</span>
+Parameter(<span class="str">"Material"</span>) = <span class="str">"Stainless Steel 316"</span>
+
+<span class="cm">' Use string parameter in a condition</span>
+<span class="kw">If</span> Parameter(<span class="str">"Environment"</span>) = <span class="str">"Offshore"</span> <span class="kw">Then</span>
+    Parameter(<span class="str">"Material"</span>) = <span class="str">"316L SS"</span>
+    Parameter(<span class="str">"CoatingSpec"</span>) = <span class="str">"Epoxy Marine Grade"</span>
+<span class="kw">End If</span>
+  </div>
+
+  <h2 id="parameter-types">Parameter Types in Autodesk Inventor</h2>
+  <p>Inventor has three types of parameters you'll work with in iLogic:</p>
+  <ul>
+    <li><strong>Model Parameters</strong> — created by sketches and features (e.g. d0, d1). Usually renamed to meaningful names like <code>Length</code>, <code>WallThickness</code>.</li>
+    <li><strong>User Parameters</strong> — manually created in the Parameters panel. Used to store configuration values, flags, and calculated results.</li>
+    <li><strong>Reference Parameters</strong> — driven by the model (read-only). For example, a mass or bounding box value that Inventor calculates.</li>
+  </ul>
+
+  <div class="callout"><p>💡 <strong>Best practice:</strong> Always rename your model parameters (d0, d1, d2…) to meaningful names before writing iLogic rules. Rules referencing <code>BeamLength</code> are far more readable than rules referencing <code>d47</code>.</p></div>
+
+  <h2 id="real-example">Real-World Example: Beam Size Configurator</h2>
+  <p>Here's a complete iLogic rule that reads a beam size selection and sets multiple parameters automatically:</p>
+
+  <div class="blog-code">
+<span class="cm">' Read the beam size selection from a user parameter</span>
+<span class="kw">Dim</span> beamSize <span class="kw">As String</span> = Parameter(<span class="str">"BeamSize"</span>)
+
+<span class="kw">Select Case</span> beamSize
+    <span class="kw">Case</span> <span class="str">"UB203x133"</span>
+        Parameter(<span class="str">"BeamDepth"</span>)   = <span class="str">203.2</span>
+        Parameter(<span class="str">"FlangeWidth"</span>)  = <span class="str">133.4</span>
+        Parameter(<span class="str">"WebThickness"</span>) = <span class="str">6.3</span>
+        Parameter(<span class="str">"FlangeThick"</span>)  = <span class="str">7.8</span>
+
+    <span class="kw">Case</span> <span class="str">"UB254x146"</span>
+        Parameter(<span class="str">"BeamDepth"</span>)   = <span class="str">256.0</span>
+        Parameter(<span class="str">"FlangeWidth"</span>)  = <span class="str">146.1</span>
+        Parameter(<span class="str">"WebThickness"</span>) = <span class="str">6.4</span>
+        Parameter(<span class="str">"FlangeThick"</span>)  = <span class="str">10.9</span>
+
+    <span class="kw">Case</span> <span class="str">"UB305x165"</span>
+        Parameter(<span class="str">"BeamDepth"</span>)   = <span class="str">308.7</span>
+        Parameter(<span class="str">"FlangeWidth"</span>)  = <span class="str">166.8</span>
+        Parameter(<span class="str">"WebThickness"</span>) = <span class="str">5.9</span>
+        Parameter(<span class="str">"FlangeThick"</span>)  = <span class="str">11.8</span>
+<span class="kw">End Select</span>
+  </div>
+
+  <p>When the engineer changes <code>BeamSize</code> to any of the listed values, the rule fires and updates all four cross-section parameters at once — the model rebuilds to the correct geometry automatically.</p>
+
+  <h2 id="common-mistakes">Common Mistakes with iLogic Parameters</h2>
+  <ul>
+    <li><strong>Wrong case in parameter name</strong> — <code>Parameter("length")</code> won't find <code>Length</code>. Check the exact name in your Parameters panel (Manage tab → Parameters).</li>
+    <li><strong>Parameter doesn't exist yet</strong> — You must create the parameter in the Parameters panel before you can reference it in a rule. iLogic won't create new parameters automatically.</li>
+    <li><strong>Units mismatch</strong> — iLogic works in Inventor's internal units (centimetres for length by default). If your rule sets <code>Parameter("Length") = 500</code>, this may be 500 cm unless units are explicitly handled.</li>
+    <li><strong>Trying to write a Reference Parameter</strong> — Mass, surface area, and bounding box values are read-only. You can read them but cannot set them.</li>
+    <li><strong>Forgetting to call iProperties after changing parameters</strong> — If your model's iProperties (description, part number) depend on parameters, you may need to trigger an iProperties rule after changing parameters.</li>
+  </ul>
+
+  <div class="callout"><p>💡 <strong>Debug tip:</strong> Use <code>MsgBox(Parameter("Length"))</code> to print any parameter's current value during development. This instantly confirms whether you're reading the right value.</p></div>
+
+  <h2>What to Learn Next</h2>
+  <p>Parameters are the foundation — but the real power comes from combining them with other iLogic features:</p>
+  <ul>
+    <li><a href="ilogic-forms-guide.html" style="color:var(--blue)">iLogic Forms</a> — build a UI so engineers select parameters from dropdowns instead of editing raw values</li>
+    <li><a href="ilogic-excel-integration.html" style="color:var(--blue)">iLogic Excel Integration</a> — read parameter values from a spreadsheet and drive your model from a data table</li>
+    <li><a href="ilogic-suppress-features.html" style="color:var(--blue)">iLogic Suppress Features</a> — use parameter values to show/hide components and features</li>
+    <li><a href="ilogic-iproperties.html" style="color:var(--blue)">iLogic iProperties</a> — automatically populate part numbers and title block data from your parameters</li>
+  </ul>
+
+  <div class="blog-cta">
+    <h3>Want to Master iLogic Parameters in a Live Session?</h3>
+    <p>Our full iLogic training program covers parameters, rules, forms, Excel integration, and real-world projects — all live with an instructor inside Autodesk Inventor.</p>
+    <a href="../index.html" class="btn btn-neon btn-xl">⚡ View the Training Program</a>
+  </div>
+
+</article>
+
+<footer class="footer">
+  <div class="container footer-grid">
+    <div>
+      <a href="../index.html" class="logo"><svg width="20" height="20" viewBox="0 0 28 28" fill="none"><polygon points="14,2 26,8 26,20 14,26 2,20 2,8" fill="none" stroke="#00d4ff" stroke-width="1.5"/><circle cx="14" cy="14" r="3" fill="#00d4ff"/></svg><span>CAD<span class="logo-accent">Automator</span></span></a>
+      <p style="color:var(--mid);font-size:.85rem;margin-top:12px;line-height:1.6">Live iLogic training for Autodesk Inventor engineers.</p>
+    </div>
+    <div>
+      <p style="color:var(--white);font-weight:600;margin-bottom:12px">Blog</p>
+      <a href="what-is-ilogic.html" style="display:block;color:var(--mid);font-size:.85rem;margin-bottom:8px;text-decoration:none">What is iLogic?</a>
+      <a href="ilogic-parameters.html" style="display:block;color:var(--mid);font-size:.85rem;margin-bottom:8px;text-decoration:none">iLogic Parameters</a>
+      <a href="ilogic-forms-guide.html" style="display:block;color:var(--mid);font-size:.85rem;margin-bottom:8px;text-decoration:none">iLogic Forms</a>
+      <a href="ilogic-excel-integration.html" style="display:block;color:var(--mid);font-size:.85rem;margin-bottom:8px;text-decoration:none">iLogic Excel</a>
+      <a href="ilogic-errors-fix.html" style="display:block;color:var(--mid);font-size:.85rem;margin-bottom:8px;text-decoration:none">iLogic Errors</a>
+      <a href="ilogic-iproperties.html" style="display:block;color:var(--mid);font-size:.85rem;text-decoration:none">iLogic iProperties</a>
+    </div>
+    <div>
+      <p style="color:var(--white);font-weight:600;margin-bottom:12px">Quick Links</p>
+      <a href="../index.html" style="display:block;color:var(--mid);font-size:.85rem;margin-bottom:8px;text-decoration:none">Enroll Now</a>
+      <a href="../index.html" style="display:block;color:var(--mid);font-size:.85rem;margin-bottom:8px;text-decoration:none">Book a Demo</a>
+      <a href="index.html" style="display:block;color:var(--mid);font-size:.85rem;text-decoration:none">All Articles</a>
+    </div>
+  </div>
+  <div class="container" style="border-top:1px solid rgba(255,255,255,.06);margin-top:40px;padding-top:24px;text-align:center">
+    <p style="color:var(--mid);font-size:.8rem">© 2026 CAD Automator. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>

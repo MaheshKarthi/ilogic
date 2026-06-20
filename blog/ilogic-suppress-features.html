@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>iLogic Suppress Feature: Show & Hide Components Based on Parameters | CAD Automator</title>
+  <meta name="description" content="Learn how to use iLogic to suppress and unsuppress features, parts, and components in Autodesk Inventor based on parameter values. Real code examples included." />
+  <meta name="keywords" content="ilogic suppress feature, ilogic unsuppress, ilogic suppress component, ilogic hide feature, autodesk inventor suppress ilogic, ilogic feature visibility" />
+  <link rel="canonical" href="https://cadautomator.com/blog/ilogic-suppress-features" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta property="og:title" content="iLogic Suppress Feature: Show & Hide Components Based on Parameters" />
+  <meta property="og:description" content="Use iLogic to automatically suppress and unsuppress features and components in Autodesk Inventor based on your design parameters." />
+  <meta property="og:url" content="https://cadautomator.com/blog/ilogic-suppress-features" />
+  <meta property="og:type" content="article" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "iLogic Suppress Feature: Show & Hide Components Based on Parameters",
+    "description": "Learn how to use iLogic to suppress and unsuppress features, parts, and components in Autodesk Inventor based on parameter values.",
+    "author": { "@type": "Organization", "name": "CAD Automator", "url": "https://cadautomator.com" },
+    "publisher": { "@type": "Organization", "name": "CAD Automator", "url": "https://cadautomator.com" },
+    "datePublished": "2026-06-20",
+    "mainEntityOfPage": "https://cadautomator.com/blog/ilogic-suppress-features"
+  }
+  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-97KYLBNP5W"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-97KYLBNP5W');</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .blog-hero { padding: 120px 0 60px; background: var(--dark2); border-bottom: 1px solid rgba(255,255,255,.06); }
+    .blog-meta { display:flex; gap:16px; align-items:center; margin-bottom:24px; flex-wrap:wrap; }
+    .blog-tag { background:rgba(0,212,255,.1); color:var(--blue); border:1px solid rgba(0,212,255,.3); padding:4px 12px; border-radius:20px; font-size:.75rem; font-weight:600; }
+    .blog-tag.orange { background:rgba(255,107,53,.1); color:var(--orange); border:1px solid rgba(255,107,53,.3); }
+    .blog-tag.red { background:rgba(255,71,87,.1); color:#ff4757; border:1px solid rgba(255,71,87,.3); }
+    .blog-date { color:var(--mid); font-size:.85rem; }
+    .blog-read { color:var(--mid); font-size:.85rem; }
+    .blog-title { font-size:clamp(1.8rem,4vw,3rem); font-weight:900; color:var(--white); line-height:1.2; margin-bottom:20px; }
+    .blog-intro { font-size:1.1rem; color:var(--light); line-height:1.8; max-width:700px; }
+    .blog-body { max-width:780px; margin:0 auto; padding:60px 24px 80px; }
+    .blog-body h2 { font-size:1.6rem; font-weight:800; color:var(--white); margin:48px 0 16px; }
+    .blog-body h3 { font-size:1.15rem; font-weight:700; color:var(--blue); margin:32px 0 12px; }
+    .blog-body p { color:var(--light); line-height:1.9; margin-bottom:18px; font-size:.97rem; }
+    .blog-body ul, .blog-body ol { padding-left:24px; margin-bottom:18px; }
+    .blog-body li { color:var(--light); line-height:1.8; margin-bottom:8px; font-size:.97rem; }
+    .blog-body strong { color:var(--white); }
+    .blog-code { background:var(--dark3); border:1px solid rgba(0,212,255,.2); border-radius:10px; padding:20px 24px; font-family:'JetBrains Mono',monospace; font-size:.85rem; color:#e2e8f0; margin:24px 0; overflow-x:auto; line-height:1.7; }
+    .blog-code .kw { color:#00d4ff; } .blog-code .str { color:#39ff14; } .blog-code .cm { color:#64748b; } .blog-code .fn { color:#ff6b35; }
+    .blog-cta { background:linear-gradient(135deg,var(--dark3),var(--dark2)); border:1px solid rgba(0,212,255,.25); border-radius:20px; padding:40px; text-align:center; margin:48px 0 0; }
+    .blog-cta h3 { font-size:1.4rem; font-weight:800; color:var(--white); margin-bottom:12px; }
+    .blog-cta p { color:var(--mid); margin-bottom:24px; }
+    .blog-nav-bar { background:var(--dark2); padding:16px 0; border-bottom:1px solid rgba(255,255,255,.06); }
+    .blog-nav-inner { max-width:1200px; margin:0 auto; padding:0 24px; display:flex; justify-content:space-between; align-items:center; }
+    .callout { background:rgba(0,212,255,.06); border-left:3px solid var(--blue); border-radius:0 8px 8px 0; padding:16px 20px; margin:24px 0; }
+    .callout.orange { background:rgba(255,107,53,.06); border-left-color:var(--orange); }
+    .callout p { margin:0; color:var(--light); }
+    .step-box { background:var(--dark3); border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:24px 28px; margin:20px 0; display:flex; gap:20px; align-items:flex-start; }
+    .step-num { background:var(--blue); color:#020817; font-weight:900; font-size:.9rem; min-width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:2px; }
+    .step-box p { margin:0; color:var(--light); font-size:.95rem; line-height:1.7; }
+    .step-box strong { color:var(--white); }
+    .comparison-table { width:100%; border-collapse:collapse; margin:24px 0; font-size:.88rem; }
+    .comparison-table th { background:var(--dark3); color:var(--white); font-weight:700; padding:12px 16px; text-align:left; border:1px solid rgba(255,255,255,.08); }
+    .comparison-table td { padding:11px 16px; border:1px solid rgba(255,255,255,.06); color:var(--light); vertical-align:top; }
+    .comparison-table tr:nth-child(even) td { background:rgba(255,255,255,.02); }
+    .toc { background:var(--dark3); border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:24px 28px; margin:0 0 40px; }
+    .toc h4 { color:var(--white); font-size:.95rem; font-weight:700; margin:0 0 12px; }
+    .toc ol { padding-left:20px; margin:0; }
+    .toc li { margin-bottom:6px; }
+    .toc a { color:var(--blue); text-decoration:none; font-size:.88rem; }
+    .toc a:hover { text-decoration:underline; }
+    @media(max-width:640px){
+      .blog-hero { padding: 80px 0 40px; }
+      .blog-title { font-size: 1.6rem; }
+      .blog-body { padding: 40px 16px 60px; }
+      .blog-code { padding: 14px 16px; font-size: .78rem; }
+      .step-box { flex-direction:column; gap:12px; padding:18px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="blog-nav-bar">
+  <div class="blog-nav-inner">
+    <a href="../index.html" class="logo"><svg width="22" height="22" viewBox="0 0 28 28" fill="none"><polygon points="14,2 26,8 26,20 14,26 2,20 2,8" fill="none" stroke="#00d4ff" stroke-width="1.5"/><circle cx="14" cy="14" r="3" fill="#00d4ff"/></svg><span>CAD<span class="logo-accent">Automator</span></span></a>
+    <a href="../index.html" class="btn btn-neon" style="font-size:.8rem;padding:8px 18px">⚡ Enroll Now</a>
+  </div>
+</nav>
+
+<section class="blog-hero">
+  <div class="container">
+    <div class="blog-meta">
+      <span class="blog-tag">iLogic</span>
+      <span class="blog-tag red">Suppress Features</span>
+      <span class="blog-date">June 20, 2026</span>
+      <span class="blog-read">⏱ 7 min read</span>
+    </div>
+    <h1 class="blog-title">iLogic Suppress Feature: Show &amp; Hide<br>Components Based on Parameters</h1>
+    <p class="blog-intro">Suppressing and unsuppressing features and components is one of the most powerful techniques in iLogic. It lets you build a single Autodesk Inventor model that can represent dozens of product variants — simply by toggling which features are active based on your parameters.</p>
+  </div>
+</section>
+
+<article class="blog-body">
+
+  <div class="toc">
+    <h4>Contents</h4>
+    <ol>
+      <li><a href="#what-is-suppress">What Does Suppress Mean in iLogic?</a></li>
+      <li><a href="#suppress-part-feature">Suppress a Part Feature</a></li>
+      <li><a href="#suppress-assembly">Suppress a Component in an Assembly</a></li>
+      <li><a href="#suppress-vs-visible">Suppress vs. Visibility — What's the Difference?</a></li>
+      <li><a href="#multiple-variants">Managing Multiple Product Variants</a></li>
+      <li><a href="#real-example">Real-World Example: Optional Add-ons Rule</a></li>
+      <li><a href="#common-mistakes">Common Mistakes</a></li>
+    </ol>
+  </div>
+
+  <h2 id="what-is-suppress">What Does Suppress Mean in iLogic?</h2>
+  <p>In Autodesk Inventor, <strong>suppressing a feature removes it from the model rebuild</strong> — it's as if that feature doesn't exist. The feature is still in the browser tree but shown greyed out. When you unsuppress it, the feature rebuilds and appears again.</p>
+  <p>iLogic can suppress and unsuppress features automatically based on parameter values. This is how engineers build <strong>configurable product models</strong> — one file, many variants.</p>
+
+  <div class="callout"><p>💡 <strong>Example:</strong> A skid frame model has an optional drip tray. A checkbox parameter <code>IncludeDripTray</code> controls whether the tray's sketch, extrusion, and holes are suppressed or active — all from a single iLogic rule.</p></div>
+
+  <h2 id="suppress-part-feature">Suppress a Part Feature</h2>
+  <p>To suppress or unsuppress a feature in a part file, use the <code>Feature.IsActive</code> property:</p>
+
+  <div class="blog-code">
+<span class="cm">' Suppress a feature called "DripTrayExtrusion"</span>
+<span class="fn">Feature.IsActive</span>(<span class="str">"DripTrayExtrusion"</span>) = <span class="kw">False</span>   <span class="cm">' suppresses it</span>
+<span class="fn">Feature.IsActive</span>(<span class="str">"DripTrayExtrusion"</span>) = <span class="kw">True</span>    <span class="cm">' unsuppresses it</span>
+
+<span class="cm">' Control based on a parameter</span>
+<span class="kw">If</span> Parameter(<span class="str">"IncludeDripTray"</span>) = <span class="str">"Yes"</span> <span class="kw">Then</span>
+    <span class="fn">Feature.IsActive</span>(<span class="str">"DripTrayExtrusion"</span>) = <span class="kw">True</span>
+    <span class="fn">Feature.IsActive</span>(<span class="str">"DripTrayHoles"</span>)     = <span class="kw">True</span>
+    <span class="fn">Feature.IsActive</span>(<span class="str">"DripTrayGussets"</span>)   = <span class="kw">True</span>
+<span class="kw">Else</span>
+    <span class="fn">Feature.IsActive</span>(<span class="str">"DripTrayExtrusion"</span>) = <span class="kw">False</span>
+    <span class="fn">Feature.IsActive</span>(<span class="str">"DripTrayHoles"</span>)     = <span class="kw">False</span>
+    <span class="fn">Feature.IsActive</span>(<span class="str">"DripTrayGussets"</span>)   = <span class="kw">False</span>
+<span class="kw">End If</span>
+  </div>
+
+  <h2 id="suppress-assembly">Suppress a Component in an Assembly</h2>
+  <p>In an assembly file, use <code>Component.IsActive</code> to suppress entire parts or sub-assemblies:</p>
+
+  <div class="blog-code">
+<span class="cm">' Suppress a component by its occurrence name in the assembly browser</span>
+<span class="fn">Component.IsActive</span>(<span class="str">"LiftingLug:1"</span>) = <span class="kw">False</span>   <span class="cm">' suppress</span>
+<span class="fn">Component.IsActive</span>(<span class="str">"LiftingLug:1"</span>) = <span class="kw">True</span>    <span class="cm">' unsuppress</span>
+
+<span class="cm">' Practical example: include lifting lugs only for heavy loads</span>
+<span class="kw">Dim</span> loadKg <span class="kw">As Double</span> = Parameter(<span class="str">"TotalLoadKg"</span>)
+
+<span class="kw">If</span> loadKg > <span class="str">5000</span> <span class="kw">Then</span>
+    <span class="fn">Component.IsActive</span>(<span class="str">"LiftingLug:1"</span>) = <span class="kw">True</span>
+    <span class="fn">Component.IsActive</span>(<span class="str">"LiftingLug:2"</span>) = <span class="kw">True</span>
+    <span class="fn">Component.IsActive</span>(<span class="str">"LiftingLug:3"</span>) = <span class="kw">True</span>
+    <span class="fn">Component.IsActive</span>(<span class="str">"LiftingLug:4"</span>) = <span class="kw">True</span>
+<span class="kw">Else</span>
+    <span class="fn">Component.IsActive</span>(<span class="str">"LiftingLug:1"</span>) = <span class="kw">False</span>
+    <span class="fn">Component.IsActive</span>(<span class="str">"LiftingLug:2"</span>) = <span class="kw">False</span>
+    <span class="fn">Component.IsActive</span>(<span class="str">"LiftingLug:3"</span>) = <span class="kw">False</span>
+    <span class="fn">Component.IsActive</span>(<span class="str">"LiftingLug:4"</span>) = <span class="kw">False</span>
+<span class="kw">End If</span>
+  </div>
+
+  <div class="callout"><p>💡 <strong>Tip:</strong> The component name (<code>LiftingLug:1</code>) must match exactly what appears in the assembly browser, including the occurrence number after the colon.</p></div>
+
+  <h2 id="suppress-vs-visible">Suppress vs. Visibility — What's the Difference?</h2>
+
+  <table class="comparison-table">
+    <tr><th>Property</th><th>Suppress (<code>IsActive = False</code>)</th><th>Visibility (<code>Visible = False</code>)</th></tr>
+    <tr><td>Appears in BOM</td><td>No — removed from BOM</td><td>Yes — still in BOM</td></tr>
+    <tr><td>Appears in mass</td><td>No — excluded from mass</td><td>Yes — included in mass</td></tr>
+    <tr><td>Interference check</td><td>Not included</td><td>Not included</td></tr>
+    <tr><td>Drawing views</td><td>Not shown</td><td>Not shown</td></tr>
+    <tr><td>Best for</td><td>Optional features/variants</td><td>Reference geometry, construction only</td></tr>
+  </table>
+
+  <p><strong>Use suppress for product variants.</strong> If a drip tray is not included in this order, suppress it — it won't appear in the BOM or mass calculation. Visibility changes only affect display.</p>
+
+  <h2 id="multiple-variants">Managing Multiple Product Variants</h2>
+  <p>When a product has many optional features, organise your suppression rule using a <code>Select Case</code> block for clarity:</p>
+
+  <div class="blog-code">
+<span class="cm">' Product variant selection — controls which optional features are active</span>
+<span class="kw">Dim</span> variant <span class="kw">As String</span> = Parameter(<span class="str">"ProductVariant"</span>)
+
+<span class="kw">Select Case</span> variant
+    <span class="kw">Case</span> <span class="str">"Standard"</span>
+        <span class="fn">Component.IsActive</span>(<span class="str">"DripTray:1"</span>)      = <span class="kw">False</span>
+        <span class="fn">Component.IsActive</span>(<span class="str">"AccessPlatform:1"</span>) = <span class="kw">False</span>
+        <span class="fn">Component.IsActive</span>(<span class="str">"FireSupression:1"</span>) = <span class="kw">False</span>
+
+    <span class="kw">Case</span> <span class="str">"Offshore"</span>
+        <span class="fn">Component.IsActive</span>(<span class="str">"DripTray:1"</span>)      = <span class="kw">True</span>
+        <span class="fn">Component.IsActive</span>(<span class="str">"AccessPlatform:1"</span>) = <span class="kw">True</span>
+        <span class="fn">Component.IsActive</span>(<span class="str">"FireSupression:1"</span>) = <span class="kw">False</span>
+
+    <span class="kw">Case</span> <span class="str">"ATEX"</span>
+        <span class="fn">Component.IsActive</span>(<span class="str">"DripTray:1"</span>)      = <span class="kw">True</span>
+        <span class="fn">Component.IsActive</span>(<span class="str">"AccessPlatform:1"</span>) = <span class="kw">True</span>
+        <span class="fn">Component.IsActive</span>(<span class="str">"FireSupression:1"</span>) = <span class="kw">True</span>
+<span class="kw">End Select</span>
+  </div>
+
+  <h2 id="real-example">Real-World Example: Optional Add-ons Rule</h2>
+  <p>Here's a complete iLogic rule for a pump skid with multiple optional add-ons, controlled from an <a href="ilogic-forms-guide.html" style="color:var(--blue)">iLogic Form</a>:</p>
+
+  <div class="blog-code">
+<span class="cm">' Read selections from form checkboxes (stored as "Yes"/"No" text parameters)</span>
+<span class="kw">Dim</span> hasDripTray      <span class="kw">As Boolean</span> = (Parameter(<span class="str">"IncludeDripTray"</span>)      = <span class="str">"Yes"</span>)
+<span class="kw">Dim</span> hasLiftingLugs   <span class="kw">As Boolean</span> = (Parameter(<span class="str">"IncludeLiftingLugs"</span>)   = <span class="str">"Yes"</span>)
+<span class="kw">Dim</span> hasAccessPlatform <span class="kw">As Boolean</span> = (Parameter(<span class="str">"IncludeAccessPlatform"</span>) = <span class="str">"Yes"</span>)
+<span class="kw">Dim</span> hasGrating       <span class="kw">As Boolean</span> = (Parameter(<span class="str">"IncludeGrating"</span>)       = <span class="str">"Yes"</span>)
+
+<span class="cm">' Apply suppressions based on selections</span>
+<span class="fn">Component.IsActive</span>(<span class="str">"DripTray:1"</span>)       = hasDripTray
+<span class="fn">Component.IsActive</span>(<span class="str">"LiftingLug:1"</span>)     = hasLiftingLugs
+<span class="fn">Component.IsActive</span>(<span class="str">"LiftingLug:2"</span>)     = hasLiftingLugs
+<span class="fn">Component.IsActive</span>(<span class="str">"LiftingLug:3"</span>)     = hasLiftingLugs
+<span class="fn">Component.IsActive</span>(<span class="str">"LiftingLug:4"</span>)     = hasLiftingLugs
+<span class="fn">Component.IsActive</span>(<span class="str">"AccessPlatform:1"</span>) = hasAccessPlatform
+<span class="fn">Component.IsActive</span>(<span class="str">"Grating:1"</span>)        = hasGrating
+<span class="fn">Component.IsActive</span>(<span class="str">"Grating:2"</span>)        = hasGrating
+  </div>
+
+  <h2 id="common-mistakes">Common Mistakes</h2>
+  <ul>
+    <li><strong>Wrong occurrence name</strong> — Use the exact name from the browser tree including the <code>:1</code> suffix. If you renamed an occurrence, use the renamed version.</li>
+    <li><strong>Suppressing a feature that drives others</strong> — If a suppressed sketch is referenced by later features, those features will also fail. Plan your feature tree order carefully.</li>
+    <li><strong>Using Visible instead of IsActive for BOM control</strong> — Hidden components still appear in the BOM. If the variant shouldn't be in the BOM, suppress it.</li>
+    <li><strong>Forgetting to update the drawing</strong> — After suppressing components, your drawing views may need updating. Combine with <a href="ilogic-drawing-automation.html" style="color:var(--blue)">drawing automation</a> for a fully automated workflow.</li>
+  </ul>
+
+  <div class="blog-cta">
+    <h3>Learn iLogic Suppress Features Live in Inventor</h3>
+    <p>Our training covers feature suppression, assembly variants, configurable products, and real skid frame projects — all live with an instructor.</p>
+    <a href="../index.html" class="btn btn-neon btn-xl">⚡ View the Training Program</a>
+  </div>
+
+</article>
+
+<footer class="footer">
+  <div class="container footer-grid">
+    <div>
+      <a href="../index.html" class="logo"><svg width="20" height="20" viewBox="0 0 28 28" fill="none"><polygon points="14,2 26,8 26,20 14,26 2,20 2,8" fill="none" stroke="#00d4ff" stroke-width="1.5"/><circle cx="14" cy="14" r="3" fill="#00d4ff"/></svg><span>CAD<span class="logo-accent">Automator</span></span></a>
+      <p style="color:var(--mid);font-size:.85rem;margin-top:12px;line-height:1.6">Live iLogic training for Autodesk Inventor engineers.</p>
+    </div>
+    <div>
+      <p style="color:var(--white);font-weight:600;margin-bottom:12px">Blog</p>
+      <a href="what-is-ilogic.html" style="display:block;color:var(--mid);font-size:.85rem;margin-bottom:8px;text-decoration:none">What is iLogic?</a>
+      <a href="ilogic-parameters.html" style="display:block;color:var(--mid);font-size:.85rem;margin-bottom:8px;text-decoration:none">iLogic Parameters</a>
+      <a href="ilogic-suppress-features.html" style="display:block;color:var(--mid);font-size:.85rem;margin-bottom:8px;text-decoration:none">Suppress Features</a>
+      <a href="ilogic-forms-guide.html" style="display:block;color:var(--mid);font-size:.85rem;margin-bottom:8px;text-decoration:none">iLogic Forms</a>
+      <a href="ilogic-errors-fix.html" style="display:block;color:var(--mid);font-size:.85rem;margin-bottom:8px;text-decoration:none">iLogic Errors</a>
+      <a href="ilogic-iproperties.html" style="display:block;color:var(--mid);font-size:.85rem;text-decoration:none">iLogic iProperties</a>
+    </div>
+    <div>
+      <p style="color:var(--white);font-weight:600;margin-bottom:12px">Quick Links</p>
+      <a href="../index.html" style="display:block;color:var(--mid);font-size:.85rem;margin-bottom:8px;text-decoration:none">Enroll Now</a>
+      <a href="../index.html" style="display:block;color:var(--mid);font-size:.85rem;margin-bottom:8px;text-decoration:none">Book a Demo</a>
+      <a href="index.html" style="display:block;color:var(--mid);font-size:.85rem;text-decoration:none">All Articles</a>
+    </div>
+  </div>
+  <div class="container" style="border-top:1px solid rgba(255,255,255,.06);margin-top:40px;padding-top:24px;text-align:center">
+    <p style="color:var(--mid);font-size:.8rem">© 2026 CAD Automator. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>
