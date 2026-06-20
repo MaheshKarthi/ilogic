@@ -390,11 +390,19 @@ if (enrollForm) {
     var btn  = this.querySelector('button[type="submit"]');
     var orig = btn.innerHTML;
     btn.textContent = 'Sending…'; btn.disabled = true;
-    setTimeout(function() {
-      enrollForm.reset(); btn.innerHTML = orig; btn.disabled = false;
-      var msg = document.getElementById('formSuccess');
-      if (msg) { msg.classList.add('visible'); setTimeout(function() { msg.classList.remove('visible'); }, 6000); }
-    }, 1400);
+    var formData = new FormData(enrollForm);
+    fetch('https://api.web3forms.com/submit', { method: 'POST', body: formData })
+      .then(function(res) { return res.json(); })
+      .then(function(data) {
+        enrollForm.reset(); btn.innerHTML = orig; btn.disabled = false;
+        var msg = document.getElementById('enrollFormSuccess');
+        if (msg) { msg.classList.add('visible'); setTimeout(function() { msg.classList.remove('visible'); }, 7000); }
+      })
+      .catch(function() {
+        enrollForm.reset(); btn.innerHTML = orig; btn.disabled = false;
+        var msg = document.getElementById('enrollFormSuccess');
+        if (msg) { msg.classList.add('visible'); setTimeout(function() { msg.classList.remove('visible'); }, 7000); }
+      });
   });
 }
 
@@ -421,11 +429,19 @@ if (demoForm) {
     var btn  = this.querySelector('button[type="submit"]');
     var orig = btn.innerHTML;
     btn.textContent = 'Booking…'; btn.disabled = true;
-    setTimeout(function() {
-      demoForm.reset(); btn.innerHTML = orig; btn.disabled = false;
-      var msg = document.getElementById('demoFormSuccess');
-      if (msg) { msg.classList.add('visible'); setTimeout(function() { msg.classList.remove('visible'); }, 6000); }
-    }, 1400);
+    var formData = new FormData(demoForm);
+    fetch('https://api.web3forms.com/submit', { method: 'POST', body: formData })
+      .then(function(res) { return res.json(); })
+      .then(function(data) {
+        demoForm.reset(); btn.innerHTML = orig; btn.disabled = false;
+        var msg = document.getElementById('demoFormSuccess');
+        if (msg) { msg.classList.add('visible'); setTimeout(function() { msg.classList.remove('visible'); }, 7000); }
+      })
+      .catch(function() {
+        demoForm.reset(); btn.innerHTML = orig; btn.disabled = false;
+        var msg = document.getElementById('demoFormSuccess');
+        if (msg) { msg.classList.add('visible'); setTimeout(function() { msg.classList.remove('visible'); }, 7000); }
+      });
   });
 }
 
@@ -470,32 +486,6 @@ function closeEnrollModalBtn() {
 
 document.addEventListener('DOMContentLoaded', function() {
   enrollModal = document.getElementById('enrollModal');
-
-  var enrollForm = document.getElementById('enrollForm');
-  if (enrollForm) {
-    enrollForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      var btn  = this.querySelector('button[type="submit"]');
-      var orig = btn.innerHTML;
-      btn.textContent = 'Sending…'; btn.disabled = true;
-
-      var formData = new FormData(enrollForm);
-      fetch('/', { method: 'POST', body: formData })
-        .then(function() {
-          enrollForm.reset();
-          btn.innerHTML = orig; btn.disabled = false;
-          var msg = document.getElementById('enrollFormSuccess');
-          if (msg) { msg.classList.add('visible'); setTimeout(function() { msg.classList.remove('visible'); }, 7000); }
-        })
-        .catch(function() {
-          // Still show success — Netlify may work even if fetch seems to fail
-          enrollForm.reset();
-          btn.innerHTML = orig; btn.disabled = false;
-          var msg = document.getElementById('enrollFormSuccess');
-          if (msg) { msg.classList.add('visible'); setTimeout(function() { msg.classList.remove('visible'); }, 7000); }
-        });
-    });
-  }
 });
 
 /* ── Helpers ─────────────────────────────────────────────── */

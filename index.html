@@ -1273,12 +1273,11 @@ iLogicVb.UpdateWhenDone = <span class="kw">True</span></code></pre>
     <h3>Reserve Your Spot</h3>
     <p>Leave your details and we'll reach out on WhatsApp within 24 hours with batch dates and next steps.</p>
     <form id="enrollForm"
-          name="enroll"
           method="POST"
-          data-netlify="true"
-          netlify-honeypot="bot-field">
-      <input type="hidden" name="form-name" value="enroll" />
-      <input type="hidden" name="bot-field" style="display:none" />
+          action="https://api.web3forms.com/submit">
+      <input type="hidden" name="access_key" value="84ea500d-5fa1-41ce-8760-f69a5231eab8" />
+      <input type="hidden" name="subject" value="New Enrollment — cadautomator.com" />
+      <input type="checkbox" name="botcheck" style="display:none" />
       <div class="modal-field">
         <input type="text" name="name" placeholder="Your Full Name" required />
       </div>
@@ -1318,12 +1317,11 @@ iLogicVb.UpdateWhenDone = <span class="kw">True</span></code></pre>
     <h3>Book a Free Demo Session</h3>
     <p>Join a 30-minute live walkthrough — see iLogic in action inside Autodesk Inventor with real examples.</p>
     <form id="demoForm"
-          name="book-demo"
           method="POST"
-          data-netlify="true"
-          netlify-honeypot="bot-field">
-      <input type="hidden" name="form-name" value="book-demo" />
-      <input type="hidden" name="bot-field" style="display:none" />
+          action="https://api.web3forms.com/submit">
+      <input type="hidden" name="access_key" value="84ea500d-5fa1-41ce-8760-f69a5231eab8" />
+      <input type="hidden" name="subject" value="New Demo Booking — cadautomator.com" />
+      <input type="checkbox" name="botcheck" style="display:none" />
       <div class="modal-field">
         <input type="text" name="name" placeholder="Your Name" required />
       </div>
